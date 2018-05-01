@@ -1,0 +1,3 @@
+rootProject.name = 'Ecoer'
+
+include ':app'
