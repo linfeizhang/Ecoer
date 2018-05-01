@@ -20,7 +20,7 @@ export default class App extends Component<Props> {
                             <Icon name='menu'/>
                         </Button>
                     </Left>
-                    <Body><Title>Home</Title></Body>
+                    <Body><Title>Me</Title></Body>
                     <Right/>
                 </Header>
                 <Text style={styles.welcome}>

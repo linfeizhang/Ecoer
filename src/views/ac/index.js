@@ -20,7 +20,7 @@ export default class App extends Component<Props> {
                             <Icon name='menu'/>
                         </Button>
                     </Left>
-                    <Body><Title>Home</Title></Body>
+                    <Body><Title>AC</Title></Body>
                     <Right/>
                 </Header>
                 <Text style={styles.welcome}>
@@ -32,8 +32,8 @@ export default class App extends Component<Props> {
                 <Text style={styles.instructions}>
                     {instructions}
                 </Text>
-                <Button block success style={{marginBottom: 20, height: 45}}>
-                    <Text>Light</Text>
+                <Button block success style={{marginBottom: 20, height: 45}} onPress={() => this.props.navigation.navigate("NewAc")}>
+                    <Text>NewAc</Text>
                 </Button>
             </Container>
         );

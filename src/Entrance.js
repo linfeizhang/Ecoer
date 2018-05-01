@@ -10,53 +10,35 @@ import SideBar from './views/sidebar';
 import UserHelp from './views/sidebar/UserHelp';
 import About from './views/sidebar/About';
 
-
 import AC from './views/ac';
 import Events from './views/events';
 import Files from './views/files';
 import Me from './views/me';
 
-const acIcon = require("./images/tabs/ac_focus.png");
+const AC_NORMAL = require('./images/tabs/ac_normal.png');
+const AC_FOCUS = require('./images/tabs/ac_focus.png');
+const EVENTS_NORMAL = require('./images/tabs/events_normal.png');
+const EVENTS_FOCUS = require('./images/tabs/events_focus.png');
+const FILES_NORMAL = require('./images/tabs/Files_normal.png');
+const FILES_FOCUS = require('./images/tabs/Files_focus.png');
+const ME_NORMAL = require('./images/tabs/me_normal.png');
+const ME_FOCUS = require('./images/tabs/me_focus.png');
 
-// const MyTab = TabNavigator({
-//     ShiTu: {
-//         screen: Home,
-//         navigationOptions:{
-//             tabBarLabel: '识兔',
-//             tabBarIcon: ({tintColor}) => (
-//                 <Image
-//                     source={{uri : '识兔'}}
-//                     style={[tabBarIcon, {tintColor: tintColor}]}
-//                 />
-//             ),
-//         },
-//     }, {
-//     tabBarPosition: 'bottom',
-//         swipeEnabled:false,
-//         animationEnabled:false,
-//         tabBarOptions: {
-//         style: {
-//             height:49
-//         },
-//         activeBackgroundColor:'white',
-//             activeTintColor:'#4ECBFC',
-//             inactiveBackgroundColor:'white',
-//             inactiveTintColor:'#aaa',
-//             showLabel:false,
-//     }
-// });
+
+import NewAc from './views/ac/NewAc';
 
 const MyTab = TabNavigator(
     {
         AC: {
             screen: AC, navigationOptions: {
                 tabBarLabel: '设备',
-                tabBarIcon: ({focused, tintColor}) => (
-                    <Image
-                        source={acIcon}
-                        style={{tintColor: tintColor}}
-                    />
-                ),
+                tabBarIcon: ({focused, tintColor}) => {
+                    let img = focused ? AC_FOCUS : AC_NORMAL;
+                    return <Image
+                        source={img}
+                        style={{tintColor: tintColor, width: 43, height: 40}}
+                    />;
+                },
             },
         },
         Events: {screen: Events},
@@ -66,6 +48,9 @@ const MyTab = TabNavigator(
         tabBarOptions: {
             activeTintColor: '#8fb721',
             inactiveTintColor: 'gray',
+            style: {
+                height: 62
+            }
         },
         tabBarComponent: TabBarBottom,
         tabBarPosition: 'bottom',
@@ -92,12 +77,7 @@ const Drawer = DrawerNavigator(
 const AppNavigator = StackNavigator(
     {
         Drawer: {screen: Drawer},
-
-        AC: {screen: AC},
-        Events: {screen: Events},
-        Files: {screen: Files},
-        Me: {screen: Me},
-
+        NewAc: {screen: NewAc}
     },
     {
         initialRouteName: "Drawer",

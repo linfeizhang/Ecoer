@@ -1,6 +1,10 @@
-import React, {Component} from 'react';
+/**
+ * Created by ZhouTing on 2018-05-01 18:37.
+ */
+import React, {Component} from "react";
 import {Platform, StyleSheet} from 'react-native';
 import {Body, Button, Container, Header, Icon, Left, Right, Text, Title} from "native-base";
+
 
 const instructions = Platform.select({
     ios: 'Press Cmd+R to reload,\n' +
@@ -10,21 +14,22 @@ const instructions = Platform.select({
 });
 
 type Props = {};
-export default class App extends Component<Props> {
+
+export default class NewAc extends Component<Props> {
     render() {
         return (
             <Container>
                 <Header>
                     <Left>
-                        <Button transparent onPress={() => this.props.navigation.navigate("DrawerOpen")}>
-                            <Icon name='menu'/>
+                        <Button transparent onPress={() => this.props.navigation.goBack()}>
+                            <Icon name='arrow-back'/>
                         </Button>
                     </Left>
-                    <Body><Title>Files</Title></Body>
+                    <Body><Title>NewAc</Title></Body>
                     <Right/>
                 </Header>
                 <Text style={styles.welcome}>
-                    files 页面!
+                    NewAc 页面!
                 </Text>
                 <Text style={styles.instructions}>
                     To get started, edit App.js
