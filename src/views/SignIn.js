@@ -57,6 +57,7 @@ export default class SignIn extends Component {
                                 <Item floatingLabel>
                                     <Label>帐号</Label>
                                     <Input value={this.state.username}
+                                           autoCapitalize='none'
                                            onChangeText={(text) => this.setState({username: text})}/>
                                 </Item>
                                 <Item floatingLabel last>
