@@ -1,14 +1,14 @@
 /**
  * Created by ZhouTing on 2018/5/1.
  */
-const server = '192.168.150.124';
-const serverContextPath = "/cloud-ar3-web";
+let server = 'device.ecoer.com:80';
+let org_email = 'cloud@ecoer.com';
 
 let Global = {
     server: server,
-    serverContextPath: serverContextPath,
-    ios_version: '1.0.0',
-    android_version: '1.0.0'
+    org_email: org_email,
+    ios_version: '1.4.1',
+    android_version: '1.4.1'
 };
 
 module.exports = Global;
