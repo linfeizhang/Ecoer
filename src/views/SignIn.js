@@ -5,6 +5,8 @@ import React, {Component} from 'react';
 import {Platform, StyleSheet} from 'react-native';
 import {Body, Button, Container, Header, Left, Right, Text, Title} from "native-base";
 
+let service = require('../utils/service');
+
 const instructions = Platform.select({
     ios: 'Press Cmd+R to reload,\n' +
     'Cmd+D or shake for dev menu',
@@ -14,6 +16,12 @@ const instructions = Platform.select({
 
 type Props = {};
 export default class SignIn extends Component<Props> {
+
+    constructor(props) {
+        super(props);
+        service.testFetch(this);
+    }
+
     render() {
         return (
             <Container>

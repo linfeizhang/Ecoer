@@ -5,12 +5,12 @@ import React from "react";
 import {Image} from "react-native";
 import {Root} from "native-base";
 import {DrawerNavigator, StackNavigator, TabBarBottom, TabNavigator} from "react-navigation";
+import Images from './constant/Images';
+import CommonConst from './constant/CommonConst';
 
 import SideBar from './views/sidebar';
 import UserHelp from './views/sidebar/UserHelp';
 import About from './views/sidebar/About';
-import Images from './constant/Images';
-import CommonConst from './constant/CommonConst';
 
 import AC from './views/ac';
 import Events from './views/events';
@@ -19,6 +19,8 @@ import Me from './views/me';
 import NewAc from './views/ac/NewAc';
 import SignIn from './views/SignIn';
 import SignUp from './views/SignUp';
+
+let Global = require('./utils/Global');
 
 /**
  * tabBar 图标生成方法
@@ -92,7 +94,7 @@ const AppNavigator = StackNavigator(
         NewAc: {screen: NewAc}
     },
     {
-        initialRouteName: "SignIn",
+        initialRouteName: Global.isLogin ? "Drawer" : "SignIn",
         headerMode: "none"
     }
 );
