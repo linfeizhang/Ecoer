@@ -96,7 +96,8 @@ export default () => {
         },
         {
             initialRouteName: Global.isLogin ? "Drawer" : "SignIn",
-            headerMode: "none"
+            headerMode: "none",
+            mode: 'modal'
         }
     );
 

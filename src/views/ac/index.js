@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
-import {Platform, StyleSheet} from 'react-native';
-import {Body, Button, Container, Header, Icon, Left, Right, Text, Title} from "native-base";
+import {FlatList, Platform, StyleSheet, TouchableHighlight, View} from 'react-native';
+import {Body, Button, Container, Header, Icon, Left, Right, Tab, Tabs, Text, Title} from "native-base";
 
 const instructions = Platform.select({
     ios: 'Press Cmd+R to reload,\n' +
@@ -23,16 +23,20 @@ export default class App extends Component<Props> {
                     <Body><Title>AC</Title></Body>
                     <Right/>
                 </Header>
-                <Text style={styles.welcome}>
-                    ac 页面!
-                </Text>
-                <Text style={styles.instructions}>
-                    To get started, edit App.js
-                </Text>
-                <Text style={styles.instructions}>
-                    {instructions}
-                </Text>
-                <Button block success style={{marginBottom: 20, height: 45}} onPress={() => this.props.navigation.navigate("NewAc")}>
+
+                <Tabs>
+                    <Tab heading="All">
+                        <ACListTab {...this.props} tab="All"/>
+                    </Tab>
+                    <Tab heading="Online">
+                        <ACListTab {...this.props} tab="Online"/>
+                    </Tab>
+                    <Tab heading="Offline">
+                        <ACListTab {...this.props} tab="Offline"/>
+                    </Tab>
+                </Tabs>
+                <Button block success style={{marginBottom: 20, height: 45}}
+                        onPress={() => this.props.navigation.navigate("NewAc")}>
                     <Text>NewAc</Text>
                 </Button>
             </Container>
@@ -40,21 +44,53 @@ export default class App extends Component<Props> {
     }
 }
 
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor: '#F5FCFF',
-    },
-    welcome: {
-        fontSize: 20,
-        textAlign: 'center',
-        margin: 10,
-    },
-    instructions: {
-        textAlign: 'center',
-        color: '#333333',
-        marginBottom: 5,
-    },
-});
+class ACListTab extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            tabLabel: this.props.tab,
+        };
+    }
+
+    // _renderRow(rowData) {
+    //     var state = 0;
+    //     if (rowData.acInfo && rowData.acInfo.acState) {
+    //         state = rowData.acInfo.acState;
+    //     }
+    //     return (
+    //         <TouchableHighlight onPress={this._pressButton.bind(this, AcDetail, 'AcDetail', rowData)}>
+    //             <View style={acStyle.row}>
+    //                 <View style={acStyle.rowLeft}>
+    //                     <Image source={this.chooseStateImg(state)} style={acStyle.rowLeft_img}/>
+    //                 </View>
+    //                 <View style={acStyle.rowRight}>
+    //                     <Text style={[{marginBottom: 4}, acStyle.rowRightText]}>{rowData.name}</Text>
+    //                     <Text style={acStyle.rowRightText}>{I18n.t("iot_sn")} : {rowData.sn}</Text>
+    //                 </View>
+    //             </View>
+    //         </TouchableHighlight>
+    //     );
+    // }
+
+    _renderItem = ({item, separators}) => (
+        <TouchableHighlight
+            onPress={() => this._onPress(item)}
+            onShowUnderlay={separators.highlight}
+            onHideUnderlay={separators.unhighlight}>
+            <View style={{backgroundColor: 'white'}}>
+                <Text>{item.key}</Text>
+            </View>
+        </TouchableHighlight>
+    );
+
+    render() {
+        return (
+            <Container>
+                <FlatList
+                    data={[{key: 'a'}, {key: 'b'}]}
+                    renderItem={this._renderItem}
+                />
+            </Container>
+        );
+    }
+}

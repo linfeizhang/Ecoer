@@ -22,7 +22,7 @@ export default class NewAc extends Component<Props> {
                 <Header>
                     <Left>
                         <Button transparent onPress={() => this.props.navigation.goBack()}>
-                            <Icon name='arrow-back'/>
+                            <Icon name='arrow-back' style={{color:'#8fb721'}}/>
                         </Button>
                     </Left>
                     <Body><Title>NewAc</Title></Body>

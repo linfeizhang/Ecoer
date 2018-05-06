@@ -41,6 +41,38 @@ export default class SignIn extends Component {
         }
     }
 
+    setLoginState(data) {
+        if (data.error === undefined) {
+            this.props.navigation.navigate("Drawer");
+        } else {
+            if (data.error_code) {
+                switch (data.error_code) {
+                    case 21304:
+                        // this.userLocked();
+                        break;
+                    case 20003:
+                        // this.setState({message: "user_not_exist"});
+                        alert("user_not_exist");
+                        break;
+                    case 21302:
+                        // this.setState({message: "user_pwd_error"});
+                        alert("user_pwd_error");
+                        break;
+                    case 21323:
+                        // this.setState({message: "user_format_error"});
+                        alert("user_format_error");
+                        break;
+                    default:
+                        break;
+                }
+            }
+            else {
+                // this.setState({message: "network_fail_login"});
+                alert("network_fail_login");
+            }
+        }
+    }
+
     render() {
         return (
             <Container>

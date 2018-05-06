@@ -93,11 +93,9 @@ exports.login = function (context, username, password) {
             Global.cfg.last_login = new Date().getTime();
             saveSetting(username, password, data)
         }
-        // that.setLoginState(data);
-        console.log(data)
+        that.setLoginState(data);
     }).catch(function (e) {
-        // that.setLoginState({error: e});
-        console.log(e)
+        that.setLoginState({error: e});
     });
 };
 
