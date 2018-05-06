@@ -2,67 +2,82 @@
  * Created by ZhouTing on 2018-05-06 14:36.
  */
 import React, {Component} from 'react';
-import {Platform, StyleSheet} from 'react-native';
-import {Body, Button, Container, Header, Left, Right, Text, Title} from "native-base";
+import {View, TouchableOpacity} from 'react-native';
+import {
+    Body,
+    Button,
+    Container,
+    Form,
+    Header,
+    Icon,
+    Input,
+    Item,
+    Label,
+    Left,
+    Right,
+    Text,
+    Title,
+    Toast
+} from 'native-base';
 
+let Global = require('../utils/Global');
 let service = require('../utils/service');
 
-const instructions = Platform.select({
-    ios: 'Press Cmd+R to reload,\n' +
-    'Cmd+D or shake for dev menu',
-    android: 'Double tap R on your keyboard to reload,\n' +
-    'Shake or press menu button for dev menu',
-});
-
-type Props = {};
-export default class SignIn extends Component<Props> {
+export default class SignIn extends Component {
 
     constructor(props) {
         super(props);
-        service.testFetch(this);
+        this.state = {
+            username: Global.cfg.username
+        }
+    }
+
+    login() {
+        if (this.state.username && this.password) {
+            service.login(this, this.state.username, this.password)
+        } else {
+            Toast.show({type: 'danger', text: '用户名和密码不能为空！', duration: 3000, buttonText: "关闭"});
+        }
     }
 
     render() {
         return (
             <Container>
                 <Header>
-                    <Left/>
+                    <Left>
+                        <Button transparent onPress={() => this.props.navigation.goBack()}>
+                            <Icon name="arrow-back"/>
+                        </Button>
+                    </Left>
                     <Body><Title>登录</Title></Body>
                     <Right/>
                 </Header>
-                <Text style={styles.welcome}>
-                    登录 页面!
-                </Text>
-                <Text style={styles.instructions}>
-                    To get started, edit App.js
-                </Text>
-                <Text style={styles.instructions}>
-                    {instructions}
-                </Text>
-                <Button block success style={{marginBottom: 20, height: 45}}
-                        onPress={() => this.props.navigation.navigate("SignUp")}>
-                    <Text>注册</Text>
-                </Button>
+                <View style={{flex: 1, flexDirection: 'column', justifyContent: 'space-between'}}>
+                    <View>
+                        <Form>
+                            <Item floatingLabel>
+                                <Label>帐号</Label>
+                                <Input value={this.state.username}
+                                       onChangeText={(text) => this.setState({username: text})}/>
+                            </Item>
+                            <Item floatingLabel last>
+                                <Label>密码</Label>
+                                <Input secureTextEntry={true} onChangeText={(text) => this.password = text}/>
+                            </Item>
+                        </Form>
+                        <Button block style={{margin: 15, marginTop: 50}} onPress={() => this.login()}>
+                            <Text>登录</Text>
+                        </Button>
+                    </View>
+
+                    <TouchableOpacity style={{alignItems: 'center', margin: 20}}
+                        // onPress={() => this.props.navigation.navigate("ForgetPassword")}>
+                                      onPress={() => Toast.show({type: 'warning', text: '后台接口暂未实现！', duration: 3000})}>
+                        <Text>忘记密码?</Text>
+                    </TouchableOpacity>
+                </View>
             </Container>
         );
     }
 }
 
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor: '#F5FCFF',
-    },
-    welcome: {
-        fontSize: 20,
-        textAlign: 'center',
-        margin: 10,
-    },
-    instructions: {
-        textAlign: 'center',
-        color: '#333333',
-        marginBottom: 5,
-    },
-});
