@@ -86,20 +86,24 @@ const Drawer = DrawerNavigator(
     }
 );
 
-const AppNavigator = StackNavigator(
-    {
-        Drawer: {screen: Drawer},
-        SignIn: {screen: SignIn},
-        SignUp: {screen: SignUp},
-        NewAc: {screen: NewAc}
-    },
-    {
-        initialRouteName: Global.isLogin ? "Drawer" : "SignIn",
-        headerMode: "none"
-    }
-);
+export default () => {
+    const AppNavigator = StackNavigator(
+        {
+            Drawer: {screen: Drawer},
+            SignIn: {screen: SignIn},
+            SignUp: {screen: SignUp},
+            NewAc: {screen: NewAc}
+        },
+        {
+            initialRouteName: Global.isLogin ? "Drawer" : "SignIn",
+            headerMode: "none"
+        }
+    );
 
-export default () =>
-    <Root>
-        <AppNavigator/>
-    </Root>;
+    return (
+        <Root>
+            <AppNavigator/>
+        </Root>
+    )
+}
+

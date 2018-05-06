@@ -2,7 +2,7 @@
  * Created by ZhouTing on 2018/5/1.
  */
 import React, {Component} from 'react';
-import {StyleProvider} from "native-base";
+import {Container, StyleProvider, Text} from "native-base";
 import Entrance from "../Entrance";
 import getTheme from "../theme/components";
 import variables from "../theme/variables/commonColor";
@@ -19,7 +19,7 @@ export default class Setup extends Component {
         if (Global.cfg === undefined) {
             Global.cfg = cfg;
         }
-
+        let that = this;
         Global.cfg.getRunningConfig(this, function () {
 
             //数字和字符串相减,字符串可以自动转为数字,数字减空字符串相当于数字减0。
@@ -31,19 +31,32 @@ export default class Setup extends Component {
 
             if (now - create_time < 1800000) {               //上次刷新token在半小时内,直接进入主界面
                 Global.isLogin = true;
+                that.setState({});
             } else if (now - last_login < 1296000000) {     //上次刷新token超过半小时,但是上次登录在15天内,刷新token再进入主界面
                 // service.getNewToken(that);
+                // that.setState({});
+                Global.isLogin = true;
+                that.setState({});
             } else {                                        //上次登录超过15天,进入登录界面
                 Global.isLogin = false;
+                that.setState({});
             }
         });
     }
 
     render() {
-        return (
-            <StyleProvider style={getTheme(variables)}>
-                <Entrance/>
-            </StyleProvider>
-        );
+        if (Global.isLogin !== undefined) {
+            return (
+                <StyleProvider style={getTheme(variables)}>
+                    <Entrance/>
+                </StyleProvider>
+            );
+        } else {
+            return (
+                <Container style={{justifyContent: "center", alignItems: "center"}}>
+                    <Text>加载中...</Text>
+                </Container>
+            );
+        }
     }
 }

@@ -2,14 +2,14 @@
  * Created by ZhouTing on 2018-05-06 14:36.
  */
 import React, {Component} from 'react';
-import {View, TouchableOpacity} from 'react-native';
+import {Image, TouchableOpacity, View} from 'react-native';
 import {
     Body,
     Button,
     Container,
+    Content,
     Form,
     Header,
-    Icon,
     Input,
     Item,
     Label,
@@ -19,6 +19,7 @@ import {
     Title,
     Toast
 } from 'native-base';
+import Images from '../constant/Images';
 
 let Global = require('../utils/Global');
 let service = require('../utils/service');
@@ -44,38 +45,41 @@ export default class SignIn extends Component {
         return (
             <Container>
                 <Header>
-                    <Left>
-                        <Button transparent onPress={() => this.props.navigation.goBack()}>
-                            <Icon name="arrow-back"/>
-                        </Button>
-                    </Left>
+                    <Left/>
                     <Body><Title>登录</Title></Body>
                     <Right/>
                 </Header>
-                <View style={{flex: 1, flexDirection: 'column', justifyContent: 'space-between'}}>
-                    <View>
-                        <Form>
-                            <Item floatingLabel>
-                                <Label>帐号</Label>
-                                <Input value={this.state.username}
-                                       onChangeText={(text) => this.setState({username: text})}/>
-                            </Item>
-                            <Item floatingLabel last>
-                                <Label>密码</Label>
-                                <Input secureTextEntry={true} onChangeText={(text) => this.password = text}/>
-                            </Item>
-                        </Form>
-                        <Button block style={{margin: 15, marginTop: 50}} onPress={() => this.login()}>
-                            <Text>登录</Text>
-                        </Button>
-                    </View>
+                <Content>
+                    <Image source={Images.logoImg.logoImg} style={{width: 160, height: 60, resizeMode: 'stretch'}}/>
+                    <View style={{flex: 1, flexDirection: 'column', justifyContent: 'space-between'}}>
+                        <View>
+                            <Form>
+                                <Item floatingLabel>
+                                    <Label>帐号</Label>
+                                    <Input value={this.state.username}
+                                           onChangeText={(text) => this.setState({username: text})}/>
+                                </Item>
+                                <Item floatingLabel last>
+                                    <Label>密码</Label>
+                                    <Input secureTextEntry={true} onChangeText={(text) => this.password = text}/>
+                                </Item>
+                            </Form>
+                            <Button block style={{margin: 15, marginTop: 50}} onPress={() => this.login()}>
+                                <Text>登录</Text>
+                            </Button>
+                        </View>
 
-                    <TouchableOpacity style={{alignItems: 'center', margin: 20}}
-                        // onPress={() => this.props.navigation.navigate("ForgetPassword")}>
-                                      onPress={() => Toast.show({type: 'warning', text: '后台接口暂未实现！', duration: 3000})}>
-                        <Text>忘记密码?</Text>
-                    </TouchableOpacity>
-                </View>
+                        <TouchableOpacity style={{alignItems: 'center', margin: 20}}
+                            // onPress={() => this.props.navigation.navigate("ForgetPassword")}>
+                                          onPress={() => Toast.show({
+                                              type: 'warning',
+                                              text: '后台接口暂未实现！',
+                                              duration: 3000
+                                          })}>
+                            <Text>忘记密码?</Text>
+                        </TouchableOpacity>
+                    </View>
+                </Content>
             </Container>
         );
     }

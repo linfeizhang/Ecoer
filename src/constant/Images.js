@@ -17,6 +17,11 @@ export default {
         ME_FOCUS: require('../images/tabs/me_focus.png'),
     },
 
+    //登录页面的图片
+    logoImg:{
+        logoImg: require('../images/logo.png'),
+    },
+
     //主页
     home: {
         // ic_light_off: require('./imgs/scanLigtOff.png'),
