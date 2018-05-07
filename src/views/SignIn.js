@@ -14,12 +14,15 @@ import {
     Item,
     Label,
     Left,
+    Picker,
+    Icon,
     Right,
     Text,
     Title,
     Toast
 } from 'native-base';
 import Images from '../constant/Images';
+import CommonConst from '../constant/CommonConst';
 
 let Global = require('../utils/Global');
 let service = require('../utils/service');
@@ -29,8 +32,16 @@ export default class SignIn extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            username: Global.cfg.username
+            username: Global.cfg.username,
+
+            selected:'key0',
+            //selected:'key1',
+            //selected:'key2',
         }
+    }
+
+    onValueChange(value:string){
+        this.setState({selected:value})
     }
 
     login() {
@@ -81,37 +92,58 @@ export default class SignIn extends Component {
                     <Body><Title>登录</Title></Body>
                     <Right/>
                 </Header>
-                <Content>
-                    <Image source={Images.logoImg.logoImg} style={{width: 160, height: 60, resizeMode: 'stretch'}}/>
-                    <View style={{flex: 1, flexDirection: 'column', justifyContent: 'space-between'}}>
-                        <View>
-                            <Form>
-                                <Item floatingLabel>
-                                    <Label>帐号</Label>
-                                    <Input value={this.state.username}
-                                           autoCapitalize='none'
-                                           onChangeText={(text) => this.setState({username: text})}/>
-                                </Item>
-                                <Item floatingLabel last>
-                                    <Label>密码</Label>
-                                    <Input secureTextEntry={true} onChangeText={(text) => this.password = text}/>
-                                </Item>
-                            </Form>
-                            <Button block style={{margin: 15, marginTop: 50}} onPress={() => this.login()}>
-                                <Text>登录</Text>
-                            </Button>
-                        </View>
-
-                        <TouchableOpacity style={{alignItems: 'center', margin: 20}}
-                            // onPress={() => this.props.navigation.navigate("ForgetPassword")}>
-                                          onPress={() => Toast.show({
-                                              type: 'warning',
-                                              text: '后台接口暂未实现！',
-                                              duration: 3000
-                                          })}>
-                            <Text>忘记密码?</Text>
-                        </TouchableOpacity>
+                <Content padder>
+                    <Form style={{flexDirection:'row-reverse'}}>
+                        <Picker
+                            mode="dropdown"
+                            iosHeader="Select your SIM"
+                            //iosIcon={<Icon name="ios-arrow-down-outline" />}
+                            style={{ width: 120}}
+                            textStyle={{ color:CommonConst.color.themeColor}}
+                            selectedValue={this.state.selected}
+                            onValueChange={this.onValueChange.bind(this)}
+                        >
+                            <Picker.Item label="请选择语言" value="key0" />
+                            <Picker.Item label="English" value="key1" />
+                            <Picker.Item label="汉语" value="key2" />
+                        </Picker>
+                    </Form>
+                    <View style={{justifyContent:'center',alignItems:'center',marginTop:40,marginBottom:40}}>
+                        <Image source={Images.logoImg.logoImg} style={{width: 200, height: 70, resizeMode: 'stretch'}}/>
                     </View>
+                    <Form style={{marginRight:16}}>
+                        <Item>
+                            <Input placeholder="Username"
+                                   autoCapitalize='none'
+                                   value={this.state.username}
+                                   onChangeText={(text) => this.setState({username: text})}/>
+                        </Item>
+                        <Item>
+                            <Input placeholder="Password"
+                                   secureTextEntry
+                                   onChangeText={(text) => this.password = text}/>
+                        </Item>
+                    </Form>
+                    <Button full style={{margin: 15, marginTop: 50,backgroundColor:CommonConst.color.themeColor}} onPress={() => this.login()}>
+                        <Text>Sign In</Text>
+                    </Button>
+                    <View style={{flexDirection:'row',justifyContent:'space-between'}}>
+                        <Button transparent onPress={()=>this.props.navigation.navigate('ForgetPassword')}>
+                            <Text style={{color:CommonConst.color.themeColor}}>忘记密码？</Text>
+                        </Button>
+                        <Button transparent onPress={() => this.props.navigation.navigate("SignUp")}>
+                            <Text style={{color:CommonConst.color.themeColor}}>新用户注册</Text>
+                        </Button>
+                    </View>
+                    {/*<TouchableOpacity style={{alignItems: 'center', margin: 20}}*/}
+                        {/*// onPress={() => this.props.navigation.navigate("ForgetPassword")}>*/}
+                                      {/*onPress={() => Toast.show({*/}
+                                          {/*type: 'warning',*/}
+                                          {/*text: '后台接口暂未实现！',*/}
+                                          {/*duration: 3000*/}
+                                      {/*})}>*/}
+                        {/*<Text>忘记密码?</Text>*/}
+                    {/*</TouchableOpacity>*/}
                 </Content>
             </Container>
         );

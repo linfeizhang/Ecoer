@@ -19,6 +19,7 @@ import Me from './views/me';
 import NewAc from './views/ac/NewAc';
 import SignIn from './views/SignIn';
 import SignUp from './views/SignUp';
+import ForgetPassword from './views/other/ForgetPassword';
 
 let Global = require('./utils/Global');
 
@@ -92,6 +93,7 @@ export default () => {
             Drawer: {screen: Drawer},
             SignIn: {screen: SignIn},
             SignUp: {screen: SignUp},
+            ForgetPassword: {screen:ForgetPassword},
             NewAc: {screen: NewAc}
         },
         {

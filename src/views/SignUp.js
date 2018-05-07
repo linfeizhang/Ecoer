@@ -2,8 +2,12 @@
  * Created by ZhouTing on 2018-05-06 14:37.
  */
 import React, {Component} from 'react';
-import {Platform, StyleSheet} from 'react-native';
-import {Body, Button, Container, Header, Icon, Left, Right, Text, Title} from "native-base";
+import {Platform, StyleSheet,View,Image} from 'react-native';
+import {Body, Button, Container, Content, Form, Item, Input, Header, Icon, Left,Radio, Right, Text, Title} from "native-base";
+
+import CommonConst from '../constant/CommonConst';
+import Images from '../constant/Images';
+
 
 const instructions = Platform.select({
     ios: 'Press Cmd+R to reload,\n' +
@@ -13,6 +17,20 @@ const instructions = Platform.select({
 });
 
 export default class SignUp extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            email: '',
+            confirm: '',
+
+            select:false
+        }
+    }
+
+    radioToggle(){
+        this.setState({select:!this.state.select});
+    }
+
     render() {
         return (
             <Container>
@@ -25,18 +43,30 @@ export default class SignUp extends Component {
                     <Body><Title>注册</Title></Body>
                     <Right/>
                 </Header>
-                <Text style={styles.welcome}>
-                    注册 页面!
-                </Text>
-                <Text style={styles.instructions}>
-                    To get started, edit App.js
-                </Text>
-                <Text style={styles.instructions}>
-                    {instructions}
-                </Text>
-                <Button block success style={{marginBottom: 20, height: 45}}>
-                    <Text>Light</Text>
-                </Button>
+                <Content>
+                    <View style={{justifyContent:'center',alignItems:'center',marginTop:40,marginBottom:40}}>
+                        <Image source={Images.logoImg.logoImg} style={{width: 200, height: 70, resizeMode: 'stretch'}}/>
+                    </View>
+                    <Form style={{marginRight: 16}}>
+                        <Item>
+                            <Input placeholder="E-mail"
+                                   autoCapitalize='none'
+                                   value={this.state.email}
+                                   onChangeText={(email) => this.setState({email: email})}
+                            />
+                        </Item>
+                        <Item>
+                            <Input placeholder="Confirm"
+                                   autoCapitalize='none'
+                                   value={this.state.confirm}
+                                   onChangeText={(confirm) => this.setState({confirm: confirm})}
+                            />
+                        </Item>
+                    </Form>
+                    <Button full style={{margin: 15, marginTop: 50, backgroundColor: CommonConst.color.themeColor}}>
+                        <Text>Sign Up</Text>
+                    </Button>
+                </Content>
             </Container>
         );
     }
