@@ -22,6 +22,12 @@ export default {
         logoImg: require('../images/logo.png'),
     },
 
+    //ACList页面的图片
+    acState:{
+        stateFocus:require('../images/common/state_focus.png'),
+        stateNormal:require('../images/common/state_normal.png'),
+    },
+
     //主页
     home: {
         // ic_light_off: require('./imgs/scanLigtOff.png'),

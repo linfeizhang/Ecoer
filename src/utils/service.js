@@ -168,6 +168,30 @@ exports.logout_clientToken = function (context) {   //如果app获取到了推�
 
 
 /**
+ * AcList请求的接口
+ */
+exports.getAllACList = function (context, startIndex) {
+    let setting = Global.cfg;
+    let that = context;
+    let auth_url =  "http://" + setting.server + "/api/sites?" + "cursor=" + startIndex +
+        "&limit=30" + "&verbose=100" +
+        "&access_token=" + setting.access_token;
+
+    RNFetchBlob.fetch('GET', auth_url, {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+    }).then(function (response) {
+        return response.json()
+    }).then(function (data) {
+        that.setData(data);
+    }).catch(function (e) {
+        that.setData({error: e});
+    });
+};
+
+
+
+/**
  * 保存账号，密码以及token
  *
  * @param username

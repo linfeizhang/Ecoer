@@ -1,16 +1,12 @@
 import React, {Component} from 'react';
-import {FlatList, Platform, StyleSheet, TouchableHighlight, View} from 'react-native';
+import {FlatList, Platform, Alert,Image,StyleSheet, TouchableHighlight, View} from 'react-native';
 import {Body, Button, Container, Header, Icon, Left, Right, Tab, Tabs, Text, Title} from "native-base";
 
-const instructions = Platform.select({
-    ios: 'Press Cmd+R to reload,\n' +
-    'Cmd+D or shake for dev menu',
-    android: 'Double tap R on your keyboard to reload,\n' +
-    'Shake or press menu button for dev menu',
-});
+import Images from '../../constant/Images';
 
-type Props = {};
-export default class App extends Component<Props> {
+let service = require('../../utils/service');
+
+export default class App extends Component{
     render() {
         return (
             <Container>
@@ -35,10 +31,12 @@ export default class App extends Component<Props> {
                         <ACListTab {...this.props} tab="Offline"/>
                     </Tab>
                 </Tabs>
-                <Button block success style={{marginBottom: 20, height: 45}}
-                        onPress={() => this.props.navigation.navigate("NewAc")}>
-                    <Text>NewAc</Text>
-                </Button>
+                <View style={{height:50,backgroundColor:'pink'}}>
+                    {/*<Button block success style={{marginBottom: 20, height: 45}}*/}
+                            {/*onPress={() => this.props.navigation.navigate("NewAc")}>*/}
+                        {/*<Text>NewAc</Text>*/}
+                    {/*</Button>*/}
+                </View>
             </Container>
         );
     }
@@ -49,8 +47,30 @@ class ACListTab extends Component {
         super(props);
         this.state = {
             tabLabel: this.props.tab,
+            dataResult:[],
         };
+
+        service.getAllACList(this,0);
     }
+
+    setData(data){
+        console.log('aaa');
+        console.log(data);
+        console.log('aaa');
+        let aaa=[]
+        if(data.error===undefined){
+            for(var key in data.result){
+                console.log('bbb');
+                console.log(data.result[key]);
+                console.log('bbb');
+                aaa.push(data.result[key]);
+            }
+            this.setState({dataResult:aaa});
+        }else{
+            Alert.alert('接口出错了');
+        }
+    }
+
 
     // _renderRow(rowData) {
     //     var state = 0;
@@ -75,10 +95,17 @@ class ACListTab extends Component {
     _renderItem = ({item, separators}) => (
         <TouchableHighlight
             onPress={() => this._onPress(item)}
+            style={{margin:20}}
             onShowUnderlay={separators.highlight}
             onHideUnderlay={separators.unhighlight}>
-            <View style={{backgroundColor: 'white'}}>
-                <Text>{item.key}</Text>
+            <View style={{flexDirection:'row',flex:1}}>
+                <View style={{flex:1}}>
+                    <Image source={Images.acState.stateFocus} style={{width: 40, height: 40, resizeMode: 'stretch'}}/>
+                </View>
+                <View style={{backgroundColor: 'white',flex:5}}>
+                    <Text>{item.name}</Text>
+                    <Text>IoT SN:{item.sn}</Text>
+                </View>
             </View>
         </TouchableHighlight>
     );
@@ -87,7 +114,8 @@ class ACListTab extends Component {
         return (
             <Container>
                 <FlatList
-                    data={[{key: 'a'}, {key: 'b'}]}
+                    // data={[{key: 'a'}, {key: 'b'}]}
+                    data={this.state.dataResult}
                     renderItem={this._renderItem}
                 />
             </Container>
