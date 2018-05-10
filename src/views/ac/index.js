@@ -92,9 +92,10 @@ class ACListTab extends Component {
     //     );
     // }
 
+
     _renderItem = ({item, separators}) => (
         <TouchableHighlight
-            onPress={() => this._onPress(item)}
+            onPress={() => this.props.navigation.navigate("AcDetail")}
             style={{margin:20}}
             onShowUnderlay={separators.highlight}
             onHideUnderlay={separators.unhighlight}>

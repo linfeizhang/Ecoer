@@ -17,6 +17,7 @@ import Events from './views/events';
 import Files from './views/files';
 import Me from './views/me';
 import NewAc from './views/ac/NewAc';
+import AcDetail from './views/ac/AcDetail';
 import SignIn from './views/SignIn';
 import SignUp from './views/SignUp';
 import ForgetPassword from './views/other/ForgetPassword';
@@ -94,7 +95,8 @@ export default () => {
             SignIn: {screen: SignIn},
             SignUp: {screen: SignUp},
             ForgetPassword: {screen:ForgetPassword},
-            NewAc: {screen: NewAc}
+            NewAc: {screen: NewAc},
+            AcDetail: {screen: AcDetail},
         },
         {
             initialRouteName: Global.isLogin ? "Drawer" : "SignIn",
