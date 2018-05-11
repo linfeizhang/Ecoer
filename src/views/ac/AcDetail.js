@@ -3,8 +3,10 @@
  */
 import React, {Component} from "react";
 import {Platform, StyleSheet,View} from 'react-native';
-import {Body, Button, Container,Content, Header, Icon,Left, Right, Text, Title} from "native-base";
-import { Accordion} from 'antd-mobile';
+import {Body, Button, Container,Content, Header,Form,Item,Input, Icon,Left, Right, Text, Title} from "native-base";
+import { Accordion,Grid} from 'antd-mobile';
+
+import styles from './styles/detailStyle';
 
 
 const instructions = Platform.select({
@@ -15,6 +17,14 @@ const instructions = Platform.select({
 });
 
 export default class AcDetail extends Component{
+    constructor(props) {
+        super(props);
+        this.state = {
+
+        };
+    }
+
+
     render() {
         return (
             <Container>
@@ -27,18 +37,20 @@ export default class AcDetail extends Component{
                     <Body><Title>Ac Details</Title></Body>
                     <Right/>
                 </Header>
+
                 <Content padder>
-                    <View>
+                    <View style={styles.row}>
                         <Text>EG9101111111111</Text>
                     </View>
 
 
-                    <View>
+                    <View style={styles.row}>
                         <Text>Model</Text>
+                        <Text>EG9101201203251</Text>
                     </View>
 
 
-                    <View style={{flex:1,flexDirection:'row'}}>
+                    <View style={styles.row}>
                         <View style={{marginRight:100,flex:1,flexDirection:'row',justifyContent:'space-between'}}>
                             <View>
                                 <Text>LP</Text>
@@ -60,7 +72,7 @@ export default class AcDetail extends Component{
                     </View>
 
 
-                    <View style={{flex:1,flexDirection:'row'}}>
+                    <View style={styles.row}>
                         <View style={{marginRight:100,flex:1,flexDirection:'row',justifyContent:'space-between'}}>
                             <View>
                                 <Text>Comp</Text>
@@ -82,7 +94,7 @@ export default class AcDetail extends Component{
                     </View>
 
 
-                    <View style={{flexDirection:'row'}}>
+                    <View style={styles.row}>
                         <View>
                             <Text>Refrence Capacity</Text>
                         </View>
@@ -93,7 +105,7 @@ export default class AcDetail extends Component{
                     </View>
 
 
-                    <View style={{flexDirection:'row'}}>
+                    <View style={styles.row}>
                         <View style={{marginRight:50}}>
                             <Text>Update:</Text>
                         </View>
@@ -103,10 +115,10 @@ export default class AcDetail extends Component{
                     </View>
 
 
-                    <View style={{marginTop:10,marginBottom:10}}>
-                        <Accordion style={{backgroundColor:'#fff'}}>
+                    <View style={[styles.accordion,{marginTop:20}]}>
+                        <Accordion style={{backgroundColor:'#e5e5e5'}}>
                             <Accordion.Panel header="Outdoor Unit">
-                                <View style={{flex:1,backgroundColor:'red'}}>
+                                <View style={{flex:1,backgroundColor:'pink'}}>
                                     <View style={{flexDirection:'row',flex:1}}>
                                         <View style={{flex:1}}>
                                             <Text>Outdoor Unit</Text>
@@ -158,10 +170,10 @@ export default class AcDetail extends Component{
                     </View>
 
 
-                    <View>
-                        <Accordion style={{backgroundColor:'#fff'}}>
+                    <View style={styles.accordion}>
+                        <Accordion style={{backgroundColor:'#e5e5e5'}}>
                             <Accordion.Panel header="Field Setting">
-                                <View style={{flex:1,backgroundColor:'red'}}>
+                                <View style={{flex:1,backgroundColor:'pink'}}>
                                     <View style={{flexDirection:'row',flex:1}}>
                                         <View style={{flex:1}}>
                                             <Text>Outdoor Unit</Text>
@@ -206,6 +218,88 @@ export default class AcDetail extends Component{
                                             <Text>1</Text>
                                         </View>
                                     </View>
+                                </View>
+
+                            </Accordion.Panel>
+                        </Accordion>
+                    </View>
+
+
+                    <View style={styles.accordion}>
+                        <Accordion style={{backgroundColor:'#e5e5e5'}}>
+                            <Accordion.Panel header='IoT EG9102120210210'>
+                                <View style={{flex:1,backgroundColor:'pink'}}>
+                                    <View style={[styles.row,{justifyContent:'center',alignItems:'center'}]}>
+                                        <View style={{flex:1}}>
+                                            <Text>IoT SN</Text>
+                                        </View>
+                                        <View style={{flex:2,backgroundColor:'green'}}>
+                                            <Form>
+                                                <Item regular>
+                                                    <Input placeholder='Regular Textbox' />
+                                                </Item>
+                                            </Form>
+                                        </View>
+                                    </View>
+                                </View>
+
+                            </Accordion.Panel>
+                        </Accordion>
+                    </View>
+
+
+                    <View style={styles.accordion}>
+                        <Accordion style={{backgroundColor:'#e5e5e5'}}>
+                            <Accordion.Panel header="Consumer">
+                                <View style={{flex:1,backgroundColor:'pink'}}>
+                                    <View style={{flexDirection:'row',flex:1}}>
+                                        <View style={{flex:1}}>
+                                            <Text>Consumer</Text>
+                                        </View>
+                                        <View style={{flex:2}}>
+                                            <Text>zhouting</Text>
+                                        </View>
+                                    </View>
+
+                                    <View style={{flexDirection:'row',flex:1}}>
+                                        <View style={{flex:1}}>
+                                            <Text>Phone</Text>
+                                        </View>
+                                        <View style={{flex:2}}>
+                                            <Text>+1-1122334455</Text>
+                                        </View>
+                                    </View>
+
+                                    <View style={{flexDirection:'row',flex:1}}>
+                                        <View style={{flex:1}}>
+                                            <Text>E-mail</Text>
+                                        </View>
+                                        <View style={{flex:2}}>
+                                            <Text>zhouting@inhand.com.cn</Text>
+                                        </View>
+                                    </View>
+
+                                    <View style={{flexDirection:'row',flex:1}}>
+                                        <View style={{flex:1}}>
+                                            <Text>Install Date</Text>
+                                        </View>
+                                        <View style={{flex:2}}>
+                                            <Text>2018-05-11</Text>
+                                        </View>
+                                    </View>
+                                </View>
+                            </Accordion.Panel>
+                        </Accordion>
+                    </View>
+
+
+                    <View style={styles.accordion}>
+                        <Accordion style={{backgroundColor:'#e5e5e5'}}>
+                            <Accordion.Panel header="Detail Data">
+                                <View style={{backgroundColor:'pink',height:1000}}>
+                                    <Grid columnNum={3} data={11}>
+
+                                    </Grid>
                                 </View>
 
                             </Accordion.Panel>
