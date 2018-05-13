@@ -97,6 +97,7 @@ export default class SignIn extends Component {
                         <Picker
                             mode="dropdown"
                             iosHeader="Select your SIM"
+                            headerBackButtonText="返回"
                             //iosIcon={<Icon name="ios-arrow-down-outline" />}
                             style={{ width: 120}}
                             textStyle={{ color:CommonConst.color.themeColor}}
