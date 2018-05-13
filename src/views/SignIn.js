@@ -2,7 +2,7 @@
  * Created by ZhouTing on 2018-05-06 14:36.
  */
 import React, {Component} from 'react';
-import {Image, TouchableOpacity, View} from 'react-native';
+import {Image, View} from 'react-native';
 import {
     Body,
     Button,
@@ -12,20 +12,21 @@ import {
     Header,
     Input,
     Item,
-    Label,
     Left,
     Picker,
-    Icon,
     Right,
     Text,
     Title,
     Toast
 } from 'native-base';
+import I18n from '../utils/i18n';
 import Images from '../constant/Images';
 import CommonConst from '../constant/CommonConst';
 
 let Global = require('../utils/Global');
 let service = require('../utils/service');
+
+const unselected = 'none';
 
 export default class SignIn extends Component {
 
@@ -34,14 +35,20 @@ export default class SignIn extends Component {
         this.state = {
             username: Global.cfg.username,
 
-            selected:'key0',
-            //selected:'key1',
-            //selected:'key2',
+            selected: unselected,
         }
     }
 
-    onValueChange(value:string){
-        this.setState({selected:value})
+    onValueChange(value: string) {
+        if (value !== unselected) {
+            Global.cfg.language = value;
+            I18n.locale = value;
+        } else {
+            Global.cfg.language = null;
+            I18n.locale = Global.localLanguage;
+        }
+        Global.cfg.setRunningConfig();
+        this.setState({selected: value})
     }
 
     login() {
@@ -93,26 +100,26 @@ export default class SignIn extends Component {
                     <Right/>
                 </Header>
                 <Content padder>
-                    <Form style={{flexDirection:'row-reverse'}}>
+                    <Form style={{flexDirection: 'row-reverse'}}>
                         <Picker
                             mode="dropdown"
                             iosHeader="Select your SIM"
                             headerBackButtonText="返回"
                             //iosIcon={<Icon name="ios-arrow-down-outline" />}
-                            style={{ width: 120}}
-                            textStyle={{ color:CommonConst.color.themeColor}}
+                            // style={{width: 120}}
+                            textStyle={{color: CommonConst.color.themeColor}}
                             selectedValue={this.state.selected}
                             onValueChange={this.onValueChange.bind(this)}
                         >
-                            <Picker.Item label="请选择语言" value="key0" />
-                            <Picker.Item label="English" value="key1" />
-                            <Picker.Item label="汉语" value="key2" />
+                            <Picker.Item label={I18n.t('login.language')} value={unselected}/>
+                            <Picker.Item label="English" value={CommonConst.languageCode.English}/>
+                            <Picker.Item label="简体中文" value={CommonConst.languageCode.Chinese}/>
                         </Picker>
                     </Form>
-                    <View style={{justifyContent:'center',alignItems:'center',marginTop:40,marginBottom:40}}>
+                    <View style={{justifyContent: 'center', alignItems: 'center', marginTop: 40, marginBottom: 40}}>
                         <Image source={Images.logoImg.logoImg} style={{width: 200, height: 70, resizeMode: 'stretch'}}/>
                     </View>
-                    <Form style={{marginRight:16}}>
+                    <Form style={{marginRight: 16}}>
                         <Item>
                             <Input placeholder="Username"
                                    autoCapitalize='none'
@@ -125,25 +132,26 @@ export default class SignIn extends Component {
                                    onChangeText={(text) => this.password = text}/>
                         </Item>
                     </Form>
-                    <Button full style={{margin: 15, marginTop: 50,backgroundColor:CommonConst.color.themeColor}} onPress={() => this.login()}>
+                    <Button full style={{margin: 15, marginTop: 50, backgroundColor: CommonConst.color.themeColor}}
+                            onPress={() => this.login()}>
                         <Text>Sign In</Text>
                     </Button>
-                    <View style={{flexDirection:'row',justifyContent:'space-between'}}>
-                        <Button transparent onPress={()=>this.props.navigation.navigate('ForgetPassword')}>
-                            <Text style={{color:CommonConst.color.themeColor}}>忘记密码？</Text>
+                    <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+                        <Button transparent onPress={() => this.props.navigation.navigate('ForgetPassword')}>
+                            <Text style={{color: CommonConst.color.themeColor}}>{I18n.t('login.forget_password')}</Text>
                         </Button>
                         <Button transparent onPress={() => this.props.navigation.navigate("SignUp")}>
-                            <Text style={{color:CommonConst.color.themeColor}}>新用户注册</Text>
+                            <Text style={{color: CommonConst.color.themeColor}}>新用户注册</Text>
                         </Button>
                     </View>
                     {/*<TouchableOpacity style={{alignItems: 'center', margin: 20}}*/}
-                        {/*// onPress={() => this.props.navigation.navigate("ForgetPassword")}>*/}
-                                      {/*onPress={() => Toast.show({*/}
-                                          {/*type: 'warning',*/}
-                                          {/*text: '后台接口暂未实现！',*/}
-                                          {/*duration: 3000*/}
-                                      {/*})}>*/}
-                        {/*<Text>忘记密码?</Text>*/}
+                    {/*// onPress={() => this.props.navigation.navigate("ForgetPassword")}>*/}
+                    {/*onPress={() => Toast.show({*/}
+                    {/*type: 'warning',*/}
+                    {/*text: '后台接口暂未实现！',*/}
+                    {/*duration: 3000*/}
+                    {/*})}>*/}
+                    {/*<Text>忘记密码?</Text>*/}
                     {/*</TouchableOpacity>*/}
                 </Content>
             </Container>

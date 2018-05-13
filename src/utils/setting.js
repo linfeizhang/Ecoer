@@ -29,7 +29,7 @@ class Settings {
         this.create_token_time = '';   //刷新token时间
         this.expires_in = 3600;        //token有效期
         this.refresh_token = "";
-        // this.language = null;
+        this.user_language = null;
 
         //移除本地存储
         // storage.remove({
@@ -68,31 +68,13 @@ class Settings {
                 this.create_token_time = cfg.create_token_time;
                 this.server = cfg.server;       //切换平台之后退出App重新进入就进入到切换之后的平台
                 this.org_email = cfg.org_email; //切换平台之后退出App重新进入就进入到切换之后的平台
+
+                this.user_language = cfg.user_language;   //国际化语言
+
                 context.refresh(this);
             }
             return cfg;
         }).catch(err => {
-            return err;
-        }).done(callback)
-    }
-
-    setLanguage(language){
-        storage.save({
-            key: "I18n",  // 注意:请不要在key中使用_下划线符号!
-            data: {
-                language:language
-            }
-        });
-    }
-    getLanguage(context, callback){
-        storage.load({
-            key: "I18n",
-            autoSync: false
-        }).then(language => {
-            console.log(language)
-            return language;
-        }).catch(err => {
-            console.log(err)
             return err;
         }).done(callback)
     }

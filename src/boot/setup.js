@@ -3,6 +3,8 @@
  */
 import React, {Component} from 'react';
 import {Container, StyleProvider, Text} from "native-base";
+import {getLanguages} from 'react-native-i18n';
+import I18n from '../utils/i18n';
 import Entrance from "../Entrance";
 import getTheme from "../theme/components";
 import variables from "../theme/variables/commonColor";
@@ -18,12 +20,23 @@ export default class Setup extends Component {
 
         this.state = {};
 
+        getLanguages().then(languages => {
+            Global.localLanguage = languages[0];
+        });
+
         let cfg = new setting();
         if (Global.cfg === undefined) {
             Global.cfg = cfg;
         }
         let that = this;
         Global.cfg.getRunningConfig(this, function () {
+
+            //设置国际化语言
+            let language = Global.cfg.language;
+            if (language) {
+                I18n.locale = language;
+            }
+
             //数字和字符串相减,字符串可以自动转为数字,数字减空字符串相当于数字减0。
             // 如:123 - '' = 123 - 0 = 123。
             let create_time = Global.cfg.create_token_time;

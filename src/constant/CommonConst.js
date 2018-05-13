@@ -6,6 +6,11 @@ export default {
 
     color: {
         themeColor: '#8fb721',
+    },
+
+    languageCode: {
+        Chinese: 'zh',
+        English: 'en'
     }
 
 }
