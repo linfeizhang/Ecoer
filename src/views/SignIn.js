@@ -3,6 +3,7 @@
  */
 import React, {Component} from 'react';
 import {Image, View} from 'react-native';
+import {NavigationActions} from 'react-navigation';
 import {
     Body,
     Button,
@@ -25,6 +26,14 @@ import CommonConst from '../constant/CommonConst';
 
 let Global = require('../utils/Global');
 let service = require('../utils/service');
+
+
+const resetAction = NavigationActions.reset({
+    index: 0,
+    actions: [
+        NavigationActions.navigate({routeName: 'Drawer'})
+    ]
+});
 
 const unselected = 'none';
 
@@ -61,7 +70,7 @@ export default class SignIn extends Component {
 
     setLoginState(data) {
         if (data.error === undefined) {
-            this.props.navigation.navigate("Drawer");
+            this.props.navigation.dispatch(resetAction);
         } else {
             if (data.error_code) {
                 switch (data.error_code) {
