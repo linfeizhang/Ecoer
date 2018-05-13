@@ -132,16 +132,16 @@ export default class SignIn extends Component {
                                    onChangeText={(text) => this.password = text}/>
                         </Item>
                     </Form>
-                    <Button full style={{margin: 15, marginTop: 50, backgroundColor: CommonConst.color.themeColor}}
+                    <Button full style={{margin: 15, marginTop: 50}}
                             onPress={() => this.login()}>
                         <Text>Sign In</Text>
                     </Button>
                     <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
                         <Button transparent onPress={() => this.props.navigation.navigate('ForgetPassword')}>
-                            <Text style={{color: CommonConst.color.themeColor}}>{I18n.t('login.forget_password')}</Text>
+                            <Text>{I18n.t('login.forget_password')}</Text>
                         </Button>
                         <Button transparent onPress={() => this.props.navigation.navigate("SignUp")}>
-                            <Text style={{color: CommonConst.color.themeColor}}>新用户注册</Text>
+                            <Text>新用户注册</Text>
                         </Button>
                     </View>
                     {/*<TouchableOpacity style={{alignItems: 'center', margin: 20}}*/}

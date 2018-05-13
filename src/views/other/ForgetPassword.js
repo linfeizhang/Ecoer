@@ -58,7 +58,7 @@ export default class ForgetPassword extends Component {
                             />
                         </Item>
                     </Form>
-                    <Button full style={{margin: 15, marginTop: 50, backgroundColor: CommonConst.color.themeColor}}
+                    <Button full style={{margin: 15, marginTop: 50}}
                             onPress={() => this.test()}
                     >
                         <Text>Submit</Text>
