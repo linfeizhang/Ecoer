@@ -41,10 +41,10 @@ export default class SignIn extends Component {
 
     onValueChange(value: string) {
         if (value !== unselected) {
-            Global.cfg.language = value;
+            Global.cfg.user_language = value;
             I18n.locale = value;
         } else {
-            Global.cfg.language = null;
+            Global.cfg.user_language = null;
             I18n.locale = Global.localLanguage;
         }
         Global.cfg.setRunningConfig();

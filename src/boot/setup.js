@@ -30,9 +30,8 @@ export default class Setup extends Component {
         }
         let that = this;
         Global.cfg.getRunningConfig(this, function () {
-
             //设置国际化语言
-            let language = Global.cfg.language;
+            let language = Global.cfg.user_language;
             if (language) {
                 I18n.locale = language;
             }
