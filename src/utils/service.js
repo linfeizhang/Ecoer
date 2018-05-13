@@ -2,6 +2,11 @@ let md5 = require('./md5');
 let Global = require('./Global');
 import RNFetchBlob from 'react-native-fetch-blob';
 
+const GET = 'GET';
+const POST = 'POST';
+const PUT = 'PUT';
+const DELETE = 'DELETE';
+
 /**
  * fetch测试
  * @param context
@@ -83,7 +88,7 @@ exports.login = function (context, username, password) {
         "&password=" + md5str.toUpperCase() +
         "&password_type=2";
 
-    RNFetchBlob.fetch('POST', auth_url, {
+    RNFetchBlob.fetch(POST, auth_url, {
         'Accept': 'application/json',
         'Content-Type': 'application/x-www-form-urlencoded'
     }).then(function (response) {
@@ -104,11 +109,11 @@ exports.login = function (context, username, password) {
  * @param context
  */
 exports.forgotPassword = function (context) {
-    var setting = Global.cfg;
+    let setting = Global.cfg;
 
-    var auth_url = "http://" + setting.server + "/api2/forgotten_password?language=1&access_token=null"
+    let auth_url = "http://" + setting.server + "/api2/forgotten_password?language=1&access_token=null";
 
-    RNFetchBlob.fetch('POST', auth_url, {
+    RNFetchBlob.fetch(POST, auth_url, {
             'Accept': 'application/json',
             'Content-Type': 'application/json',
         }, JSON.stringify({"username": context.state.textValue})
@@ -137,11 +142,11 @@ exports.logout = function (context) {  //如果app没有获取到推送token。�
     context.toLoginPage();
 };
 exports.logout_clientToken = function (context) {   //如果app获取到了推送token。退出登陆就调用这个接口
-    var setting = Global.cfg;
-    var auth_url = "http://" + setting.server + "/api/push/token?access_token=" + setting.access_token;
+    let setting = Global.cfg;
+    let auth_url = "http://" + setting.server + "/api/push/token?access_token=" + setting.access_token;
 
     fetch(auth_url, {
-        method: 'DELETE',
+        method: DELETE,
         headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
@@ -168,16 +173,48 @@ exports.logout_clientToken = function (context) {   //如果app获取到了推�
 
 
 /**
+ * 用refresh_token 获取token
+ * @param context
+ */
+exports.getNewToken = function (context) {
+    let setting = Global.cfg;
+    let auth_url = "http://" + setting.server + "/oauth2/access_token?" +
+        "client_id=" + setting.client_id +
+        "&client_secret=" + setting.client_secret +
+        "&grant_type=refresh_token" +
+        "&refresh_token=" + setting.refresh_token;
+
+    RNFetchBlob.config({timeout: 2000}).fetch(POST, auth_url, {
+        'Accept': 'application/json',
+        'Content-Type': 'application/x-www-form-urlencoded',
+    }).then(function (response) {
+        return response.json();
+    }).then(function (data) {
+        try {
+            if (data.error === undefined) {
+                saveSetting(setting.username, setting.password, data);
+            }
+            context.setRefreshState(data);
+        } catch (e) {
+            console.log(e);
+        }
+    }).catch(function (e) {
+        console.log(e);
+        context.setRefreshState({err: e});//网络链接失败,修复DSM-668
+    });
+};
+
+/**
  * AcList请求的接口
  */
 exports.getAllACList = function (context, startIndex) {
     let setting = Global.cfg;
     let that = context;
-    let auth_url =  "http://" + setting.server + "/api/sites?" + "cursor=" + startIndex +
+    let auth_url = "http://" + setting.server + "/api/sites?" + "cursor=" + startIndex +
         "&limit=30" + "&verbose=100" +
         "&access_token=" + setting.access_token;
 
-    RNFetchBlob.fetch('GET', auth_url, {
+    RNFetchBlob.fetch(GET, auth_url, {
         'Accept': 'application/json',
         'Content-Type': 'application/json'
     }).then(function (response) {
@@ -188,7 +225,6 @@ exports.getAllACList = function (context, startIndex) {
         that.setData({error: e});
     });
 };
-
 
 
 /**

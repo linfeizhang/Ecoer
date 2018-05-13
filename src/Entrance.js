@@ -22,8 +22,6 @@ import SignIn from './views/SignIn';
 import SignUp from './views/SignUp';
 import ForgetPassword from './views/other/ForgetPassword';
 
-let Global = require('./utils/Global');
-
 /**
  * tabBar 图标生成方法
  */
@@ -88,18 +86,18 @@ const Drawer = DrawerNavigator(
     }
 );
 
-export default () => {
+export default (props) => {
     const AppNavigator = StackNavigator(
         {
             Drawer: {screen: Drawer},
             SignIn: {screen: SignIn},
             SignUp: {screen: SignUp},
-            ForgetPassword: {screen:ForgetPassword},
+            ForgetPassword: {screen: ForgetPassword},
             NewAc: {screen: NewAc},
             AcDetail: {screen: AcDetail},
         },
         {
-            initialRouteName: Global.isLogin ? "Drawer" : "SignIn",
+            initialRouteName: props.isLogin ? "Drawer" : "SignIn",
             headerMode: "none",
             mode: 'modal'
         }
