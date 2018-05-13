@@ -25,6 +25,13 @@ exports.testFetch = function (context) {
 };
 
 /**
+ * 获取用户选择语言
+ */
+exports.getLanguage = function () {
+    return Global.cfg.user_language || Global.localLanguage;
+};
+
+/**
  * 注册
  * @param context
  * @param name

@@ -35,7 +35,7 @@ export default class SignIn extends Component {
         this.state = {
             username: Global.cfg.username,
 
-            selected: unselected,
+            selected: Global.cfg.user_language || unselected,
         }
     }
 

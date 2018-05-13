@@ -20,6 +20,7 @@ export default class Setup extends Component {
 
         this.state = {};
 
+        //获取手机系统语言
         getLanguages().then(languages => {
             Global.localLanguage = languages[0];
         });
