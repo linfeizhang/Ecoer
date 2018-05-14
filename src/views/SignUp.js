@@ -2,19 +2,12 @@
  * Created by ZhouTing on 2018-05-06 14:37.
  */
 import React, {Component} from 'react';
-import {Platform, StyleSheet,View,Image} from 'react-native';
-import {Body, Button, Container, Content, Form, Item, Input, Header, Icon, Left,Radio, Right, Text, Title} from "native-base";
+import {View,Image} from 'react-native';
+import {Body, Button, Container, Content, Form, Item, Input, Header, Icon, Left,Right, Text, Title} from "native-base";
 
 import CommonConst from '../constant/CommonConst';
 import Images from '../constant/Images';
 
-
-const instructions = Platform.select({
-    ios: 'Press Cmd+R to reload,\n' +
-    'Cmd+D or shake for dev menu',
-    android: 'Double tap R on your keyboard to reload,\n' +
-    'Shake or press menu button for dev menu',
-});
 
 export default class SignUp extends Component {
     constructor(props) {
@@ -22,14 +15,9 @@ export default class SignUp extends Component {
         this.state = {
             email: '',
             confirm: '',
-
-            select:false
         }
     }
 
-    radioToggle(){
-        this.setState({select:!this.state.select});
-    }
 
     render() {
         return (
@@ -72,21 +60,3 @@ export default class SignUp extends Component {
     }
 }
 
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor: '#F5FCFF',
-    },
-    welcome: {
-        fontSize: 20,
-        textAlign: 'center',
-        margin: 10,
-    },
-    instructions: {
-        textAlign: 'center',
-        color: '#333333',
-        marginBottom: 5,
-    },
-});

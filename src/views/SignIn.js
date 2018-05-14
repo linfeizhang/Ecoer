@@ -61,8 +61,10 @@ export default class SignIn extends Component {
     }
 
     login() {
-        if (this.state.username && this.password) {
-            service.login(this, this.state.username, this.password)
+        let username=this.state.username.toLowerCase().trim();
+        let password=this.password;
+        if (username && password) {
+            service.login(this, username, password)
         } else {
             Toast.show({type: 'danger', text: '用户名和密码不能为空！', duration: 3000, buttonText: "关闭"});
         }
@@ -75,19 +77,19 @@ export default class SignIn extends Component {
             if (data.error_code) {
                 switch (data.error_code) {
                     case 21304:
-                        // this.userLocked();
+                        // 密码输错5次账户被锁120秒
                         break;
                     case 20003:
                         // this.setState({message: "user_not_exist"});
-                        alert("user_not_exist");
+                        Toast.show({type: 'danger', text: '用户不存在', duration: 3000, buttonText: "关闭"});
                         break;
                     case 21302:
                         // this.setState({message: "user_pwd_error"});
-                        alert("user_pwd_error");
+                        Toast.show({type: 'danger', text: '用户名或密码错误', duration: 3000, buttonText: "关闭"});
                         break;
                     case 21323:
                         // this.setState({message: "user_format_error"});
-                        alert("user_format_error");
+                        Toast.show({type: 'danger', text: '用户名格式错误', duration: 3000, buttonText: "关闭"});
                         break;
                     default:
                         break;
@@ -95,7 +97,7 @@ export default class SignIn extends Component {
             }
             else {
                 // this.setState({message: "network_fail_login"});
-                alert("network_fail_login");
+                Toast.show({type: 'danger', text: '网络异常，请从新登陆', duration: 3000, buttonText: "关闭"});
             }
         }
     }
@@ -133,7 +135,7 @@ export default class SignIn extends Component {
                             <Input placeholder="Username"
                                    autoCapitalize='none'
                                    value={this.state.username}
-                                   onChangeText={(text) => this.setState({username: text})}/>
+                                   onChangeText={(text) => this.setState({username: text.toLowerCase()})}/>
                         </Item>
                         <Item>
                             <Input placeholder="Password"

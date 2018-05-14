@@ -123,16 +123,15 @@ exports.forgotPassword = function (context) {
     RNFetchBlob.fetch(POST, auth_url, {
             'Accept': 'application/json',
             'Content-Type': 'application/json',
-        }, JSON.stringify({"username": context.state.textValue})
+        }, JSON.stringify({"username": context.state.email})
     ).then(function (response) {
         return response.json()
     }).then(function (data) {
-        // context.setForgotPassword(data);
+        context.setForgotPassword(data);
     }).catch(function (e) {
-        // context.setForgotPassword({error: e});
+        context.setForgotPassword({error: e});
     });
 };
-
 
 /**
  * 注销
