@@ -9,18 +9,18 @@ import Images from './constant/Images';
 import CommonConst from './constant/CommonConst';
 
 import SideBar from './views/sidebar';
-import UserHelp from './views/sidebar/UserHelp';
-import About from './views/sidebar/About';
+import UserHelp from './views/sidebar/userHelp';
+import About from './views/sidebar/about';
 
 import AC from './views/ac';
 import Events from './views/events';
 import Files from './views/files';
 import Me from './views/me';
 import NewAc from './views/ac/NewAc';
-import AcDetail from './views/ac/AcDetail';
-import SignIn from './views/SignIn';
-import SignUp from './views/SignUp';
-import ForgetPassword from './views/other/ForgetPassword';
+import AcDetail from './views/ac/acDetail';
+import SignIn from './views/signIn';
+import SignUp from './views/signUp';
+import ForgetPassword from './views/other/forgetPassword';
 
 /**
  * tabBar 图标生成方法
