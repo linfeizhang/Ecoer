@@ -16,7 +16,7 @@ import AC from './views/ac';
 import Events from './views/events';
 import Files from './views/files';
 import Me from './views/me';
-import NewAc from './views/ac/NewAc';
+import NewAc from './views/ac/newAc';
 import AcDetail from './views/ac/acDetail';
 import SignIn from './views/signIn';
 import SignUp from './views/signUp';
