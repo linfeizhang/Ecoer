@@ -4,7 +4,7 @@ import {connect} from 'react-redux'
 
 import {Button, Card, CardItem, Container, Content, Text} from 'native-base';
 
-import {createAction, NavigationActions} from '../../utils/index'
+import {createAction} from '../../utils/index'
 
 @connect(({detail}) => ({...detail}))
 class Detail extends Component {

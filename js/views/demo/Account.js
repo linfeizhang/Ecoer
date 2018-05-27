@@ -4,7 +4,7 @@ import {connect} from 'react-redux'
 
 import {Button, Text} from 'native-base';
 
-import {createAction, NavigationActions} from '../../utils/index'
+import {createAction} from '../../utils/index'
 
 @connect(({app}) => ({...app}))
 class Account extends Component {

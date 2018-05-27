@@ -4,6 +4,7 @@
 import React, {Component} from 'react';
 import {Image, View} from 'react-native';
 import {NavigationActions, StackActions} from 'react-navigation';
+import {connect} from 'react-redux'
 import {
     Body,
     Button,
@@ -24,6 +25,8 @@ import {
 import Images from '../constant/Images';
 import CommonConst from '../constant/CommonConst';
 
+import {createAction} from '../utils/index'
+
 // let Global = require('../utils/Global');
 // let service = require('../utils/service');
 
@@ -35,31 +38,11 @@ const resetAction = StackActions.reset({
     ]
 });
 
-const unselected = 'none';
+@connect(({signIn}) => ({...signIn}))
+class SignIn extends Component {
 
-export default class SignIn extends Component {
-
-    constructor(props) {
-        super(props);
-        this.state = {
-            username: 'test',
-            // username: Global.cfg.username,
-
-            // selected: Global.cfg.user_language || unselected,
-            selected: unselected,
-        }
-    }
-
-    onValueChange(value: string) {
-        // if (value !== unselected) {
-        //     Global.cfg.user_language = value;
-        //     I18n.locale = value;
-        // } else {
-        //     Global.cfg.user_language = null;
-        //     I18n.locale = Global.localLanguage;
-        // }
-        // Global.cfg.setRunningConfig();
-        this.setState({selected: value})
+    changeLanguage(value: string) {
+        this.props.dispatch(createAction('signIn/changeLanguage')({languageCode: value}))
     }
 
     login() {
@@ -103,11 +86,12 @@ export default class SignIn extends Component {
     }
 
     render() {
+        const {username, languageCode} = this.props;
         return (
             <Container>
                 <Header>
                     <Left/>
-                    <Body><Title>登录</Title></Body>
+                    <Body><Title>登 录</Title></Body>
                     <Right/>
                 </Header>
                 <Content padder>
@@ -119,10 +103,10 @@ export default class SignIn extends Component {
                             //iosIcon={<Icon name="ios-arrow-down-outline" />}
                             // style={{width: 120}}
                             textStyle={{color: CommonConst.color.themeColor}}
-                            selectedValue={this.state.selected}
-                            onValueChange={this.onValueChange.bind(this)}
+                            selectedValue={languageCode}
+                            onValueChange={this.changeLanguage.bind(this)}
                         >
-                            <Picker.Item label="请选择语言" value={unselected}/>
+                            <Picker.Item label="请选择语言" value={CommonConst.languageCode.unselected}/>
                             <Picker.Item label="English" value={CommonConst.languageCode.English}/>
                             <Picker.Item label="简体中文" value={CommonConst.languageCode.Chinese}/>
                         </Picker>
@@ -134,7 +118,7 @@ export default class SignIn extends Component {
                         <Item>
                             <Input placeholder="Username"
                                    autoCapitalize='none'
-                                   value={this.state.username}
+                                   value={username}
                                    onChangeText={(text) => this.setState({username: text})}/>
                         </Item>
                         <Item>
@@ -170,3 +154,4 @@ export default class SignIn extends Component {
     }
 }
 
+export default SignIn;

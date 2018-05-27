@@ -9,6 +9,7 @@ export default {
     },
 
     languageCode: {
+        unselected: 'none',
         Chinese: 'zh',
         English: 'en'
     }
