@@ -1,5 +1,5 @@
 /**
- * Created by ZhouTing on 2018-05-06 14:36.
+ * Created by ZhouTing on 2018-05-27 23:29.
  */
 import React, {Component} from 'react';
 import {Image, View} from 'react-native';
@@ -27,7 +27,6 @@ import CommonConst from '../constant/CommonConst';
 
 import {createAction} from '../utils/index'
 
-// let Global = require('../utils/Global');
 // let service = require('../utils/service');
 
 
@@ -42,7 +41,7 @@ const resetAction = StackActions.reset({
 class SignIn extends Component {
 
     changeLanguage(value: string) {
-        this.props.dispatch(createAction('signIn/changeLanguage')({languageCode: value}))
+        this.props.dispatch(createAction('signIn/updateState')({languageCode: value}))
     }
 
     login() {

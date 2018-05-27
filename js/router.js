@@ -96,7 +96,7 @@ const AppNavigator = createStackNavigator(
     },
     {
         // initialRouteName: props.isLogin ? "Drawer" : "SignIn",
-        initialRouteName: "SignIn",
+        initialRouteName: "Drawer",
         headerMode: "none",
         mode: 'modal'
     }
