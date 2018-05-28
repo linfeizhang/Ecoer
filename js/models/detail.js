@@ -24,8 +24,8 @@ export default {
         },
     },
     subscriptions: {
-        setup({dispatch}) {
-            dispatch({type: 'loadStorage'})
+        setup({dispatch, history}) {
+            dispatch({type: 'test'})
         },
     }
 }

@@ -1,19 +1,16 @@
 import React, {Component} from 'react';
 import {Alert, FlatList, Image, TouchableHighlight, View} from 'react-native';
 import {Body, Button, Container, Header, Icon, Left, Right, Tab, Tabs, Text, Title} from "native-base";
-
 import {connect} from 'react-redux'
-
 import Images from '../../constant/Images';
 import {createAction} from '../../utils/index'
 
 // let service = require('../../utils/service');
 
-
 @connect(({acList}) => ({...acList}))
 export default class App extends Component {
     render() {
-        const {changeText,changeTextA} = this.props;
+        const {changeText, changeTextA} = this.props;
         return (
             <Container>
                 <Header>
@@ -38,10 +35,10 @@ export default class App extends Component {
                     </Tab>
                 </Tabs>
                 {/*<View style={{height: 50}}>*/}
-                    {/*<Button block success style={{marginBottom: 20, height: 45}}*/}
-                    {/*onPress={() => this.props.navigation.navigate("NewAc")}>*/}
-                    {/*<Text>NewAc</Text>*/}
-                    {/*</Button>*/}
+                {/*<Button block success style={{marginBottom: 20, height: 45}}*/}
+                {/*onPress={() => this.props.navigation.navigate("NewAc")}>*/}
+                {/*<Text>NewAc</Text>*/}
+                {/*</Button>*/}
                 {/*</View>*/}
                 <View style={{height: 50}}>
                     <Button full success style={{marginBottom: 20, height: 45}}
@@ -52,16 +49,13 @@ export default class App extends Component {
             </Container>
         );
     }
-    changeBtnText(value: string){
+
+    changeBtnText(value: string) {
         this.props.dispatch(createAction('acList/updateState')({changeText: value}))
     }
 }
 
-
-
-@connect(({acList}) => ({...acList}))
 class ACListTab extends Component {
-
 
     setData(data) {
         if (data.error === undefined) {
@@ -99,8 +93,8 @@ class ACListTab extends Component {
                 <FlatList
                     // data={[{key: 'a'}, {key: 'b'}]}
                     style={{backgroundColor: 'white'}}
-                    data={[{key:'aaa'},{key:'bbb'},{key:'ccc'},{key:'ddd'}]}
-                    keyExtractor={this._keyExtractor}
+                    data={[{key: 'aaa'}, {key: 'bbb'}, {key: 'ccc'}, {key: 'ddd'}]}
+                    // keyExtractor={this._keyExtractor}
                     renderItem={this._renderItem}
                 />
             </Container>

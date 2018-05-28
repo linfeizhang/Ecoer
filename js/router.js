@@ -6,6 +6,7 @@ import {connect} from 'react-redux'
 
 import Images from './constant/Images';
 import CommonConst from './constant/CommonConst';
+import ClientParam from './constant/ClientParam';
 
 import SideBar from './views/sidebar';
 import UserHelp from './views/sidebar/UserHelp';
@@ -104,6 +105,14 @@ const AppNavigator = createStackNavigator(
 
 @connect(({app}) => ({app}))
 class Router extends PureComponent {
+
+    constructor(props) {
+        super(props);
+        let param = new ClientParam();
+        CommonConst.global.client_secret = param.client_secret;
+        CommonConst.global.client_id = param.client_id;
+    }
+
     render() {
         const {app} = this.props;
         if (app.loading) return <ActivityIndicator/>;

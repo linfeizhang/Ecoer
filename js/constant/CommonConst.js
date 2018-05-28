@@ -4,6 +4,13 @@
  */
 export default {
 
+    global: {
+        server: 'test.dsm.inhand.com.cn',
+        org_email: 'luoxf@inhand.com.cn',
+        ios_version: '1.4.1',
+        android_version: '1.4.1'
+    },
+
     color: {
         themeColor: '#8fb721',
     },

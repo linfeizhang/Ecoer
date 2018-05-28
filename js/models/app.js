@@ -24,7 +24,7 @@ export default {
     effects: {
         * loadStorage(action, {call, put}) {
             // const login = yield call(Storage.get, 'login', false);
-            yield put(createAction('updateState')({ loading: false}))
+            yield put(createAction('updateState')({loading: false}))
         },
         * login({payload}, {call, put}) {
             yield put(createAction('updateState')({fetching: true}));
@@ -39,8 +39,8 @@ export default {
         },
     },
     subscriptions: {
-        setup({dispatch}) {
-            dispatch({type: 'loadStorage'})
-        },
+        setup() {
+            console.log('app启动...')
+        }
     }
 }
