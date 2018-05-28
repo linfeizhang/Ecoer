@@ -1,6 +1,9 @@
 /**
  * Created by ZhouTing on 2018-05-27 23:29.
+ * 此页面是登陆界面的model
  */
+
+
 import CommonConst from '../constant/CommonConst';
 import {createAction} from '../utils'
 

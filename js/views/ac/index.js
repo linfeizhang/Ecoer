@@ -2,12 +2,18 @@ import React, {Component} from 'react';
 import {Alert, FlatList, Image, TouchableHighlight, View} from 'react-native';
 import {Body, Button, Container, Header, Icon, Left, Right, Tab, Tabs, Text, Title} from "native-base";
 
+import {connect} from 'react-redux'
+
 import Images from '../../constant/Images';
+import {createAction} from '../../utils/index'
 
 // let service = require('../../utils/service');
 
+
+@connect(({acList}) => ({...acList}))
 export default class App extends Component {
     render() {
+        const {changeText,changeTextA} = this.props;
         return (
             <Container>
                 <Header>
@@ -31,27 +37,31 @@ export default class App extends Component {
                         <ACListTab {...this.props} tab="Offline"/>
                     </Tab>
                 </Tabs>
-                <View style={{height: 50, backgroundColor: 'pink'}}>
+                {/*<View style={{height: 50}}>*/}
                     {/*<Button block success style={{marginBottom: 20, height: 45}}*/}
                     {/*onPress={() => this.props.navigation.navigate("NewAc")}>*/}
                     {/*<Text>NewAc</Text>*/}
                     {/*</Button>*/}
+                {/*</View>*/}
+                <View style={{height: 50}}>
+                    <Button full success style={{marginBottom: 20, height: 45}}
+                            onPress={() => this.changeBtnText(changeTextA)}>
+                        <Text>{changeText}</Text>
+                    </Button>
                 </View>
             </Container>
         );
     }
+    changeBtnText(value: string){
+        this.props.dispatch(createAction('acList/updateState')({changeText: value}))
+    }
 }
 
-class ACListTab extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            tabLabel: this.props.tab,
-            dataResult: [],
-        };
 
-        // service.getAllACList(this, 0);
-    }
+
+@connect(({acList}) => ({...acList}))
+class ACListTab extends Component {
+
 
     setData(data) {
         if (data.error === undefined) {
@@ -72,8 +82,10 @@ class ACListTab extends Component {
                     <Image source={Images.acState.stateFocus} style={{width: 40, height: 40, resizeMode: 'stretch'}}/>
                 </View>
                 <View style={{flex: 5}}>
-                    <Text>{item.name}</Text>
-                    <Text>IoT SN:{item.sn}</Text>
+                    {/*<Text>{item.name}</Text>*/}
+                    <Text>Test Test Test Test</Text>
+                    {/*<Text>IoT SN:{item.sn}</Text>*/}
+                    <Text>IoT SN: EG9101122334455</Text>
                 </View>
             </View>
         </TouchableHighlight>
@@ -87,7 +99,7 @@ class ACListTab extends Component {
                 <FlatList
                     // data={[{key: 'a'}, {key: 'b'}]}
                     style={{backgroundColor: 'white'}}
-                    data={this.state.dataResult}
+                    data={[{key:'aaa'},{key:'bbb'},{key:'ccc'},{key:'ddd'}]}
                     keyExtractor={this._keyExtractor}
                     renderItem={this._renderItem}
                 />

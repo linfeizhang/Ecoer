@@ -15,10 +15,11 @@ import dva from './utils/dva';
 import appModel from './models/app';
 import detailModel from './models/detail';
 import signIn from './models/signIn';
+import acList from './models/ac/acList';
 
 const app = dva({
     initialState: {},
-    models: [appModel, detailModel, signIn],
+    models: [appModel, detailModel, signIn, acList],
     onAction: [],
     extraReducers: {
         form: formReducer,
@@ -31,7 +32,7 @@ const app = dva({
 
 const persistConfig = {
     storage: AsyncStorage,
-    // blacklist: ['detail'],
+    blacklist: ['acList'],
     // whitelist: ['detail'],
 };
 
