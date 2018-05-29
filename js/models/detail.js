@@ -25,7 +25,7 @@ export default {
     },
     subscriptions: {
         setup({dispatch, history}) {
-            dispatch({type: 'test'})
+            console.log('进入detail');
         },
     }
 }

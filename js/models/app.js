@@ -22,7 +22,7 @@ export default {
         }
     },
     effects: {
-        * loadStorage(action, {call, put}) {
+        * launchCompletion(action, {call, put}) {
             // const login = yield call(Storage.get, 'login', false);
             yield put(createAction('updateState')({loading: false}))
         },
@@ -39,8 +39,8 @@ export default {
         },
     },
     subscriptions: {
-        setup() {
-            console.log('app启动...')
+        setup({dispatch}) {
+            dispatch({type: 'launchCompletion'})
         }
     }
 }

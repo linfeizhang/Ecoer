@@ -26,7 +26,7 @@ export default {
     },
     subscriptions: {
         setup({dispatch}) {
-            dispatch({type: 'test'})
+            console.log('进入signIn');
         },
     }
 }
