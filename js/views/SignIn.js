@@ -37,7 +37,7 @@ const resetAction = StackActions.reset({
     ]
 });
 
-@connect(({signIn}) => ({...signIn}))
+@connect(({token, signIn}) => ({...token, ...signIn}))
 class SignIn extends Component {
 
     changeLanguage(value: string) {
@@ -45,8 +45,12 @@ class SignIn extends Component {
     }
 
     login() {
-        if (this.state.username && this.password) {
-            // service.login(this, this.state.username, this.password)
+        if (this.username && this.password) {
+            this.props.dispatch(createAction('signIn/login')({
+                username: this.username,
+                password: this.password,
+                nav: this.props.navigation
+            }))
         } else {
             Toast.show({type: 'danger', text: '用户名和密码不能为空！', duration: 3000, buttonText: "关闭"});
         }
@@ -118,7 +122,7 @@ class SignIn extends Component {
                             <Input placeholder="Username"
                                    autoCapitalize='none'
                                    value={username}
-                                   onChangeText={(text) => this.setState({username: text})}/>
+                                   onChangeText={(text) => this.username = text}/>
                         </Item>
                         <Item>
                             <Input placeholder="Password"

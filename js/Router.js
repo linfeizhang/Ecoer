@@ -1,7 +1,7 @@
 import React, {PureComponent} from "react";
 import {ActivityIndicator, Image} from "react-native";
 import {createBottomTabNavigator, createDrawerNavigator, createStackNavigator} from "react-navigation";
-
+import {Container} from "native-base";
 import {connect} from 'react-redux'
 
 import Images from './constant/Images';
@@ -12,6 +12,7 @@ import SideBar from './views/sidebar';
 import UserHelp from './views/sidebar/UserHelp';
 import About from './views/sidebar/About';
 
+import Setup from './Setup';
 import AC from './views/ac';
 import Events from './views/events';
 import Files from './views/files';
@@ -88,6 +89,7 @@ const Drawer = createDrawerNavigator(
 
 const AppNavigator = createStackNavigator(
     {
+        Setup: {screen: Setup},
         Drawer: {screen: Drawer},
         SignIn: {screen: SignIn},
         SignUp: {screen: SignUp},
@@ -97,7 +99,7 @@ const AppNavigator = createStackNavigator(
     },
     {
         // initialRouteName: props.isLogin ? "Drawer" : "SignIn",
-        initialRouteName: "SignIn",
+        initialRouteName: "Setup",
         headerMode: "none",
         mode: 'modal'
     }
@@ -115,7 +117,13 @@ class Router extends PureComponent {
 
     render() {
         const {app} = this.props;
-        if (app.loading) return <ActivityIndicator/>;
+        if (app.loading) {
+            return (
+                <Container style={{justifyContent: "center", alignItems: "center"}}>
+                    <ActivityIndicator/>
+                </Container>
+            )
+        }
         return <AppNavigator/>
     }
 }

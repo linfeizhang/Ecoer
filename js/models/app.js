@@ -23,7 +23,6 @@ export default {
     },
     effects: {
         * launchCompletion(action, {call, put}) {
-            // const login = yield call(Storage.get, 'login', false);
             yield put(createAction('updateState')({loading: false}))
         },
         * login({payload}, {call, put}) {

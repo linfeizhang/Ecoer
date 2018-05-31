@@ -6,20 +6,20 @@ import {autoRehydrate, persistStore} from 'redux-persist';
 import {AsyncStorage} from 'react-native'
 import {reducer as formReducer} from 'redux-form'
 import {Root, StyleProvider} from "native-base";
-import Router from './router';
+import Router from './Router';
 import getTheme from "./theme/components";
 import variables from "./theme/variables/commonColor";
 
 import dva from './utils/dva';
 
 import appModel from './models/app';
-import detailModel from './models/detail';
+import token from './models/token';
 import signIn from './models/signIn';
 import acList from './models/ac/acList';
 
 const app = dva({
     initialState: {},
-    models: [appModel, detailModel, signIn, acList],
+    models: [appModel, token, signIn, acList],
     onAction: [],
     extraReducers: {
         form: formReducer,
@@ -32,7 +32,7 @@ const app = dva({
 
 const persistConfig = {
     storage: AsyncStorage,
-    blacklist: ['acList'],
+    blacklist: ['app', 'acList'],
     // whitelist: ['detail'],
 };
 
