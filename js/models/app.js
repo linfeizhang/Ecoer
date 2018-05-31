@@ -1,6 +1,5 @@
 import {createAction} from '../utils'
 import {NavigationActions, StackActions} from 'react-navigation'
-import * as authService from '../services/auth'
 
 const resetAction = StackActions.reset({
     index: 0,
@@ -27,7 +26,8 @@ export default {
         },
         * login({payload}, {call, put}) {
             yield put(createAction('updateState')({fetching: true}));
-            const login = yield call(authService.login, payload);
+            // const login = yield call(authService.login, payload);
+            const login = true;
             if (login) {
                 yield payload.nav.dispatch(resetAction);
             }

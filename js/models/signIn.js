@@ -42,10 +42,12 @@ export default {
                 "&password=" + md5.hex_md5(payload.password).toUpperCase() +
                 "&password_type=2";
 
-            const data = yield call(service.get, url, null, false);
+            const data = yield call(service.post, url, null, false, CommonConst.header.form);
             console.log(data);
             if (data.error === undefined) {
                 yield payload.nav.dispatch(main);
+            } else {
+                alert('登录失败！')
             }
         },
     },
