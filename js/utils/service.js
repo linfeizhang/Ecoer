@@ -100,7 +100,7 @@ function request(method, url, header, body, hasToken) {
         .then((response) => response.json())
         .then((data) => {
             if (data.error_code === 21327 || data.error_code === 21336 || data.error_code === 21337 || data.error_code === 21338) {
-                refreshToken([url, header, body, hasToken]);
+                return refreshToken([url, header, body, hasToken]);
             } else {
                 return data;
             }

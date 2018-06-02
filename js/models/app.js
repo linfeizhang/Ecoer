@@ -24,18 +24,18 @@ export default {
         * launchCompletion(action, {call, put}) {
             yield put(createAction('updateState')({loading: false}))
         },
-        * login({payload}, {call, put}) {
-            yield put(createAction('updateState')({fetching: true}));
-            // const login = yield call(authService.login, payload);
-            const login = true;
-            if (login) {
-                yield payload.nav.dispatch(resetAction);
-            }
-            yield put(createAction('updateState')({login, fetching: false}));
-        },
-        * logout(action, {call, put}) {
-            yield put(createAction('updateState')({login: false}));
-        },
+        // * login({payload}, {call, put}) {
+        //     yield put(createAction('updateState')({fetching: true}));
+        //     // const login = yield call(authService.login, payload);
+        //     const login = true;
+        //     if (login) {
+        //         yield payload.nav.dispatch(resetAction);
+        //     }
+        //     yield put(createAction('updateState')({login, fetching: false}));
+        // },
+        // * logout(action, {call, put}) {
+        //     yield put(createAction('updateState')({login: false}));
+        // },
     },
     subscriptions: {
         setup({dispatch}) {
