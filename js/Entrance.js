@@ -3,23 +3,25 @@
  */
 import React, {Component} from "react";
 import {autoRehydrate, persistStore} from 'redux-persist';
-import {AsyncStorage} from 'react-native'
+import {AsyncStorage, DeviceEventEmitter} from 'react-native'
 import {reducer as formReducer} from 'redux-form'
 import {Root, StyleProvider} from "native-base";
+import CommonConst from './constant/CommonConst';
 import Router from './Router';
 import getTheme from "./theme/components";
 import variables from "./theme/variables/commonColor";
-
 import dva from './utils/dva';
 
 import appModel from './models/app';
 import token from './models/token';
 import signIn from './models/signIn';
+import signUp from './models/signUp';
 import acList from './models/ac/acList';
+import about from './models/me/about';
 
 const app = dva({
     initialState: {},
-    models: [appModel, token, signIn, acList],
+    models: [appModel, token, signIn, signUp, acList, about],
     onAction: [],
     extraReducers: {
         form: formReducer,
@@ -36,7 +38,12 @@ const persistConfig = {
     // whitelist: ['detail'],
 };
 
-persistStore(app._store, persistConfig);
+const persistor = persistStore(app._store, persistConfig, () => {
+    //发送"加载本地储存完成"事件
+    DeviceEventEmitter.emit('loadStoreDone');
+});
+
+CommonConst.persistor = persistor;
 
 const Entrance = app.start(
     <StyleProvider style={getTheme(variables)}>

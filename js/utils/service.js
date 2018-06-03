@@ -54,15 +54,15 @@ function refreshToken(params) {
                 if (data.error === undefined) {
                     let newData = {
                         access_token: data.access_token,
-                        create_token_time: data.refresh_token,
+                        refresh_token: data.refresh_token,
                         expires_in: data.expires_in,
-                        last_login: new Date().getTime()
+                        create_token_time: new Date().getTime()
                     };
 
                     CommonConst.global.access_token = newData.access_token;
-                    CommonConst.global.create_token_time = newData.create_token_time;
+                    CommonConst.global.refresh_token = newData.refresh_token;
                     CommonConst.global.expires_in = newData.expires_in;
-                    CommonConst.global.last_login = newData.last_login;
+                    CommonConst.global.create_token_time = newData.create_token_time;
 
                     CommonConst.global.dispatch(createAction('updateToken')(newData));
                     return request.apply(null, params);

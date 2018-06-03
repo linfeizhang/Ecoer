@@ -2,36 +2,66 @@
  * Created by ZhouTing on 2018-05-06 14:37.
  */
 import React, {Component} from 'react';
-import {Platform, StyleSheet,View,Image} from 'react-native';
-import {Body, Button, Container, Content, Form, Item, Input, Header, Icon, Left,Radio, Right, Text, Title} from "native-base";
-
+import {Image, View} from 'react-native';
+import {
+    Body,
+    Button,
+    Container,
+    Content,
+    Header,
+    Icon,
+    Input,
+    Item,
+    Left,
+    Right,
+    Text,
+    Title,
+    Toast
+} from "native-base";
+import {connect} from 'react-redux'
+import {Field, reduxForm} from "redux-form";
 import CommonConst from '../constant/CommonConst';
 import Images from '../constant/Images';
+import {createAction} from '../utils/index'
 
+class SignUp extends Component {
 
-const instructions = Platform.select({
-    ios: 'Press Cmd+R to reload,\n' +
-    'Cmd+D or shake for dev menu',
-    android: 'Double tap R on your keyboard to reload,\n' +
-    'Shake or press menu button for dev menu',
-});
+    renderInput({input, label, type, meta: {touched, error, warning}}) {
 
-export default class SignUp extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            email: '',
-            confirm: '',
+        let hasError = false;
+        if (error !== undefined) {
+            hasError = true;
+        }
+        return (
+            <Item error={hasError}>
+                {/*<Icon active name={input.name === "email" ? "person" : "unlock"}/>*/}
+                <Input {...input}
+                       style={{marginLeft: 15}}
+                       autoCapitalize='none'
+                       placeholder={input.name === "email" ? "E-mail" : "Confirm"}
+                />
+                {
+                    hasError ?
+                        <Item style={{borderColor: "transparent"}}>
+                            <Icon active style={{color: "red", marginTop: 5}} name="close"/>
+                            <Text style={{fontSize: 15, color: "red"}}>{error}</Text>
+                        </Item> : <Text/>
+                }
+            </Item>
+        )
+    }
 
-            select:false
+    register = values => {
+        if (values.email && values.confirm) {
+            this.props.dispatch(createAction('signUp/register')({email: values.email, nav: this.props.navigation}))
+        } else {
+            Toast.show({type: 'danger', text: '输入框不能为空！', duration: 3000, buttonText: "关闭"});
         }
     }
 
-    radioToggle(){
-        this.setState({select:!this.state.select});
-    }
-
     render() {
+        const {handleSubmit, reset} = this.props;
+
         return (
             <Container>
                 <Header>
@@ -44,26 +74,15 @@ export default class SignUp extends Component {
                     <Right/>
                 </Header>
                 <Content>
-                    <View style={{justifyContent:'center',alignItems:'center',marginTop:40,marginBottom:40}}>
+                    <View style={{justifyContent: 'center', alignItems: 'center', marginTop: 40, marginBottom: 40}}>
                         <Image source={Images.logoImg.logoImg} style={{width: 200, height: 70, resizeMode: 'stretch'}}/>
                     </View>
-                    <Form style={{marginRight: 16}}>
-                        <Item>
-                            <Input placeholder="E-mail"
-                                   autoCapitalize='none'
-                                   value={this.state.email}
-                                   onChangeText={(email) => this.setState({email: email})}
-                            />
-                        </Item>
-                        <Item>
-                            <Input placeholder="Confirm"
-                                   autoCapitalize='none'
-                                   value={this.state.confirm}
-                                   onChangeText={(confirm) => this.setState({confirm: confirm})}
-                            />
-                        </Item>
-                    </Form>
-                    <Button full style={{margin: 15, marginTop: 50, backgroundColor: CommonConst.color.themeColor}}>
+
+                    <Field name="email" component={this.renderInput}/>
+                    <Field name="confirm" component={this.renderInput}/>
+
+                    <Button full style={{margin: 15, marginTop: 50, backgroundColor: CommonConst.color.themeColor}}
+                            onPress={handleSubmit(this.register)}>
                         <Text>Sign Up</Text>
                     </Button>
                 </Content>
@@ -72,21 +91,32 @@ export default class SignUp extends Component {
     }
 }
 
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor: '#F5FCFF',
-    },
-    welcome: {
-        fontSize: 20,
-        textAlign: 'center',
-        margin: 10,
-    },
-    instructions: {
-        textAlign: 'center',
-        color: '#333333',
-        marginBottom: 5,
-    },
-});
+const validate = values => {
+    const error = {};
+    error.email = "";
+    error.confirm = "";
+    let ema = values.email;
+    let confirm = values.confirm;
+    if (values.email === undefined) {
+        ema = "";
+    }
+    if (values.confirm === undefined) {
+        confirm = "";
+    }
+    if (ema.length < 8 && ema !== "") {
+        error.email = "too short";
+    }
+    if (!ema.includes("@") && ema !== "") {
+        error.email = "@ not included";
+    }
+    if (confirm.length !== 0 && confirm !== ema) {
+        error.confirm = "两次输入不同";
+    }
+    return error;
+};
+
+const SignUpForm = reduxForm({form: "reg", validate})(SignUp);
+
+export default connect(
+    ({signUp}) => ({...signUp})
+)(SignUpForm)

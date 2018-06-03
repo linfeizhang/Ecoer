@@ -1,13 +1,8 @@
 import React, {Component} from 'react';
-import {Platform, StyleSheet} from 'react-native';
+import {Platform, View,StyleSheet,TouchableOpacity} from 'react-native';
 import {Body, Button, Container, Header,Content, Icon, Left, Right, Text, Title} from "native-base";
 
-const instructions = Platform.select({
-    ios: 'Press Cmd+R to reload,\n' +
-    'Cmd+D or shake for dev menu',
-    android: 'Double tap R on your keyboard to reload,\n' +
-    'Shake or press menu button for dev menu',
-});
+import styles from './styles/indexStyle';
 
 export default class App extends Component{
 
@@ -24,8 +19,69 @@ export default class App extends Component{
                     <Right/>
                 </Header>
 
-                <Content padder>
-                    <Text>Me Page</Text>
+                <Content>
+                    <View style={styles.part}>
+                        <View style={styles.item}>
+                            <View>
+                                <Text>Factory Support</Text>
+                            </View>
+                            <View>
+                                <Text>+1-(703)348-2538</Text>
+                            </View>
+                        </View>
+                        <View style={styles.item}>
+                            <View>
+                                <Text>Factory Support Email</Text>
+                            </View>
+                            <View>
+                                <Text>support@ecoer.com</Text>
+                            </View>
+                        </View>
+                        <View style={styles.item}>
+                            <View>
+                                <Text>Web</Text>
+                            </View>
+                            <View>
+                                <Text>www.ecoer.com</Text>
+                            </View>
+                        </View>
+                    </View>
+
+                    <View style={styles.part}>
+                        <TouchableOpacity style={styles.item}>
+                            <View>
+                                <Text>Contractor</Text>
+                            </View>
+                            <View style={{flexDirection: 'row'}}>
+                                <Text style={{marginRight: 10}}>Test</Text>
+                                <Icon type="SimpleLineIcons" name="arrow-right" style={styles.iconStyle}/>
+                            </View>
+                        </TouchableOpacity>
+                        <TouchableOpacity style={styles.item}>
+                            <View>
+                                <Text>Personal Setting</Text>
+                            </View>
+                            <View>
+                                <Icon type="SimpleLineIcons" name="arrow-right" style={styles.iconStyle}/>
+                            </View>
+                        </TouchableOpacity>
+                        <TouchableOpacity style={styles.item}>
+                            <View>
+                                <Text>Change Password</Text>
+                            </View>
+                            <View>
+                                <Icon type="SimpleLineIcons" name="arrow-right" style={styles.iconStyle}/>
+                            </View>
+                        </TouchableOpacity>
+                        <TouchableOpacity style={styles.item} onPress={() => this.props.navigation.navigate("About")}>
+                            <View>
+                                <Text>About</Text>
+                            </View>
+                            <View>
+                                <Icon type="SimpleLineIcons" name="arrow-right" style={styles.iconStyle}/>
+                            </View>
+                        </TouchableOpacity>
+                    </View>
                 </Content>
             </Container>
         );

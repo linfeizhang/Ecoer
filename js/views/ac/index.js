@@ -7,9 +7,12 @@ import {createAction} from '../../utils/index'
 
 // let service = require('../../utils/service');
 
-@connect(({acList}) => ({...acList}))
+@connect(({acList, token}) => ({...acList, ...token}))
 export default class App extends Component {
     render() {
+
+        console.log(this.props.access_token);
+
         const {changeText, changeTextA} = this.props;
         return (
             <Container>

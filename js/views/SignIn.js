@@ -5,6 +5,7 @@ import React, {Component} from 'react';
 import {Image, View} from 'react-native';
 import {NavigationActions, StackActions} from 'react-navigation';
 import {connect} from 'react-redux'
+import {Field, reduxForm} from "redux-form";
 import {
     Body,
     Button,
@@ -12,6 +13,7 @@ import {
     Content,
     Form,
     Header,
+    Icon,
     Input,
     Item,
     Left,
@@ -37,7 +39,6 @@ const resetAction = StackActions.reset({
     ]
 });
 
-@connect(({token, signIn}) => ({...token, ...signIn}))
 class SignIn extends Component {
 
     changeLanguage(value: string) {
@@ -49,6 +50,25 @@ class SignIn extends Component {
             this.props.dispatch(createAction('signIn/login')({
                 username: this.username,
                 password: this.password,
+                nav: this.props.navigation
+            }))
+        } else {
+            Toast.show({type: 'danger', text: '用户名和密码不能为空！', duration: 3000, buttonText: "关闭"});
+        }
+    }
+
+    submit = values => {
+        // if (!values.email || !values.password) {
+        //     alert('用户名和密码不能为空！');
+        //     return;
+        // }
+        // console.log(values);
+        // this.props.dispatch({type: 'LOGIN_IN_START', values: values});
+
+        if (values.email && values.password) {
+            this.props.dispatch(createAction('signIn/login')({
+                username: values.email,
+                password: values.password,
                 nav: this.props.navigation
             }))
         } else {
@@ -89,7 +109,8 @@ class SignIn extends Component {
     }
 
     render() {
-        const {username, languageCode} = this.props;
+        const {username, languageCode, handleSubmit, reset} = this.props;
+
         return (
             <Container>
                 <Header>
@@ -117,23 +138,34 @@ class SignIn extends Component {
                     <View style={{justifyContent: 'center', alignItems: 'center', marginTop: 40, marginBottom: 40}}>
                         <Image source={Images.logoImg.logoImg} style={{width: 200, height: 70, resizeMode: 'stretch'}}/>
                     </View>
-                    <Form style={{marginRight: 16}}>
-                        <Item>
-                            <Input placeholder="Username"
-                                   autoCapitalize='none'
-                                   value={username}
-                                   onChangeText={(text) => this.username = text}/>
-                        </Item>
-                        <Item>
-                            <Input placeholder="Password"
-                                   secureTextEntry
-                                   onChangeText={(text) => this.password = text}/>
-                        </Item>
-                    </Form>
-                    <Button full style={{margin: 15, marginTop: 50}}
-                            onPress={() => this.login()}>
-                        <Text>Sign In</Text>
+
+                    <Field name="email" component={this.renderInput}/>
+                    <Field name="password" component={this.renderInput}/>
+                    <Button block style={{marginTop: 20}} onPress={handleSubmit(this.submit)}>
+                        {/*<Button style={{margin: 10}} block primary onPress={reset}>*/}
+                        <Text>Login</Text>
                     </Button>
+
+                    {/*<Form style={{marginRight: 16}}>*/}
+                    {/*<Item>*/}
+                    {/*<Input placeholder="Username"*/}
+                    {/*autoCapitalize='none'*/}
+                    {/*value={username}*/}
+                    {/*onChangeText={(text) => this.username = text}/>*/}
+                    {/*</Item>*/}
+                    {/*<Item>*/}
+                    {/*<Input placeholder="Password"*/}
+                    {/*secureTextEntry*/}
+                    {/*onChangeText={(text) => this.password = text}/>*/}
+                    {/*</Item>*/}
+                    {/*</Form>*/}
+                    {/*<Button full style={{margin: 15, marginTop: 50}}*/}
+                    {/*onPress={() => this.login()}>*/}
+                    {/*<Text>Sign In</Text>*/}
+                    {/*</Button>*/}
+
+                    <Text>{this.props.message}</Text>
+
                     <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
                         <Button transparent onPress={() => this.props.navigation.navigate('ForgetPassword')}>
                             <Text>忘记密码？</Text>
@@ -155,6 +187,62 @@ class SignIn extends Component {
             </Container>
         );
     }
+
+    renderInput({input, label, type, meta: {touched, error, warning}}) {
+
+        let hasError = false;
+        if (error !== undefined) {
+            hasError = true;
+        }
+        return (
+            <Item error={hasError}>
+                <Icon active name={input.name === "email" ? "person" : "unlock"}/>
+                <Input {...input}
+                       autoCapitalize='none'
+                       placeholder={input.name === "email" ? "E-mail" : "Password"}
+                       secureTextEntry={input.name === "password"}
+                />
+                {
+                    hasError ?
+                        <Item style={{borderColor: "transparent"}}>
+                            <Icon active style={{color: "red", marginTop: 5}} name="close"/>
+                            <Text style={{fontSize: 15, color: "red"}}>{error}</Text>
+                        </Item> : <Text/>
+                }
+            </Item>
+        )
+    }
 }
 
-export default SignIn;
+const validate = values => {
+    const error = {};
+    error.email = "";
+    error.password = "";
+    let ema = values.email;
+    let pw = values.password;
+    if (values.email === undefined) {
+        ema = "";
+    }
+    if (values.password === undefined) {
+        pw = "";
+    }
+    if (ema.length < 8 && ema !== "") {
+        error.email = "too short";
+    }
+    if (!ema.includes("@") && ema !== "") {
+        error.email = "@ not included";
+    }
+    if (pw.length > 12) {
+        error.password = "max 11 characters";
+    }
+    if (pw.length < 5 && pw.length > 0) {
+        error.password = "Weak";
+    }
+    return error;
+};
+
+const SignInForm = reduxForm({form: "login", validate})(SignIn);
+
+export default connect(
+    ({token, signIn}) => ({...token, ...signIn})
+)(SignInForm)

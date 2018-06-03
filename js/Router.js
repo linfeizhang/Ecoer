@@ -10,18 +10,29 @@ import ClientParam from './constant/ClientParam';
 
 import SideBar from './views/sidebar';
 import UserHelp from './views/sidebar/UserHelp';
-import About from './views/sidebar/About';
-
 import Setup from './Setup';
-import AC from './views/ac';
-import Events from './views/events';
-import Files from './views/files';
-import Me from './views/me';
-import NewAc from './views/ac/NewAc';
-import AcDetail from './views/ac/AcDetail';
+
+
 import SignIn from './views/SignIn';
 import SignUp from './views/SignUp';
 import ForgetPassword from './views/other/ForgetPassword';
+
+
+import AC from './views/ac';
+import NewAc from './views/ac/NewAc';
+import AcDetail from './views/ac/AcDetail';
+
+
+import Events from './views/events';
+
+
+import Files from './views/files';
+
+
+import Me from './views/me';
+import About from './views/me/About';
+//import About from './views/sidebar/About';
+
 
 /**
  * tabBar 图标生成方法
@@ -76,7 +87,7 @@ const Drawer = createDrawerNavigator(
     {
         Home: {screen: MyTab},
         UserHelp: {screen: UserHelp},
-        About: {screen: About}
+        //About: {screen: About}
     },
     {
         initialRouteName: "Home",
@@ -96,16 +107,18 @@ const AppNavigator = createStackNavigator(
         ForgetPassword: {screen: ForgetPassword},
         NewAc: {screen: NewAc},
         AcDetail: {screen: AcDetail},
+        About: {screen: About}
     },
     {
         // initialRouteName: props.isLogin ? "Drawer" : "SignIn",
+        // initialRouteName: "Setup",
         initialRouteName: "Setup",
         headerMode: "none",
         mode: 'modal'
     }
 );
 
-@connect(({app}) => ({app}))
+@connect(({app}) => ({...app}))
 class Router extends PureComponent {
 
     constructor(props) {
@@ -116,8 +129,8 @@ class Router extends PureComponent {
     }
 
     render() {
-        const {app} = this.props;
-        if (app.loading) {
+        const {loading} = this.props;
+        if (loading) {
             return (
                 <Container style={{justifyContent: "center", alignItems: "center"}}>
                     <ActivityIndicator/>

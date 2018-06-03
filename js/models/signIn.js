@@ -20,7 +20,8 @@ export default {
     namespace: 'signIn',
     state: {
         username: '',
-        languageCode: CommonConst.languageCode.unselected
+        languageCode: CommonConst.languageCode.unselected,
+        message: ''
     },
     reducers: {
         updateState(state, {payload}) {
@@ -43,11 +44,21 @@ export default {
                 "&password_type=2";
 
             const data = yield call(service.post, url, null, false, CommonConst.header.form);
-            console.log(data);
+
             if (data.error === undefined) {
+                let curr_time = new Date().getTime();
+                let newData = {
+                    access_token: data.access_token,
+                    refresh_token: data.refresh_token,
+                    expires_in: data.expires_in,
+                    create_token_time: curr_time,
+                    last_login: curr_time
+                };
+                yield put(createAction('token/updateToken')(newData));
                 yield payload.nav.dispatch(main);
             } else {
-                alert('登录失败！')
+                yield put(createAction('updateState')({message: '登陆失败！'}))
+                // alert('登录失败！')
             }
         },
     },
