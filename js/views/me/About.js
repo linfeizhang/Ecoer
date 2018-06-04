@@ -48,11 +48,10 @@ export default class About extends Component {
                         <Text style={{fontSize: 20, fontFamily: 'Cochin',}}>Ecoer Smart Service 1.4.1</Text>
                     </View>
 
-                    <TouchableOpacity
-                        onPress={() => this.logout()}
+                    <Button full onPress={() => this.logout()}
                         style={{backgroundColor: '#9bb538', paddingTop: 12, paddingBottom: 12}}>
                         <Text style={{textAlign: 'center', color: '#fff', fontSize: 18}}>Log Out</Text>
-                    </TouchableOpacity>
+                    </Button>
 
                     <View style={{alignItems: 'center', marginTop: 60}}>
                         <Text>copyright © 2016-2018 Ecoer Inc.</Text>

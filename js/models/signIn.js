@@ -44,7 +44,6 @@ export default {
                 "&password_type=2";
 
             const data = yield call(service.post, url, null, false, CommonConst.header.form);
-
             if (data.error === undefined) {
                 let curr_time = new Date().getTime();
                 let newData = {
@@ -57,8 +56,32 @@ export default {
                 yield put(createAction('token/updateToken')(newData));
                 yield payload.nav.dispatch(main);
             } else {
-                yield put(createAction('updateState')({message: '登陆失败！'}))
-                // alert('登录失败！')
+                //yield put(createAction('updateState')({message: '登陆失败！'}))
+                if (data.error_code) {
+                    switch (data.error_code) {
+                        case 21304:
+                            // this.userLocked();
+                            break;
+                        case 20003:
+                            // this.setState({message: "user_not_exist"});
+                            alert("用户不存在");
+                            break;
+                        case 21302:
+                            // this.setState({message: "user_pwd_error"});
+                            alert("用户名或密码错误");
+                            break;
+                        case 21323:
+                            // this.setState({message: "user_format_error"});
+                            alert("用户名格式错误");
+                            break;
+                        default:
+                            break;
+                    }
+                }
+                else {
+                    // this.setState({message: "network_fail_login"});
+                    alert("network_fail_login");
+                }
             }
         },
     },

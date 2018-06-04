@@ -1,42 +1,67 @@
 /**
- * Created by ZhouTing on 2018-05-06 14:37.
+ * Created by ZhouTing on 2018-06-04 15:41.
  */
 import React, {Component} from 'react';
-import {Platform, StyleSheet, View, Image} from 'react-native';
+import {Image, View} from 'react-native';
 import {
     Body,
     Button,
     Container,
     Content,
-    Form,
-    Item,
-    Input,
     Header,
     Icon,
+    Input,
+    Item,
     Left,
-    Radio,
     Right,
     Text,
-    Title
+    Title,
+    Toast
 } from "native-base";
-
-// let service = require('../../utils/service');
+import {connect} from 'react-redux'
+import {Field, reduxForm} from "redux-form";
 import CommonConst from '../../constant/CommonConst';
-import Images from '../../constant/Images';
+import {createAction} from '../../utils/index'
 
-export default class ForgetPassword extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            email: ''
+class ForgetPassword extends Component {
+    renderInput({input, label, type, meta: {touched, error, warning}}) {
+
+        let hasError = false;
+        if (error !== undefined) {
+            hasError = true;
+        }
+        return (
+            <Item error={hasError} style={{backgroundColor: '#fff'}}>
+                <Input {...input}
+                       style={{paddingLeft: 20}}
+                       autoCapitalize='none'
+                       placeholder={"E-mail"}
+                />
+                {
+                    hasError ?
+                        <Item style={{borderColor: "transparent"}}>
+                            <Icon active style={{color: "red", marginTop: 5}} name="close"/>
+                            <Text style={{fontSize: 15, color: "red"}}>{error}</Text>
+                        </Item> : <Text/>
+                }
+            </Item>
+        )
+    }
+
+    submit = values => {
+        if (values.email) {
+            this.props.dispatch(createAction('forgetPassword/submit')({
+                email: values.email,
+                nav: this.props.navigation
+            }))
+        } else {
+            Toast.show({type: 'danger', text: '输入框不能为空！', duration: 3000, buttonText: "关闭"});
         }
     }
 
-    test() {
-        // console.log(service.getLanguage())
-    }
-
     render() {
+        const {handleSubmit, reset} = this.props;
+
         return (
             <Container>
                 <Header>
@@ -49,18 +74,12 @@ export default class ForgetPassword extends Component {
                     <Right/>
                 </Header>
                 <Content>
-                    <Form style={{marginRight: 16}}>
-                        <Item>
-                            <Input placeholder="Confirm"
-                                   autoCapitalize='none'
-                                   value={this.state.email}
-                                   onChangeText={(email) => this.setState({email: email})}
-                            />
-                        </Item>
-                    </Form>
-                    <Button full style={{margin: 15, marginTop: 50}}
-                            onPress={() => this.test()}
-                    >
+                    <View style={{marginTop: 20, marginLeft: 20, marginBottom: 20}}>
+                        <Text>Email:</Text>
+                    </View>
+                    <Field name="email" component={this.renderInput}/>
+                    <Button full style={{margin: 15, marginTop: 50, backgroundColor: CommonConst.color.themeColor}}
+                            onPress={handleSubmit(this.submit)}>
                         <Text>Submit</Text>
                     </Button>
                 </Content>
@@ -69,3 +88,35 @@ export default class ForgetPassword extends Component {
     }
 }
 
+const validate = values => {
+    const error = {};
+    error.email = "";
+    error.confirm = "";
+    let ema = values.email;
+    let confirm = values.confirm;
+    if (values.email === undefined) {
+        ema = "";
+    }
+    if (values.confirm === undefined) {
+        confirm = "";
+    }
+    // if (ema.length < 8 && ema !== "") {
+    //     error.email = "too short";
+    // }
+    // if (!ema.includes("@") && ema !== "") {
+    //     error.email = "@ not included";
+    // }
+    if (confirm.length !== 0 && confirm !== ema) {
+        error.confirm = "两次输入不同";
+    }
+    if (!((/^[a-z0-9]+([._\\-]*[a-z0-9])*@([a-z0-9]+[-a-z0-9]*[a-z0-9]+.){1,63}[a-z0-9]+$/).test(ema)) && ema !== "") {
+        error.email = "格式不正确"
+    }
+    return error;
+};
+
+const ForgetPasswordForm = reduxForm({form: "reg", validate})(ForgetPassword);
+
+export default connect(
+    ({forgetPassword}) => ({...forgetPassword})
+)(ForgetPasswordForm)

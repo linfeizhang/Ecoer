@@ -103,14 +103,17 @@ const validate = values => {
     if (values.confirm === undefined) {
         confirm = "";
     }
-    if (ema.length < 8 && ema !== "") {
-        error.email = "too short";
-    }
-    if (!ema.includes("@") && ema !== "") {
-        error.email = "@ not included";
-    }
+    // if (ema.length < 8 && ema !== "") {
+    //     error.email = "too short";
+    // }
+    // if (!ema.includes("@") && ema !== "") {
+    //     error.email = "@ not included";
+    // }
     if (confirm.length !== 0 && confirm !== ema) {
         error.confirm = "两次输入不同";
+    }
+    if (!((/^[a-z0-9]+([._\\-]*[a-z0-9])*@([a-z0-9]+[-a-z0-9]*[a-z0-9]+.){1,63}[a-z0-9]+$/).test(ema)) && ema !== "") {
+        error.email = "格式不正确"
     }
     return error;
 };

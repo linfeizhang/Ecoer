@@ -67,44 +67,12 @@ class SignIn extends Component {
 
         if (values.email && values.password) {
             this.props.dispatch(createAction('signIn/login')({
-                username: values.email,
+                username: values.email.toLowerCase().trim(),
                 password: values.password,
                 nav: this.props.navigation
             }))
         } else {
             Toast.show({type: 'danger', text: '用户名和密码不能为空！', duration: 3000, buttonText: "关闭"});
-        }
-    }
-
-    setLoginState(data) {
-        if (data.error === undefined) {
-            this.props.navigation.dispatch(resetAction);
-        } else {
-            if (data.error_code) {
-                switch (data.error_code) {
-                    case 21304:
-                        // this.userLocked();
-                        break;
-                    case 20003:
-                        // this.setState({message: "user_not_exist"});
-                        alert("user_not_exist");
-                        break;
-                    case 21302:
-                        // this.setState({message: "user_pwd_error"});
-                        alert("user_pwd_error");
-                        break;
-                    case 21323:
-                        // this.setState({message: "user_format_error"});
-                        alert("user_format_error");
-                        break;
-                    default:
-                        break;
-                }
-            }
-            else {
-                // this.setState({message: "network_fail_login"});
-                alert("network_fail_login");
-            }
         }
     }
 
@@ -142,27 +110,8 @@ class SignIn extends Component {
                     <Field name="email" component={this.renderInput}/>
                     <Field name="password" component={this.renderInput}/>
                     <Button block style={{marginTop: 20}} onPress={handleSubmit(this.submit)}>
-                        {/*<Button style={{margin: 10}} block primary onPress={reset}>*/}
-                        <Text>Login</Text>
+                        <Text>Sign In</Text>
                     </Button>
-
-                    {/*<Form style={{marginRight: 16}}>*/}
-                    {/*<Item>*/}
-                    {/*<Input placeholder="Username"*/}
-                    {/*autoCapitalize='none'*/}
-                    {/*value={username}*/}
-                    {/*onChangeText={(text) => this.username = text}/>*/}
-                    {/*</Item>*/}
-                    {/*<Item>*/}
-                    {/*<Input placeholder="Password"*/}
-                    {/*secureTextEntry*/}
-                    {/*onChangeText={(text) => this.password = text}/>*/}
-                    {/*</Item>*/}
-                    {/*</Form>*/}
-                    {/*<Button full style={{margin: 15, marginTop: 50}}*/}
-                    {/*onPress={() => this.login()}>*/}
-                    {/*<Text>Sign In</Text>*/}
-                    {/*</Button>*/}
 
                     <Text>{this.props.message}</Text>
 
@@ -174,15 +123,6 @@ class SignIn extends Component {
                             <Text>新用户注册</Text>
                         </Button>
                     </View>
-                    {/*<TouchableOpacity style={{alignItems: 'center', margin: 20}}*/}
-                    {/*// onPress={() => this.props.navigation.navigate("ForgetPassword")}>*/}
-                    {/*onPress={() => Toast.show({*/}
-                    {/*type: 'warning',*/}
-                    {/*text: '后台接口暂未实现！',*/}
-                    {/*duration: 3000*/}
-                    {/*})}>*/}
-                    {/*<Text>忘记密码?</Text>*/}
-                    {/*</TouchableOpacity>*/}
                 </Content>
             </Container>
         );
@@ -196,7 +136,8 @@ class SignIn extends Component {
         }
         return (
             <Item error={hasError}>
-                <Icon active name={input.name === "email" ? "person" : "unlock"}/>
+                {/*<Icon active name={input.name === "email" ? "person" : "unlock"}/>*/}
+                <Icon active type="FontAwesome" name={input.name === "email" ? "user" : "unlock-alt"}/>
                 <Input {...input}
                        autoCapitalize='none'
                        placeholder={input.name === "email" ? "E-mail" : "Password"}
@@ -226,18 +167,18 @@ const validate = values => {
     if (values.password === undefined) {
         pw = "";
     }
-    if (ema.length < 8 && ema !== "") {
-        error.email = "too short";
-    }
+    // if (ema.length < 8 && ema !== "") {
+    //     error.email = "too short";
+    // }
     if (!ema.includes("@") && ema !== "") {
         error.email = "@ not included";
     }
-    if (pw.length > 12) {
-        error.password = "max 11 characters";
-    }
-    if (pw.length < 5 && pw.length > 0) {
-        error.password = "Weak";
-    }
+    // if (pw.length > 12) {
+    //     error.password = "max 11 characters";
+    // }
+    // if (pw.length < 5 && pw.length > 0) {
+    //     error.password = "Weak";
+    // }
     return error;
 };
 
