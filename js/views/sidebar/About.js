@@ -1,83 +1,66 @@
 /**
- * 关于
- * Created by ZhouTing on 2018/5/1.
+ * Created by ZhouTing on 2018-06-03 17:15.
  */
-import React, {Component} from 'react';
-import {View, Image, StyleSheet} from "react-native";
-import {
-    Container,
-    Header,
-    Title,
-    Content,
-    Button,
-    Icon,
-    Text,
-    Left,
-    Right,
-    Body,
-} from "native-base";
+import React, {Component} from "react";
+import {Image, TouchableOpacity, View} from 'react-native';
+import {NavigationActions, StackActions} from 'react-navigation';
+import {connect} from 'react-redux'
+import {Body, Button, Container, Content, Header, Icon, Left, Right, Text, Title} from "native-base";
+import Images from '../../constant/Images';
+import {createAction} from '../../utils/index'
 
-// let Global = require('../../utils/Global');
-import px2dp from '../../utils/px2dp';
+const resetAction = StackActions.reset({
+    index: 0,
+    actions: [
+        NavigationActions.navigate({routeName: 'SignIn'})
+    ]
+});
 
+@connect(({token}) => ({...token}))
 export default class About extends Component {
-
     constructor(props) {
         super(props);
-        this.state = {};
+    }
+
+    logout() {
+        this.props.dispatch(createAction('token/logout')());
+        this.props.navigation.dispatch(resetAction);
     }
 
     render() {
         return (
-            <Container style={{backgroundColor: "#FFF"}}>
+            <Container>
                 <Header>
                     <Left>
-                        <Button transparent onPress={() => this.props.navigation.openDrawer()}>
-                            <Icon name='menu'/>
+                        <Button transparent onPress={() => this.props.navigation.navigate("Home")}>
+                            <Icon name='arrow-back' style={{color: '#8fb721'}}/>
                         </Button>
                     </Left>
-                    <Body><Title>关于</Title></Body>
+                    <Body><Title>About</Title></Body>
                     <Right/>
                 </Header>
-                <View style={{flex: 1, flexDirection: 'column', justifyContent: 'center', alignItems: 'center'}}>
-                    <Image source={require('../../images/logo.png')} style={meStyle.logoImg}/>
-                    <View style={meStyle.versionContent}>
-                        <Text style={meStyle.versionText}>Ecoer Smart Service {1.0}</Text>
+                <Content>
+                    <View style={{justifyContent: 'center', alignItems: 'center', marginTop: 60}}>
+                        <Image source={Images.logoImg.logoImg} style={{width: 200, height: 70, resizeMode: 'stretch'}}/>
                     </View>
-                    <View style={meStyle.copyRightContent}>
-                        <Text>Copyright © 2016-2018 Ecoer Inc.</Text>
+
+                    <View style={{alignItems: 'center', marginTop: 20, marginBottom: 160}}>
+                        <Text style={{fontSize: 20, fontFamily: 'Cochin',}}>Ecoer Smart Service 1.4.1</Text>
                     </View>
-                    <View style={meStyle.copyRightSecond}>
+
+                    <Button full onPress={() => this.logout()}
+                            style={{backgroundColor: '#9bb538', paddingTop: 12, paddingBottom: 12}}>
+                        <Text style={{textAlign: 'center', color: '#fff', fontSize: 18}}>Log Out</Text>
+                    </Button>
+
+                    <View style={{alignItems: 'center', marginTop: 60}}>
+                        <Text>copyright © 2016-2018 Ecoer Inc.</Text>
+                    </View>
+                    <View style={{alignItems: 'center', marginTop: 6}}>
                         <Text>All Rights Reserved.</Text>
                     </View>
-                </View>
+                </Content>
             </Container>
         );
     }
 }
-
-let meStyle = StyleSheet.create({
-    logoImg: {
-        width: px2dp(140),
-        height: px2dp(50),
-        resizeMode: 'stretch'
-    },
-    versionContent: {
-        alignItems: 'center',
-        marginTop: px2dp(10),
-        marginBottom: px2dp(10)
-    },
-    versionText: {
-        fontSize: px2dp(18),
-        fontFamily: 'Cochin',
-        //fontWeight:'bold'
-    },
-    copyRightContent: {
-        alignItems: 'center',
-        marginTop: px2dp(10)
-    },
-    copyRightSecond: {
-        alignItems: 'center',
-        marginTop: px2dp(6)
-    }
-});

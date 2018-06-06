@@ -9,7 +9,12 @@ import CommonConst from './constant/CommonConst';
 import ClientParam from './constant/ClientParam';
 
 import SideBar from './views/sidebar';
-import UserHelp from './views/sidebar/UserHelp';
+import Contact from './views/sidebar/contact';
+import Account from './views/sidebar/account';
+import Contractor from './views/sidebar/contractor';
+import About from './views/sidebar/About';
+
+
 import Setup from './Setup';
 
 
@@ -29,9 +34,7 @@ import Events from './views/events';
 import Files from './views/files';
 
 
-import Me from './views/me';
-import About from './views/me/About';
-//import About from './views/sidebar/About';
+import Test from './views/test';
 
 
 /**
@@ -62,12 +65,18 @@ const MyTab = createBottomTabNavigator(
                 tabBarIcon: ({focused, tintColor}) => tabBarIcon(focused, tintColor, Images.tabBarIcon.FILES_NORMAL, Images.tabBarIcon.FILES_FOCUS)
             }
         },
-        Me: {
-            screen: Me, navigationOptions: {
-                tabBarLabel: '我',
+        Test: {
+            screen: Test, navigationOptions: {
+                tabBarLabel: '待定页面',
                 tabBarIcon: ({focused, tintColor}) => tabBarIcon(focused, tintColor, Images.tabBarIcon.ME_NORMAL, Images.tabBarIcon.ME_FOCUS)
             }
         },
+        // Me: {
+        //     screen: Me, navigationOptions: {
+        //         tabBarLabel: '我',
+        //         tabBarIcon: ({focused, tintColor}) => tabBarIcon(focused, tintColor, Images.tabBarIcon.ME_NORMAL, Images.tabBarIcon.ME_FOCUS)
+        //     }
+        // },
     }, {
         tabBarOptions: {
             activeTintColor: CommonConst.color.themeColor,
@@ -86,8 +95,10 @@ const MyTab = createBottomTabNavigator(
 const Drawer = createDrawerNavigator(
     {
         Home: {screen: MyTab},
-        UserHelp: {screen: UserHelp},
-        //About: {screen: About}
+        Contact: {screen: Contact},
+        Contractor: {screen: Contractor},
+        Account: {screen: Account},
+        About: {screen: About}
     },
     {
         initialRouteName: "Home",
@@ -107,7 +118,6 @@ const AppNavigator = createStackNavigator(
         ForgetPassword: {screen: ForgetPassword},
         NewAc: {screen: NewAc},
         AcDetail: {screen: AcDetail},
-        About: {screen: About}
     },
     {
         // initialRouteName: props.isLogin ? "Drawer" : "SignIn",

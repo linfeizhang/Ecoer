@@ -1,109 +1,132 @@
-/**
- * 滑出侧边栏
- * Created by ZhouTing on 2018/5/1.
- */
-import React, {Component} from "react";
-import {Image, Share, TouchableOpacity} from "react-native";
-import {Body, Container, Content, Icon, Left, List, ListItem, Right, Text, Toast,Header,Button,Title} from "native-base";
-import styles from "./style";
+import React, {Component} from 'react';
+import {Platform, View, StyleSheet, TouchableOpacity, Dimensions, Image} from 'react-native';
+import {Body, Button, Container, Header, List, ListItem, Content, Icon, Left, Right, Text, Title} from "native-base";
+
+import styles from './styles/indexStyle';
 
 const drawerCover = require("../../images/drawer-cover.png");
+const deviceHeight = Dimensions.get("window").height;
+const deviceWidth = Dimensions.get("window").width;
 
-export default class SideBar extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            version: '1.0.0'
-        };
-        SideBar.sideBarInstance = this;
-    }
-
-    static refresh() {
-        this.sideBarInstance.setState({});
-    }
+export default class App extends Component {
 
     render() {
         return (
             <Container>
+                {/*<Header>*/}
+                {/*<Left>*/}
+                {/*<Button transparent onPress={() => this.props.navigation.openDrawer()}>*/}
+                {/*<Icon name='menu'/>*/}
+                {/*</Button>*/}
+                {/*</Left>*/}
+                {/*<Body><Title>Sidebar</Title></Body>*/}
+                {/*<Right/>*/}
+                {/*</Header>*/}
+
                 <Content bounces={false} style={{flex: 1, backgroundColor: "#fff", top: -1}}>
                     <Image source={drawerCover} style={styles.drawerCover}/>
+
                     <List>
-                        <ListItem button noBorder onPress={() => this.props.navigation.navigate("Home")}>
+                        <ListItem button noBorder onPress={() => this.props.navigation.navigate("Contact")}>
                             <Left>
-                                <Icon active name='home' style={{color: "#ff19a5", fontSize: 26, width: 30}}/>
-                                <Text style={styles.text}>主页</Text>
+                                <Icon active type="MaterialIcons" name='headset-mic'
+                                      style={{color: "#ff19a5", fontSize: 26, width: 30}}/>
+                                <Text style={styles.text}>Customer Service</Text>
                             </Left>
                             <Right/>
                         </ListItem>
-                        <ListItem button noBorder onPress={() => this.props.navigation.navigate("UserHelp")}>
+                        <ListItem button noBorder onPress={() => this.props.navigation.navigate("Contractor")}>
                             <Left>
-                                <Icon active name='help-circle' style={{color: "#0186ff", fontSize: 26, width: 30}}/>
-                                <Text style={styles.text}>使用说明</Text>
+                                <Icon active type="MaterialIcons" name='supervisor-account'
+                                      style={{color: "#0186ff", fontSize: 26, width: 30}}/>
+                                <Text style={styles.text}>Contractor info</Text>
                             </Left>
                             <Right/>
                         </ListItem>
-                        {
-                            //<ListItem button noBorder onPress={() => this.props.navigation.navigate("test")}>
-                            //    <Left>
-                            //        <Icon active name='settings' style={{color: "#fd6b6e", fontSize: 26, width: 30}}/>
-                            //        <Text style={styles.text}>设置</Text>
-                            //    </Left>
-                            //    <Right/>
-                            //</ListItem>
-                        }
-                        <ListItem button noBorder onPress={() => this.checkUpdate()}>
+                        <ListItem button noBorder onPress={() => this.props.navigation.navigate("Account")}>
                             <Left>
-                                <Icon active name='sync' style={{color: "#fdc23a", fontSize: 26, width: 30}}/>
-                                <Text style={styles.text}>版本更新</Text>
-                            </Left>
-                            <Body style={{alignItems: 'flex-end'}}>
-                            <Text>{this.state.version}</Text>
-                            </Body>
-                        </ListItem>
-                        {/*<ListItem button noBorder onPress={() => this.props.navigation.navigate("Share")}>*/}
-                        <ListItem button noBorder onPress={() => this.shareApp()}>
-                            <Left>
-                                <Icon active name='share' style={{color: "#13ca8a", fontSize: 26, width: 30}}/>
-                                <Text style={styles.text}>分享</Text>
+                                <Icon active type="FontAwesome" name='user'
+                                      style={{color: "#ff19a5", fontSize: 26, width: 30}}/>
+                                <Text style={styles.text}>Account Setting</Text>
                             </Left>
                             <Right/>
                         </ListItem>
                         <ListItem button noBorder onPress={() => this.props.navigation.navigate("About")}>
                             <Left>
-                                <Icon active name='information-circle'
+                                <Icon active name='help-circle'
                                       style={{color: "#dc7dff", fontSize: 26, width: 30}}/>
-                                <Text style={styles.text}>关于</Text>
+                                <Text style={styles.text}>About</Text>
                             </Left>
                             <Right/>
                         </ListItem>
                     </List>
                 </Content>
+
+                {/*<Content>*/}
+                {/*<View style={styles.part}>*/}
+                {/*<View style={styles.item}>*/}
+                {/*<View>*/}
+                {/*<Text>Factory Support</Text>*/}
+                {/*</View>*/}
+                {/*<View>*/}
+                {/*<Text>+1-(703)348-2538</Text>*/}
+                {/*</View>*/}
+                {/*</View>*/}
+                {/*<View style={styles.item}>*/}
+                {/*<View>*/}
+                {/*<Text>Factory Support Email</Text>*/}
+                {/*</View>*/}
+                {/*<View>*/}
+                {/*<Text>support@ecoer.com</Text>*/}
+                {/*</View>*/}
+                {/*</View>*/}
+                {/*<View style={styles.item}>*/}
+                {/*<View>*/}
+                {/*<Text>Web</Text>*/}
+                {/*</View>*/}
+                {/*<View>*/}
+                {/*<Text>www.ecoer.com</Text>*/}
+                {/*</View>*/}
+                {/*</View>*/}
+                {/*</View>*/}
+
+                {/*<View style={styles.part}>*/}
+                {/*<TouchableOpacity style={styles.item}>*/}
+                {/*<View>*/}
+                {/*<Text>Contractor</Text>*/}
+                {/*</View>*/}
+                {/*<View style={{flexDirection: 'row'}}>*/}
+                {/*<Text style={{marginRight: 10}}>Test</Text>*/}
+                {/*<Icon type="SimpleLineIcons" name="arrow-right" style={styles.iconStyle}/>*/}
+                {/*</View>*/}
+                {/*</TouchableOpacity>*/}
+                {/*<TouchableOpacity style={styles.item}>*/}
+                {/*<View>*/}
+                {/*<Text>Personal Setting</Text>*/}
+                {/*</View>*/}
+                {/*<View>*/}
+                {/*<Icon type="SimpleLineIcons" name="arrow-right" style={styles.iconStyle}/>*/}
+                {/*</View>*/}
+                {/*</TouchableOpacity>*/}
+                {/*<TouchableOpacity style={styles.item}>*/}
+                {/*<View>*/}
+                {/*<Text>Change Password</Text>*/}
+                {/*</View>*/}
+                {/*<View>*/}
+                {/*<Icon type="SimpleLineIcons" name="arrow-right" style={styles.iconStyle}/>*/}
+                {/*</View>*/}
+                {/*</TouchableOpacity>*/}
+                {/*<TouchableOpacity style={styles.item} onPress={() => this.props.navigation.navigate("About")}>*/}
+                {/*<View>*/}
+                {/*<Text>About</Text>*/}
+                {/*</View>*/}
+                {/*<View>*/}
+                {/*<Icon type="SimpleLineIcons" name="arrow-right" style={styles.iconStyle}/>*/}
+                {/*</View>*/}
+                {/*</TouchableOpacity>*/}
+                {/*</View>*/}
+                {/*</Content>*/}
             </Container>
         );
-    }
-
-    checkUpdate() {
-        this.setState({version: '检测更新中...'});
-        let that = this;
-        this.timer = setTimeout(function () {
-            that.setState({version: '1.0.0'});
-            Toast.show({type: 'success', text: '已是最新版本', duration: 3000});
-        }, 2000)
-    }
-
-    componentWillUnmount() {
-        this.timer && clearTimeout(this.timer);
-    }
-
-    /**
-     * 分享App
-     */
-    shareApp() {
-        Share.share({
-            message: 'http://ota.quanwifi.com/other/ar3.apk',
-            title: 'AR3'
-        }, {
-            dialogTitle: '分享到'
-        }).catch((error) => console.log(error.message));
     }
 }
