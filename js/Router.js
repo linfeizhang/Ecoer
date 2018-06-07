@@ -12,7 +12,8 @@ import SideBar from './views/sidebar';
 import Contact from './views/sidebar/contact';
 import Account from './views/sidebar/account';
 import Contractor from './views/sidebar/contractor';
-import About from './views/sidebar/About';
+import About from './views/sidebar/about/About';
+import PersonalInfo from './views/sidebar/account/Information';
 
 
 import Setup from './Setup';
@@ -98,7 +99,8 @@ const Drawer = createDrawerNavigator(
         Contact: {screen: Contact},
         Contractor: {screen: Contractor},
         Account: {screen: Account},
-        About: {screen: About}
+        About: {screen: About},
+        PersonalInfo: {screen: PersonalInfo},
     },
     {
         initialRouteName: "Home",

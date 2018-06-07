@@ -6,8 +6,8 @@ import {Image, TouchableOpacity, View} from 'react-native';
 import {NavigationActions, StackActions} from 'react-navigation';
 import {connect} from 'react-redux'
 import {Body, Button, Container, Content, Header, Icon, Left, Right, Text, Title} from "native-base";
-import Images from '../../constant/Images';
-import {createAction} from '../../utils/index'
+import Images from '../../../constant/Images';
+import {createAction} from '../../../utils/index'
 
 const resetAction = StackActions.reset({
     index: 0,
