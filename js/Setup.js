@@ -3,7 +3,6 @@
  */
 import React, {Component} from "react";
 import {DeviceEventEmitter} from "react-native";
-import {Container} from "native-base";
 import {NavigationActions, StackActions} from 'react-navigation';
 import {connect} from 'react-redux'
 
@@ -12,14 +11,14 @@ import CommonConst from './constant/CommonConst';
 
 let request = require('./utils/request');
 
-const signin = StackActions.reset({
+const SIGN_IN = StackActions.reset({
     index: 0,
     actions: [
         NavigationActions.navigate({routeName: 'SignIn'})
     ]
 });
 
-const main = StackActions.reset({
+const DATA_LOAD = StackActions.reset({
     index: 0,
     actions: [
         NavigationActions.navigate({routeName: 'DataLoad'})
@@ -68,19 +67,15 @@ export default class Setup extends Component {
         let now = new Date().getTime();
 
         if (now - create_time < expires_in - 10000) {           //在token的有效期内,直接进入主界面
-            this.props.navigation.dispatch(main);
+            this.props.navigation.dispatch(DATA_LOAD);
         } else if (now - last_login < 1296000000) {     //超出token有效期,但是上次登录在15天内,刷新token再进入主界面
             request.getNewToken();
         } else {                                        //上次登录超过15天,进入登录界面
-            this.props.navigation.dispatch(signin);
+            this.props.navigation.dispatch(SIGN_IN);
         }
     }
 
     render() {
-        return (
-            <Container style={{justifyContent: "center", alignItems: "center"}}>
-                <Launch/>
-            </Container>
-        );
+        return <Launch/>;
     }
 }

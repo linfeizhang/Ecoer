@@ -1,7 +1,6 @@
 import React, {PureComponent} from "react";
 import {Image} from "react-native";
 import {createBottomTabNavigator, createDrawerNavigator, createStackNavigator} from "react-navigation";
-import {Container} from "native-base";
 import {connect} from 'react-redux'
 
 import Launch from './components/Launch';
@@ -140,13 +139,9 @@ class Router extends PureComponent {
     render() {
         const {loading} = this.props;
         if (loading) {
-            return (
-                <Container style={{justifyContent: "center", alignItems: "center"}}>
-                    <Launch/>
-                </Container>
-            )
+            return <Launch/>;
         }
-        return <AppNavigator/>
+        return <AppNavigator/>;
     }
 }
 
