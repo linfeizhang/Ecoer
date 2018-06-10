@@ -36,7 +36,8 @@ export default class Account extends Component {
                             <Icon type="SimpleLineIcons" name="arrow-right" style={styles.iconStyle}/>
                         </View>
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.item}>
+                    <TouchableOpacity style={styles.item}
+                                      onPress={() => this.props.navigation.navigate("ChangePassword")}>
                         <View>
                             <Text>Change Password</Text>
                         </View>
