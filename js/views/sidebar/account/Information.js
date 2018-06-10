@@ -3,14 +3,30 @@
  * Contractor：包含Contractor相关的内容
  */
 import React, {Component} from "react";
-import {View, TouchableOpacity} from 'react-native';
+import {TouchableOpacity, View} from 'react-native';
 import {Body, Button, Container, Content, Header, Icon, Left, Right, Text, Title} from "native-base";
-import {createAction} from '../../../utils/index'
+import {NavigationActions, StackActions} from 'react-navigation';
 import styles from '../styles/account/personalStyle';
+
+const HOME_PAGE = StackActions.reset({
+    index: 0,
+    actions: [
+        NavigationActions.navigate({routeName: 'Drawer'})
+    ]
+});
 
 export default class PersonalInfo extends Component {
     constructor(props) {
         super(props);
+    }
+
+    goBack() {
+        let from = this.props.navigation.state.params && this.props.navigation.state.params.from;
+        if (from === 'launch') {
+            this.props.navigation.dispatch(HOME_PAGE);
+        } else {
+            this.props.navigation.goBack();
+        }
     }
 
     render() {
@@ -20,7 +36,7 @@ export default class PersonalInfo extends Component {
                     <Left>
                         <Button transparent>
                             <Icon name='arrow-back' style={{color: '#8fb721'}}
-                                  onPress={() => this.props.navigation.goBack()}/>
+                                  onPress={() => this.goBack()}/>
                         </Button>
                     </Left>
                     <Body><Title>Information</Title></Body>

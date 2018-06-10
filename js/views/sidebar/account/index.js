@@ -3,9 +3,8 @@
  * 账户设置,包含Personal Setting和ChangePassword
  */
 import React, {Component} from "react";
-import {View, TouchableOpacity} from 'react-native';
+import {TouchableOpacity, View} from 'react-native';
 import {Body, Button, Container, Content, Header, Icon, Left, Right, Text, Title} from "native-base";
-import {createAction} from '../../../utils/index'
 import styles from '../styles/account/indexStyle';
 
 
@@ -28,7 +27,7 @@ export default class Account extends Component {
                 </Header>
                 <Content>
                     <TouchableOpacity style={styles.item}
-                                      onPress={() => this.props.navigation.navigate("PersonalInfo")}>
+                                      onPress={() => this.props.navigation.navigate("PersonalInfo", {from: 'account'})}>
                         <View>
                             <Text>Personal Setting</Text>
                         </View>

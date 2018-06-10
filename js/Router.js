@@ -4,6 +4,7 @@ import {createBottomTabNavigator, createDrawerNavigator, createStackNavigator} f
 import {Container} from "native-base";
 import {connect} from 'react-redux'
 
+import Launch from './components/Launch';
 import Images from './constant/Images';
 import CommonConst from './constant/CommonConst';
 import ClientParam from './constant/ClientParam';
@@ -150,7 +151,7 @@ class Router extends PureComponent {
         if (loading) {
             return (
                 <Container style={{justifyContent: "center", alignItems: "center"}}>
-                    <ActivityIndicator/>
+                    <Launch/>
                 </Container>
             )
         }

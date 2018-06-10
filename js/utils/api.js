@@ -43,14 +43,6 @@ exports.forgetPassword = function (body) {
 };
 
 /**
- * 获取AppInfo
- */
-exports.getAppInfo = function () {
-    const url = "/api/app/info";
-    return request.post(url, null, true, HEADER_FORM);
-};
-
-/**
  * 获取注册Token
  */
 exports.getRegisterToken = function () {
@@ -67,4 +59,28 @@ exports.getRegisterToken = function () {
 exports.register = function (registerToken, body) {
     const url = "/api/contractor?access_token=" + registerToken + "&org_email=" + CommonConst.global.org_email;
     return request.post(url, body, false);
+};
+
+/**
+ * 获取AppInfo
+ */
+exports.getAppInfo = function () {
+    const url = "/api/app/info";
+    return request.get(url, null, true);
+};
+
+/**
+ * 获取用户权限信息接口
+ */
+exports.getTokenInfo = function () {
+    const url = "/oauth2/get_token_info";
+    return request.get(url, null, true);
+};
+
+/**
+ * 获取安装工信息（contractor的信息）
+ */
+exports.getUserInfo = function () {
+    const url = "/api/contractor";
+    return request.get(url, null, true);
 };

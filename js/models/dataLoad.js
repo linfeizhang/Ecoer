@@ -3,28 +3,29 @@
  */
 import {Alert, Platform} from 'react-native';
 import CommonConst from '../constant/CommonConst';
-import {createAction} from '../utils'
+import {createAction, isEmpty} from '../utils'
+import {NavigationActions, StackActions} from 'react-navigation';
+
 let api = require('../utils/api');
+
+const MAIN_PAGE = StackActions.reset({
+    index: 0,
+    actions: [
+        NavigationActions.navigate({routeName: 'Drawer'})
+    ]
+});
 
 export default {
     namespace: 'dataLoad',
-    state: {
-        // androidLatestVersion: "",
-        // googleAnalyticsKey: ""
-        // appInfo: {},
-
-        tokenInfo: {}
-    },
+    state: {},
     reducers: {
         updateData(state, {payload}) {
             return {...state, ...payload}
         }
     },
     effects: {
-
         * getAppInfo({payload}, {call, put}) {
             const data = yield call(api.getAppInfo);
-
             if (data.error === undefined) {
                 CommonConst.appInfo = data.result;
                 if (CommonConst.appInfo.androidLatestVersion !== CommonConst.global.android_version) {//进入安卓版APP判断版本号是否需要升级
@@ -37,26 +38,39 @@ export default {
             } else {
                 console.log("获取App运行参数失败");
             }
+            yield put(createAction('getTokenInfo')());
         },
 
-        * getTokenInfo() {
-
+        * getTokenInfo({payload}, {call, put}) {
+            const data = yield call(api.getTokenInfo);
+            if (data.error === undefined) {
+                CommonConst.tokenInfo = data;//保存token信息到Global
+            } else {
+                console.log('获取用户权限信息失败');
+            }
+            yield put(createAction('getUserInfo')());
         },
 
-        * getUserInfo() {
-
-        },
-
-        * logout(action, {call, put}) {
-            const defaultToken = {
-                access_token: "",
-                create_token_time: "",   //刷新token时间
-                expires_in: 3600,        //token有效期
-                refresh_token: "",
-                last_login: ""
-            };
-            yield put(createAction('updateToken')(defaultToken));
-        },
+        * getUserInfo({payload}, {call, put}) {
+            const data = yield call(api.getUserInfo);
+            if (data.error === undefined) {
+                if (isEmpty(data.result.firstName) ||
+                    isEmpty(data.result.lastName) ||
+                    isEmpty(data.result.mobilePhone) ||
+                    isEmpty(data.result.zipCode) ||
+                    isEmpty(data.result.country) ||
+                    isEmpty(data.result.state) ||
+                    isEmpty(data.result.city)) {
+                    // isEmpty(data.result.licenseId)) {
+                    CommonConst.global.navigation.navigate("PersonalInfo", {from: 'launch'});
+                } else {
+                    CommonConst.global.navigation.dispatch(MAIN_PAGE);
+                }
+            } else {
+                console.log('获取安装工用户信息失败');
+                CommonConst.global.navigation.dispatch(MAIN_PAGE);
+            }
+        }
     },
     subscriptions: {
         setup({dispatch}) {

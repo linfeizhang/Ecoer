@@ -2,11 +2,12 @@
  * Created by ZhouTing on 2018-05-31 22:37.
  */
 import React, {Component} from "react";
-import {ActivityIndicator, DeviceEventEmitter} from "react-native";
+import {DeviceEventEmitter} from "react-native";
 import {Container} from "native-base";
 import {NavigationActions, StackActions} from 'react-navigation';
 import {connect} from 'react-redux'
 
+import Launch from './components/Launch';
 import CommonConst from './constant/CommonConst';
 
 let request = require('./utils/request');
@@ -78,7 +79,7 @@ export default class Setup extends Component {
     render() {
         return (
             <Container style={{justifyContent: "center", alignItems: "center"}}>
-                <ActivityIndicator/>
+                <Launch/>
             </Container>
         );
     }
