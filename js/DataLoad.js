@@ -2,7 +2,6 @@
  * Created by ZhouTing on 2018-06-10 09:13.
  */
 import React, {Component} from "react";
-import {ActivityIndicator} from "react-native";
 import {Container} from "native-base";
 import {connect} from 'react-redux'
 

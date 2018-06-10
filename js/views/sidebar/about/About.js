@@ -32,7 +32,7 @@ export default class About extends Component {
             <Container>
                 <Header>
                     <Left>
-                        <Button transparent onPress={() => this.props.navigation.navigate("Home")}>
+                        <Button transparent onPress={() => this.props.navigation.goBack()}>
                             <Icon name='arrow-back' style={{color: '#8fb721'}}/>
                         </Button>
                     </Left>

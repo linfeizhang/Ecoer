@@ -1,5 +1,5 @@
 import React, {PureComponent} from "react";
-import {ActivityIndicator, Image} from "react-native";
+import {Image} from "react-native";
 import {createBottomTabNavigator, createDrawerNavigator, createStackNavigator} from "react-navigation";
 import {Container} from "native-base";
 import {connect} from 'react-redux'
@@ -17,27 +17,19 @@ import About from './views/sidebar/about/About';
 import PersonalInfo from './views/sidebar/account/Information';
 import ChangePassword from './views/sidebar/account/ChangePassword';
 
-
 import Setup from './Setup';
 import DataLoad from './DataLoad';
-
 
 import SignIn from './views/SignIn';
 import SignUp from './views/SignUp';
 import ForgetPassword from './views/other/ForgetPassword';
 
-
 import AC from './views/ac';
 import NewAc from './views/ac/NewAc';
 import AcDetail from './views/ac/AcDetail';
 
-
 import Events from './views/events';
-
-
 import Files from './views/files';
-
-
 import Test from './views/test';
 
 
@@ -98,12 +90,7 @@ const MyTab = createBottomTabNavigator(
 
 const Drawer = createDrawerNavigator(
     {
-        Home: {screen: MyTab},
-        Contact: {screen: Contact},
-        Contractor: {screen: Contractor},
-        Account: {screen: Account},
-        About: {screen: About},
-
+        Home: {screen: MyTab}
     },
     {
         initialRouteName: "Home",
@@ -119,6 +106,12 @@ const AppNavigator = createStackNavigator(
         Setup: {screen: Setup},
         DataLoad: {screen: DataLoad},
         Drawer: {screen: Drawer},
+
+        Contact: {screen: Contact},
+        Contractor: {screen: Contractor},
+        Account: {screen: Account},
+        About: {screen: About},
+
         SignIn: {screen: SignIn},
         SignUp: {screen: SignUp},
         ForgetPassword: {screen: ForgetPassword},
@@ -128,11 +121,9 @@ const AppNavigator = createStackNavigator(
         ChangePassword: {screen: ChangePassword},
     },
     {
-        // initialRouteName: props.isLogin ? "Drawer" : "SignIn",
-        // initialRouteName: "Setup",
         initialRouteName: "Setup",
         headerMode: "none",
-        mode: 'modal'
+        // mode: 'modal'
     }
 );
 
