@@ -4,8 +4,12 @@
  */
 import React, {Component} from "react";
 import {TouchableOpacity, View} from 'react-native';
-import {Body, Button, Container, Content, Header, Icon, Left, Right, Text, Title} from "native-base";
+import {Body, Button, Container, Content, Header, Icon,Item, Left, Right, Text, Title} from "native-base";
 import {NavigationActions, StackActions} from 'react-navigation';
+import {connect} from 'react-redux';
+
+import CommonConst from '../../../constant/CommonConst';
+import {createAction} from '../../../utils'
 import styles from '../styles/account/personalStyle';
 
 const HOME_PAGE = StackActions.reset({
@@ -15,9 +19,11 @@ const HOME_PAGE = StackActions.reset({
     ]
 });
 
+@connect(({information}) => ({...information}))
 export default class PersonalInfo extends Component {
     constructor(props) {
         super(props);
+        this.props.dispatch(createAction('information/getInformation')())
     }
 
     goBack() {
@@ -27,6 +33,10 @@ export default class PersonalInfo extends Component {
         } else {
             this.props.navigation.goBack();
         }
+    }
+
+    toTextEdit(editParam, editValue) {
+        this.props.navigation.navigate("TextEdit", {editParam: editParam, editValue: editValue})
     }
 
     render() {
@@ -49,46 +59,49 @@ export default class PersonalInfo extends Component {
                                 <Text>E-mail</Text>
                             </View>
                             <View>
-                                <Text>test@qq.com</Text>
+                                <Text>{this.props.email}</Text>
                             </View>
                         </TouchableOpacity>
                     </View>
 
 
                     <View style={styles.part}>
-                        <TouchableOpacity style={styles.item}>
+                        <TouchableOpacity style={styles.item}
+                                          onPress={() => this.toTextEdit(CommonConst.info.first_name, this.props.firstName)}>
                             <View>
                                 <Text>First Name</Text>
                             </View>
                             <View style={{flexDirection: 'row'}}>
                                 <View>
-                                    <Text>Zhou</Text>
+                                    <Text>{this.props.firstName}</Text>
                                 </View>
                                 <View>
                                     <Icon type="SimpleLineIcons" name="arrow-right" style={styles.iconStyle}/>
                                 </View>
                             </View>
                         </TouchableOpacity>
-                        <TouchableOpacity style={styles.item}>
+                        <TouchableOpacity style={styles.item}
+                                          onPress={() => this.toTextEdit(CommonConst.info.last_name, this.props.lastName)}>
                             <View>
                                 <Text>Last Name</Text>
                             </View>
                             <View style={{flexDirection: 'row'}}>
                                 <View>
-                                    <Text>Ting</Text>
+                                    <Text>{this.props.lastName}</Text>
                                 </View>
                                 <View>
                                     <Icon type="SimpleLineIcons" name="arrow-right" style={styles.iconStyle}/>
                                 </View>
                             </View>
                         </TouchableOpacity>
-                        <TouchableOpacity style={styles.item}>
+                        <TouchableOpacity style={styles.item}
+                                          onPress={() => this.toTextEdit(CommonConst.info.mobile_phone, this.props.mobilePhone)}>
                             <View>
                                 <Text>Mobile Phone</Text>
                             </View>
                             <View style={{flexDirection: 'row'}}>
                                 <View>
-                                    <Text>1112223333</Text>
+                                    <Text>{this.props.mobilePhone}</Text>
                                 </View>
                                 <View>
                                     <Icon type="SimpleLineIcons" name="arrow-right" style={styles.iconStyle}/>
@@ -99,13 +112,14 @@ export default class PersonalInfo extends Component {
 
 
                     <View style={styles.part}>
-                        <TouchableOpacity style={styles.item}>
+                        <TouchableOpacity style={styles.item}
+                                          onPress={() => this.toTextEdit(CommonConst.info.zip_code, this.props.zipCode)}>
                             <View>
                                 <Text>Zip/Postal Code</Text>
                             </View>
                             <View style={{flexDirection: 'row'}}>
                                 <View>
-                                    <Text>6102222</Text>
+                                    <Text>{this.props.zipCode}</Text>
                                 </View>
                                 <View>
                                     <Icon type="SimpleLineIcons" name="arrow-right" style={styles.iconStyle}/>
@@ -118,7 +132,7 @@ export default class PersonalInfo extends Component {
                             </View>
                             <View style={{flexDirection: 'row'}}>
                                 <View>
-                                    <Text>China</Text>
+                                    <Text>{this.props.country}</Text>
                                 </View>
                                 <View>
                                     <Icon type="SimpleLineIcons" name="arrow-right" style={styles.iconStyle}/>
@@ -131,7 +145,7 @@ export default class PersonalInfo extends Component {
                             </View>
                             <View style={{flexDirection: 'row'}}>
                                 <View>
-                                    <Text>SiChuan</Text>
+                                    <Text>{this.props.State}</Text>
                                 </View>
                                 <View>
                                     <Icon type="SimpleLineIcons" name="arrow-right" style={styles.iconStyle}/>
@@ -144,7 +158,7 @@ export default class PersonalInfo extends Component {
                             </View>
                             <View style={{flexDirection: 'row'}}>
                                 <View>
-                                    <Text>Chengdu</Text>
+                                    <Text>{this.props.city}</Text>
                                 </View>
                                 <View>
                                     <Icon type="SimpleLineIcons" name="arrow-right" style={styles.iconStyle}/>
@@ -161,7 +175,7 @@ export default class PersonalInfo extends Component {
                             </View>
                             <View style={{flexDirection: 'row'}}>
                                 <View>
-                                    <Text>Test</Text>
+                                    <Text/>
                                 </View>
                                 <View>
                                     <Icon type="SimpleLineIcons" name="arrow-right" style={styles.iconStyle}/>

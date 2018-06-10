@@ -20,4 +20,14 @@ export default {
         Chinese: 'zh',
         English: 'en'
     },
+
+    info: {
+        first_name: 'first_name',
+        last_name: 'last_name',
+        mobile_phone: 'mobile_phone',
+        zip_code: 'zip_code',
+        country: 'country',
+        state: 'state',
+        city: 'city'
+    }
 }

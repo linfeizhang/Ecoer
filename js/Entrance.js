@@ -20,10 +20,11 @@ import signUp from './models/signUp';
 import acList from './models/ac/acList';
 import about from './models/me/about';
 import forgetPassword from './models/other/forgetPassword';
+import information from './models/sidebar/account/information';
 
 const app = dva({
     initialState: {},
-    models: [appModel, token, dataLoad, signIn, signUp, acList, about, forgetPassword],
+    models: [appModel, token, dataLoad, signIn, signUp, acList, about, forgetPassword, information],
     onAction: [],
     extraReducers: {
         form: formReducer,

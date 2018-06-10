@@ -84,3 +84,38 @@ exports.getUserInfo = function () {
     const url = "/api/contractor";
     return request.get(url, null, true);
 };
+
+/**
+ * 上传用户详细信息(用户编辑详细信息)接口(上传contractor个人信息的接口)
+ */
+exports.modifyUserInfo = function (type, param) {
+    const url = "/api/contractor";
+    let bodyData;
+    switch (type) {
+        case CommonConst.info.first_name:
+            bodyData = {"firstName": param};
+            break;
+        case CommonConst.info.last_name:
+            bodyData = {"lastName": param};
+            break;
+        case CommonConst.info.mobile_phone:
+            bodyData = {"mobilePhone": param};
+            break;
+        case CommonConst.info.zip_code:
+            bodyData = {"zipCode": param};
+            break;
+        case CommonConst.info.country:
+            bodyData = {"country": param, "state": "", "city": ""};
+            break;
+        case CommonConst.info.state:   //调用接口那里传的type值
+            bodyData = {"state": param, "city": ""};
+            break;
+        case CommonConst.info.city:    //调用接口那里传的type值
+            bodyData = {"city": param};
+            break;
+        // case "licenseId":
+        //     bodyData = {"licenseId": param};
+        //     break;
+    }
+    return request.put(url, bodyData, true);
+};
