@@ -5,7 +5,7 @@ import {createAction} from '../utils'
 
 import CommonConst from '../constant/CommonConst';
 
-let service = require('../utils/service');
+let api = require('../utils/api');
 
 export default {
     namespace: 'token',

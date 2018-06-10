@@ -2,10 +2,7 @@
  * Created by ZhouTing on 2018-06-04 15:44.
  */
 import {NavigationActions, StackActions} from 'react-navigation';
-import CommonConst from '../../constant/CommonConst';
-
-let service = require('../../utils/service');
-let md5 = require('../../utils/md5');
+let api = require('../../utils/api');
 
 const main = StackActions.reset({
     index: 0,
@@ -24,8 +21,7 @@ export default {
     },
     effects: {
         * submit({payload}, {call, put}) {
-            const url = "/api2/forgotten_password?" + "language=1" + "&access_token=null";
-            const data = yield call(service.post, url, {"username": payload.email}, false, CommonConst.header.form);
+            const data = yield call(api.forgetPassword, {"username": payload.email});
             if (data.error === undefined) {
                 alert("修改成功");
                 yield payload.nav.goBack();

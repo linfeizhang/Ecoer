@@ -18,6 +18,7 @@ import ChangePassword from './views/sidebar/account/ChangePassword';
 
 
 import Setup from './Setup';
+import DataLoad from './DataLoad';
 
 
 import SignIn from './views/SignIn';
@@ -101,8 +102,7 @@ const Drawer = createDrawerNavigator(
         Contractor: {screen: Contractor},
         Account: {screen: Account},
         About: {screen: About},
-        PersonalInfo: {screen: PersonalInfo},
-        ChangePassword: {screen: ChangePassword},
+
     },
     {
         initialRouteName: "Home",
@@ -116,12 +116,15 @@ const Drawer = createDrawerNavigator(
 const AppNavigator = createStackNavigator(
     {
         Setup: {screen: Setup},
+        DataLoad: {screen: DataLoad},
         Drawer: {screen: Drawer},
         SignIn: {screen: SignIn},
         SignUp: {screen: SignUp},
         ForgetPassword: {screen: ForgetPassword},
         NewAc: {screen: NewAc},
         AcDetail: {screen: AcDetail},
+        PersonalInfo: {screen: PersonalInfo},
+        ChangePassword: {screen: ChangePassword},
     },
     {
         // initialRouteName: props.isLogin ? "Drawer" : "SignIn",

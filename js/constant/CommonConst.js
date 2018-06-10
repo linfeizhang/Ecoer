@@ -20,15 +20,4 @@ export default {
         Chinese: 'zh',
         English: 'en'
     },
-
-    header: {
-        form: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/x-www-form-urlencoded',
-        },
-        json: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-        }
-    }
 }

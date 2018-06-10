@@ -1,5 +1,5 @@
 /**
- * Created by ZhouTing on 2018-05-31 22:37.
+ * Created by ZhouTing on 2018-06-10 09:13.
  */
 import React, {Component} from "react";
 import {ActivityIndicator, DeviceEventEmitter} from "react-native";
@@ -9,42 +9,19 @@ import {connect} from 'react-redux'
 
 import CommonConst from './constant/CommonConst';
 
-let request = require('./utils/request');
-
-const signin = StackActions.reset({
-    index: 0,
-    actions: [
-        NavigationActions.navigate({routeName: 'SignIn'})
-    ]
-});
-
 const main = StackActions.reset({
     index: 0,
     actions: [
-        NavigationActions.navigate({routeName: 'DataLoad'})
+        NavigationActions.navigate({routeName: 'Drawer'})
     ]
 });
 
 @connect(({token}) => ({...token}))
-export default class Setup extends Component {
+export default class DataLoad extends Component {
     constructor(props) {
         super(props);
-        this.isCheck = false;
-        CommonConst.global.navigation = this.props.navigation;
-        //监听加载本地储存完成
-        DeviceEventEmitter.addListener('loadStoreDone', () => {
-            if (!this.isCheck) {
-                this.checkIsLogin();
-            }
-        });
-        this.timer = setTimeout(
-            () => {
-                if (!this.isCheck) {
-                    this.checkIsLogin();
-                }
-            },
-            1000
-        );
+
+        this.props.navigation.dispatch(main);
     }
 
     componentWillUnmount() {
@@ -68,10 +45,6 @@ export default class Setup extends Component {
 
         if (now - create_time < expires_in - 10000) {           //在token的有效期内,直接进入主界面
             this.props.navigation.dispatch(main);
-        } else if (now - last_login < 1296000000) {     //超出token有效期,但是上次登录在15天内,刷新token再进入主界面
-            request.getNewToken();
-        } else {                                        //上次登录超过15天,进入登录界面
-            this.props.navigation.dispatch(signin);
         }
     }
 

@@ -5,9 +5,7 @@
 import {NavigationActions, StackActions} from 'react-navigation';
 import CommonConst from '../constant/CommonConst';
 import {createAction} from '../utils'
-
-let service = require('../utils/service');
-let md5 = require('../utils/md5');
+let api = require('../utils/api');
 
 const main = StackActions.reset({
     index: 0,
@@ -35,15 +33,7 @@ export default {
         * login({payload}, {call, put}) {
             // yield put(createAction('updateState')({count: payload.count - 1}));
 
-            const url = "/oauth2/access_token?" +
-                "client_id=" + CommonConst.global.client_id +
-                "&client_secret=" + CommonConst.global.client_secret +
-                "&grant_type=password" +
-                "&username=" + payload.username +
-                "&password=" + md5.hex_md5(payload.password).toUpperCase() +
-                "&password_type=2";
-
-            const data = yield call(service.post, url, null, false, CommonConst.header.form);
+            const data = yield call(api.login, payload.username, payload.password);
             if (data.error === undefined) {
                 let curr_time = new Date().getTime();
                 let newData = {

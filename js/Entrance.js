@@ -14,6 +14,7 @@ import dva from './utils/dva';
 
 import appModel from './models/app';
 import token from './models/token';
+import dataLoad from './models/dataLoad';
 import signIn from './models/signIn';
 import signUp from './models/signUp';
 import acList from './models/ac/acList';
@@ -22,7 +23,7 @@ import forgetPassword from './models/other/forgetPassword';
 
 const app = dva({
     initialState: {},
-    models: [appModel, token, signIn, signUp, acList, about, forgetPassword],
+    models: [appModel, token, dataLoad, signIn, signUp, acList, about, forgetPassword],
     onAction: [],
     extraReducers: {
         form: formReducer,

@@ -4,8 +4,6 @@ import CommonConst from '../constant/CommonConst';
 
 import {createAction} from './index'
 
-let md5 = require('./md5');
-
 const GET = 'GET';
 const POST = 'POST';
 const PUT = 'PUT';
@@ -21,7 +19,7 @@ const signin = StackActions.reset({
 const main = StackActions.reset({
     index: 0,
     actions: [
-        NavigationActions.navigate({routeName: 'Drawer'})
+        NavigationActions.navigate({routeName: 'DataLoad'})
     ]
 });
 
@@ -190,15 +188,13 @@ exports.getNewToken = function () {
                 if (data.error === undefined) {
                     let newData = {
                         access_token: data.access_token,
-                        create_token_time: data.refresh_token,
-                        expires_in: data.expires_in,
-                        last_login: new Date().getTime()
+                        create_token_time: new Date().getTime(),
+                        expires_in: data.expires_in
                     };
 
                     CommonConst.global.access_token = newData.access_token;
                     CommonConst.global.create_token_time = newData.create_token_time;
                     CommonConst.global.expires_in = newData.expires_in;
-                    CommonConst.global.last_login = newData.last_login;
 
                     CommonConst.global.dispatch(createAction('updateToken')(newData));
                     CommonConst.global.navigation.dispatch(main);
