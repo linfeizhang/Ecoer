@@ -119,3 +119,11 @@ exports.modifyUserInfo = function (type, param) {
     }
     return request.put(url, bodyData, true);
 };
+
+/**
+ * 修改密码
+ */
+exports.changePassword = function (body) {
+    const url = "/api2/users/this/password?language=2";
+    return request.put(url, body, true);
+};

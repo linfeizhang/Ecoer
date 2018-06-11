@@ -8,7 +8,7 @@ import {connect} from 'react-redux'
 import {createAction} from '../../../utils'
 import CommonConst from "../../../constant/CommonConst";
 
-@connect(({information}) => ({...information}))
+@connect(({personalInfo}) => ({...personalInfo}))
 export default class TextEdit extends Component {
     constructor(props) {
         super(props);
@@ -60,7 +60,7 @@ export default class TextEdit extends Component {
                     //     break;
                 }
                 this.isEnable = false;
-                this.props.dispatch(createAction('information/modifyUserInfo')({
+                this.props.dispatch(createAction('personalInfo/modifyUserInfo')({
                     type: editParam,
                     value: editValue,
                     nav: this.props.navigation

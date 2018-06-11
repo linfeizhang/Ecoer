@@ -4,7 +4,7 @@
  */
 import React, {Component} from "react";
 import {TouchableOpacity, View} from 'react-native';
-import {Body, Button, Container, Content, Header, Icon,Item, Left, Right, Text, Title} from "native-base";
+import {Body, Button, Container, Content, Header, Icon, Item, Left, Right, Text, Title} from "native-base";
 import {NavigationActions, StackActions} from 'react-navigation';
 import {connect} from 'react-redux';
 
@@ -19,11 +19,11 @@ const HOME_PAGE = StackActions.reset({
     ]
 });
 
-@connect(({information}) => ({...information}))
+@connect(({personalInfo}) => ({...personalInfo}))
 export default class PersonalInfo extends Component {
     constructor(props) {
         super(props);
-        this.props.dispatch(createAction('information/getInformation')())
+        this.props.dispatch(createAction('personalInfo/getInformation')())
     }
 
     goBack() {

@@ -8,7 +8,7 @@ import CommonConst from "../../../constant/CommonConst";
 let api = require('../../../utils/api');
 
 export default {
-    namespace: 'information',
+    namespace: 'personalInfo',
     state: {
         email: '',
         firstName: '',
