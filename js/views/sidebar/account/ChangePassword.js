@@ -22,6 +22,7 @@ import {
 import {Field, reduxForm} from "redux-form";
 import {connect} from 'react-redux'
 import {createAction} from '../../../utils/index'
+import CommonConst from '../../../constant/CommonConst';
 import styles from '../styles/account/changePassword';
 
 class ChangePassword extends Component {
@@ -67,7 +68,8 @@ class ChangePassword extends Component {
                     <Field name="oldPassword" component={this.renderInput}/>
                     <Field name="newPassword" component={this.renderInput}/>
                     <Field name="confirm" component={this.renderInput}/>
-                    <Button block style={{marginTop: 20}} onPress={handleSubmit(this.submit)}>
+                    <Button block style={{marginTop: 20, backgroundColor: CommonConst.color.themeColor}}
+                            onPress={handleSubmit(this.submit)}>
                         <Text>Submit</Text>
                     </Button>
                 </Content>
@@ -83,7 +85,7 @@ class ChangePassword extends Component {
             hasError = true;
         }
         return (
-            <Item error={hasError}>
+            <Item error={hasError} style={{backgroundColor: '#fff', marginTop: 20}}>
                 <Input {...input}
                        autoCapitalize='none'
                        style={{paddingLeft: 20, paddingRight: 20}}

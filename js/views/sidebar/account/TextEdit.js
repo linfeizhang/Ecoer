@@ -3,7 +3,7 @@
  */
 import React, {Component} from "react";
 import {Alert} from 'react-native';
-import {Body, Button, Container, Content, Header, Icon, Input, Item, Left, Right, Title} from "native-base";
+import {Body, Button, Container, Content, Header, Icon, Input, Toast, Item, Left, Right, Title} from "native-base";
 import {connect} from 'react-redux'
 import {createAction} from '../../../utils'
 import CommonConst from "../../../constant/CommonConst";
@@ -32,7 +32,12 @@ export default class TextEdit extends Component {
                     case CommonConst.info.first_name :
                     case CommonConst.info.last_name :
                         if (!(/^[\sa-zA-Z0-9_-]+$/.test(editValue))) {
-                            alert("allowed_letters_number_spaces");
+                            Toast.show({
+                                type: 'danger',
+                                text: "Only allowed capital letters, numbers, spaces , hyphen '-', underlined '_'",
+                                duration: 3000,
+                                buttonText: "关闭"
+                            });
                             return;
                         }
                         break;
@@ -44,13 +49,23 @@ export default class TextEdit extends Component {
                     //     break;
                     case CommonConst.info.zip_code :
                         if (!(/^[a-zA-Z0-9]{5,6}$/.test(editValue))) {
-                            alert("only_5_numbers");
+                            Toast.show({
+                                type: 'danger',
+                                text: "5~6 numeric or alphabetic characters",
+                                duration: 3000,
+                                buttonText: "关闭"
+                            });
                             return;
                         }
                         break;
                     case CommonConst.info.mobile_phone :
                         if (!this.isPhoneNum(editValue)) {
-                            alert("telephone_regular");
+                            Toast.show({
+                                type: 'danger',
+                                text: "Please enter the correct phone number",
+                                duration: 3000,
+                                buttonText: "关闭"
+                            });
                             return;
                         }
                         // editParam = this.state.phoneCode + '-' + this.state.editParam;
@@ -66,7 +81,7 @@ export default class TextEdit extends Component {
                     nav: this.props.navigation
                 }))
             } else {
-                Alert.alert('', "input_not_empty", [{text: "ok"}]);
+                Alert.alert('', "The input box can not be empty", [{text: "ok"}]);
             }
         }
     }
@@ -91,9 +106,10 @@ export default class TextEdit extends Component {
                     </Right>
                 </Header>
                 <Content>
-                    <Item>
+                    <Item style={{marginTop: 20}}>
                         <Input value={editValue}
                                autoCapitalize='none'
+                               style={{backgroundColor: '#fff', paddingLeft: 20, paddingRight: 20}}
                                onChangeText={(editValue) => this.editValue = editValue}
                             // placeholder={}
                         />
