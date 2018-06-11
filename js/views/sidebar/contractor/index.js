@@ -6,8 +6,11 @@ import React, {Component} from "react";
 import {View, TouchableOpacity} from 'react-native';
 import {Body, Button, Container, Content, Header, Icon, Left, Right, Text, Title} from "native-base";
 import {createAction} from '../../../utils/index'
+import {connect} from 'react-redux';
 import styles from '../styles/contractor/indexStyle';
 
+
+@connect(({contractorInfo}) => ({...contractorInfo}))
 export default class Contractor extends Component {
     constructor(props) {
         super(props);

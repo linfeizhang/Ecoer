@@ -22,10 +22,11 @@ import about from './models/me/about';
 import forgetPassword from './models/other/forgetPassword';
 import personalInfo from './models/sidebar/account/personalInfo';
 import changePassword from './models/sidebar/account/changePassword';
+import contractorInfo from './models/sidebar/contractor/contractorInfo';
 
 const app = dva({
     initialState: {},
-    models: [appModel, token, dataLoad, signIn, signUp, acList, about, forgetPassword, personalInfo, changePassword],
+    models: [appModel, token, dataLoad, signIn, signUp, acList, about, forgetPassword, personalInfo, changePassword,contractorInfo],
     onAction: [],
     extraReducers: {
         form: formReducer,
