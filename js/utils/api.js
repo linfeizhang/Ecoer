@@ -134,5 +134,5 @@ exports.changePassword = function (body) {
  */
 exports.getAdminInfo = function () {
     const url = "/api/contractor/company/" + CommonConst.userInfo.companyId;
-    return request.get(url, null, true, HEADER_FORM);
+    return request.get(url, null, true);
 };

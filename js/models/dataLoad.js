@@ -18,11 +18,7 @@ const MAIN_PAGE = StackActions.reset({
 export default {
     namespace: 'dataLoad',
     state: {},
-    reducers: {
-        updateData(state, {payload}) {
-            return {...state, ...payload}
-        }
-    },
+    reducers: {},
     effects: {
         * getAppInfo({payload}, {call, put}) {
             const data = yield call(api.getAppInfo);

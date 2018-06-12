@@ -9,6 +9,7 @@ import {createAction} from '../../../utils/index'
 import {connect} from 'react-redux';
 import styles from '../styles/contractor/indexStyle';
 
+import QRCode from '../../../components/qrcode';
 
 @connect(({contractorInfo}) => ({...contractorInfo}))
 export default class Contractor extends Component {
@@ -34,7 +35,17 @@ export default class Contractor extends Component {
                     <Right/>
                 </Header>
                 <Content>
-                    <View style={{height: 100, backgroundColor: 'red'}}/>
+                    <View style={{height: 100, backgroundColor: 'red'}}>
+                        <QRCode
+                            value={"dsfdsgfdgdfgdfgdfg"}
+                            size={100}
+                            // bgColor='#000'
+                            // fgColor='white'
+                            bgColor='purple'
+                            fgColor='white'
+                            level='L'
+                        />
+                    </View>
 
 
                     <View style={styles.part}>
