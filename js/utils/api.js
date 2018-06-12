@@ -78,7 +78,7 @@ exports.getTokenInfo = function () {
 };
 
 /**
- * 获取安装工信息（contractor的信息）
+ * 获取安装工信息（安装工的个人信息）
  */
 exports.getUserInfo = function () {
     const url = "/api/contractor";
@@ -126,4 +126,13 @@ exports.modifyUserInfo = function (type, param) {
 exports.changePassword = function (body) {
     const url = "/api2/users/this/password?language=2";
     return request.put(url, body, true);
+};
+
+
+/**
+ * 获取admin的信息（admin为管理员。可以进入页面修改公司的各种信息,安装公司的信息）
+ */
+exports.getAdminInfo = function () {
+    const url = "/api/contractor/company/" + CommonConst.userInfo.companyId;
+    return request.get(url, null, true, HEADER_FORM);
 };

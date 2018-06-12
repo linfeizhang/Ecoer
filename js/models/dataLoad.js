@@ -53,7 +53,11 @@ export default {
 
         * getUserInfo({payload}, {call, put}) {
             const data = yield call(api.getUserInfo);
+            console.log('user用户信息');
+            console.log(data);
+            console.log('user用户信息');
             if (data.error === undefined) {
+                CommonConst.userInfo = data.result;
                 if (isEmpty(data.result.firstName) ||
                     isEmpty(data.result.lastName) ||
                     isEmpty(data.result.mobilePhone) ||

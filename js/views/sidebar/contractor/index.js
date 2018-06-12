@@ -14,7 +14,12 @@ import styles from '../styles/contractor/indexStyle';
 export default class Contractor extends Component {
     constructor(props) {
         super(props);
+        this.props.dispatch(createAction('contractorInfo/getAdminInfo')())
     }
+
+    // toContractorTextEdit(editParam, editValue) {
+    //     this.props.navigation.navigate("ContractorTextEdit", {editParam: editParam, editValue: editValue})
+    // }
 
     render() {
         return (
@@ -38,16 +43,17 @@ export default class Contractor extends Component {
                                 <Text>Contractor No.</Text>
                             </View>
                             <View>
-                                <Text>EW1000232TIJ</Text>
+                                <Text>{this.props.contractorNo}</Text>
                             </View>
                         </TouchableOpacity>
-                        <TouchableOpacity style={styles.item}>
+                        <TouchableOpacity style={styles.item}
+                                          onPress={() => this.props.navigation.navigate('ContractorTextEdit')}>
                             <View>
                                 <Text>Name</Text>
                             </View>
                             <View style={{flexDirection: 'row'}}>
                                 <View>
-                                    <Text>Inhand</Text>
+                                    <Text>{this.props.name}</Text>
                                 </View>
                                 <View>
                                     <Icon type="SimpleLineIcons" name="arrow-right" style={styles.iconStyle}/>
@@ -60,7 +66,7 @@ export default class Contractor extends Component {
                             </View>
                             <View style={{flexDirection: 'row'}}>
                                 <View>
-                                    <Text>aaaaaaaa</Text>
+                                    <Text>{this.props.ein}</Text>
                                 </View>
                                 <View>
                                     <Icon type="SimpleLineIcons" name="arrow-right" style={styles.iconStyle}/>
@@ -73,7 +79,7 @@ export default class Contractor extends Component {
                             </View>
                             <View style={{flexDirection: 'row'}}>
                                 <View>
-                                    <Text>1112223333</Text>
+                                    <Text>{this.props.telephone}</Text>
                                 </View>
                                 <View>
                                     <Icon type="SimpleLineIcons" name="arrow-right" style={styles.iconStyle}/>
@@ -86,7 +92,7 @@ export default class Contractor extends Component {
                             </View>
                             <View style={{flexDirection: 'row'}}>
                                 <View>
-                                    <Text>4445556666</Text>
+                                    <Text>{this.props.fax}</Text>
                                 </View>
                                 <View>
                                     <Icon type="SimpleLineIcons" name="arrow-right" style={styles.iconStyle}/>
@@ -103,7 +109,7 @@ export default class Contractor extends Component {
                             </View>
                             <View style={{flexDirection: 'row'}}>
                                 <View>
-                                    <Text>TianFuXinGu</Text>
+                                    <Text>{this.props.address}</Text>
                                 </View>
                                 <View>
                                     <Icon type="SimpleLineIcons" name="arrow-right" style={styles.iconStyle}/>
@@ -116,7 +122,7 @@ export default class Contractor extends Component {
                             </View>
                             <View style={{flexDirection: 'row'}}>
                                 <View>
-                                    <Text>6102222</Text>
+                                    <Text>{this.props.zip_code}</Text>
                                 </View>
                                 <View>
                                     <Icon type="SimpleLineIcons" name="arrow-right" style={styles.iconStyle}/>
@@ -129,7 +135,7 @@ export default class Contractor extends Component {
                             </View>
                             <View style={{flexDirection: 'row'}}>
                                 <View>
-                                    <Text>China</Text>
+                                    <Text>{this.props.country}</Text>
                                 </View>
                                 <View>
                                     <Icon type="SimpleLineIcons" name="arrow-right" style={styles.iconStyle}/>
@@ -142,7 +148,7 @@ export default class Contractor extends Component {
                             </View>
                             <View style={{flexDirection: 'row'}}>
                                 <View>
-                                    <Text>SiChuan</Text>
+                                    <Text>{this.props.State}</Text>
                                 </View>
                                 <View>
                                     <Icon type="SimpleLineIcons" name="arrow-right" style={styles.iconStyle}/>
@@ -155,7 +161,7 @@ export default class Contractor extends Component {
                             </View>
                             <View style={{flexDirection: 'row'}}>
                                 <View>
-                                    <Text>Chengdu</Text>
+                                    <Text>{this.props.city}</Text>
                                 </View>
                                 <View>
                                     <Icon type="SimpleLineIcons" name="arrow-right" style={styles.iconStyle}/>
@@ -172,7 +178,7 @@ export default class Contractor extends Component {
                             </View>
                             <View style={{flexDirection: 'row'}}>
                                 <View>
-                                    <Text>Chengdu</Text>
+                                    <Text/>
                                 </View>
                                 <View>
                                     <Icon type="SimpleLineIcons" name="arrow-right" style={styles.iconStyle}/>
