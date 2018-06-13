@@ -20,9 +20,11 @@ export default {
         city: '',   //城市
 
         companyId: '',
+        regCompanyId: '',        //获取到的安装工个人信息接口中的_id,注册公司的时候使用的这个id
+        //companyInfoId:'',       //注册公司成功之后返回值中的_id，作为跳转到获取公司信息页面接口的需要的id
 
         companyVisible: false,
-        selectedValue: 'join',
+        selectedValue: 'nothing',
 
         contractorInfo: {},
         licensePics: '',     //获取个人信息中的许可证照片id
@@ -33,8 +35,11 @@ export default {
         }
     },
     effects: {
-        * getInformation({payload}, {call, put}) {
+        * getInformation({payload}, {call, put}) {      //获取安装工个人信息接口
             const data = yield call(api.getUserInfo);
+            //注：获取安装工个人信息接口可拿到companyId和_id
+            //companyId有这个字段说明已经加入或者注册成为一家公司。若没有，则表示还没有加入或者注册成为一家公司
+            //如果这个账号是注册成为一家公司的。则这个账号的_id就是就获取公司信息接口的所需要的那个id,companyId就是获取公司信息接口返回的_id
             if (data.error === undefined) {
                 let newData = {
                     contractorInfo: data.result,
@@ -48,7 +53,9 @@ export default {
                     city: data.result.city,
                     // licenseId: data.result.licenseId,
                     companyId: data.result.companyId,
-                    licensePics: data.result.licensePics ? data.result.licensePics : []     //避免新账号没有licensePics字段。带到上传图片页面去length就会报错
+                    regCompanyId: data.result._id,
+                    licensePics: data.result.licensePics ? data.result.licensePics : [],     //避免新账号没有licensePics字段。带到上传图片页面去length就会报错
+                    companyVisible: false
                 };
                 yield put(createAction('updateState')(newData));
             } else {
@@ -57,7 +64,7 @@ export default {
             yield put(createAction('getTokenInfo')());
         },
 
-        * modifyUserInfo({payload}, {call, put}) {
+        * modifyUserInfo({payload}, {call, put}) {      //修改个人信息接口
             const data = yield call(api.modifyUserInfo, payload.type, payload.value);
             if (data.error === undefined) {
                 switch (payload.type) {
@@ -88,7 +95,29 @@ export default {
                     Alert.alert("", "network_unavailable", [{text: "ok"}]);
                 }
             }
-        }
+        },
+
+        * regCompany({payload}, {call, put, select}) {      //注册公司接口
+            const adminId = yield select(state => state.personalInfo.regCompanyId);
+            console.log('contractorInfo的_id');
+            console.log(adminId);
+            console.log('contractorInfo的_id');
+            const data = yield call(api.regCompany, {"adminId": adminId});
+            console.log('注册公司');
+            console.log(data);
+            console.log('注册公司');
+
+            yield put(createAction('updateState')({companyVisible: false}));
+            if (data.error === undefined) {
+                alert('注册公司成功');
+                //返回值中的_id就是获取公司信息接口所需要的那个id
+                //yield put(createAction('updateState')({companyInfoId:data.result._id}));
+                yield payload.nav.navigate("Contractor");
+                //注意：此处有问题。注册成功之后跳转到contractor页面。立即开始获取信息。但是会失败，提示id非法
+            } else {
+                alert("注册公司失败");
+            }
+        },
     },
     subscriptions: {
         setup({dispatch}) {

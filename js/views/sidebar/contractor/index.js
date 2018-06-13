@@ -15,7 +15,7 @@ import QRCode from '../../../components/qrcode';
 export default class Contractor extends Component {
     constructor(props) {
         super(props);
-        this.props.dispatch(createAction('contractorInfo/getAdminInfo')())
+        this.props.dispatch(createAction('contractorInfo/getAdminCompanyInfo')())
     }
 
     // toContractorTextEdit(editParam, editValue) {

@@ -28,7 +28,7 @@ export default class PersonalInfo extends Component {
         this.props.dispatch(createAction('personalInfo/getInformation')())
     }
 
-    goBack() {
+    goBack() {      //左上角退出这个页面的时候，调用的方法
         if (isEmpty(this.props.firstName) ||
             isEmpty(this.props.lastName) ||
             isEmpty(this.props.mobilePhone) ||
@@ -41,8 +41,8 @@ export default class PersonalInfo extends Component {
             if (this.props.companyId) {
                 this.pageJump();
             } else {
-                alert('先注册公司');
-                // this._setModelCompany(true);
+                //alert('先注册公司');
+                this._setModelCompany(true);
             }
         }
     }
@@ -216,7 +216,7 @@ export default class PersonalInfo extends Component {
                             padding: 20,
                             backgroundColor: 'rgba(0, 0, 0, 0.7)'
                         }}>
-                            <View style={{backgroundColor: 'white', width: 300,}}>
+                            <View style={{backgroundColor: 'white', width: 300}}>
                                 <View style={{
                                     width: 300,
                                     marginTop: 20,
@@ -224,10 +224,10 @@ export default class PersonalInfo extends Component {
                                     paddingLeft: 20,
                                     paddingRight: 20
                                 }}>
-                                    <Text>{"ecoer_promise"}</Text>
+                                    <Text>{"Register company information if you are the owner or leader of your company. Otherwise, scan the company's QR Code on the leader's app to join your company that has been registered."}</Text>
                                 </View>
                                 <View style={{marginLeft: 20, marginBottom: -10}}>
-                                    <Text style={{fontSize: 20}}>{"want_to"}</Text>
+                                    <Text style={{fontSize: 20}}>{"I want to"}</Text>
                                 </View>
                                 <View>
                                     <Radio
@@ -242,34 +242,22 @@ export default class PersonalInfo extends Component {
                                             marginTop: 10
                                         }}
                                     >
-                                        <Text value="join">{"join_company"}</Text>
-                                        <Text value="reg">{"register_company"}</Text>
-                                        <Text value="nothing">{"do_later"}</Text>
+                                        <Text value="join">{"Join a registered company"}</Text>
+                                        <Text value="reg">{"Register my company"}</Text>
+                                        <Text value="nothing">{"Do it later"}</Text>
                                     </Radio>
                                 </View>
-                                <View style={{
-                                    flexDirection: 'row',
+                                <Button full style={{
+                                    backgroundColor: CommonConst.color.themeColor,
                                     margin: 20,
-                                    justifyContent: 'space-between'
-                                }}>
-                                    {/*<TouchableOpacity style={meStyle.modalButton}*/}
-                                    {/*onPress={this.clickCancel.bind(this)}>*/}
-                                    {/*<Text style={meStyle.modalButtonText}>Cancel</Text>*/}
-                                    {/*</TouchableOpacity>*/}
-                                    <TouchableOpacity style={{
-                                        backgroundColor: '#8fb721',
-                                        marginBottom: 20,
-                                        width: 260,
-                                        height: 40,
-                                        alignItems: 'center',
-                                        justifyContent: "center",
-                                        borderRadius: 4 / PixelRatio.get()
-                                    }}
-                                                      onPress={this.chooseCompany.bind(this)}>
-                                        <Text
-                                            style={{color: '#fff', fontSize: 16, fontWeight: 'bold'}}>{"confirm"}</Text>
-                                    </TouchableOpacity>
-                                </View>
+                                    alignItems: 'center',
+                                    justifyContent: "center"
+                                }}
+                                        onPress={this.chooseCompany.bind(this)}
+                                >
+                                    <Text
+                                        style={{color: '#fff', fontSize: 16, fontWeight: 'bold'}}>{"Confirm"}</Text>
+                                </Button>
                             </View>
                         </View>
                     </Modal>
@@ -283,9 +271,10 @@ export default class PersonalInfo extends Component {
      */
     chooseCompany() {
         this._setModelCompany(false);
-        if (this.state.selectedValue === 'reg') {
+        if (this.props.selectedValue === 'reg') {
             // service.regCompany(this, this.state.contractorInfo._id);
-        } else if (this.state.selectedValue === 'join') {
+            this.props.dispatch(createAction('personalInfo/regCompany')({nav: this.props.navigation}))
+        } else if (this.props.selectedValue === 'join') {
             // const {navigator} = this.props;
             // if (navigator) {
             //     this.props.navigator.push({
@@ -295,7 +284,7 @@ export default class PersonalInfo extends Component {
             // }
         } else {
             this._setModelCompany.bind(this, false);
-            this.goBack();
+            this.pageJump();
         }
     }
 
@@ -317,7 +306,7 @@ export default class PersonalInfo extends Component {
             //     });
             // }
         } else {
-            Alert.alert(I18n.t("error"), I18n.t("registration_failed"), [{text: I18n.t("ok")}]);
+            Alert.alert("error", "registration_failed", [{text: "ok"}]);
         }
     }
 

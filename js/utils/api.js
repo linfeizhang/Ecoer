@@ -130,9 +130,39 @@ exports.changePassword = function (body) {
 
 
 /**
- * 获取admin的信息（admin为管理员。可以进入页面修改公司的各种信息,安装公司的信息）
+ * 获取admin(公司)的信息（admin为管理员。可以进入页面修改公司的各种信息,安装公司的信息）
  */
-exports.getAdminInfo = function () {
+exports.getAdminCompanyInfo = function () {
     const url = "/api/contractor/company/" + CommonConst.userInfo.companyId;
     return request.get(url, null, true);
 };
+
+
+/**
+ * 注册公司
+ * @param body
+ */
+exports.regCompany = function (body) {
+    const url = "/api/contractor/company";
+    return request.post(url, body, true);
+};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -27,8 +27,8 @@ export default {
         }
     },
     effects: {
-        * getAdminInfo({payload}, {call, put}) {
-            const data = yield call(api.getAdminInfo);
+        * getAdminCompanyInfo({payload}, {call, put}) {
+            const data = yield call(api.getAdminCompanyInfo);
             console.log('获取公司信息');
             console.log(data);
             console.log('获取公司信息');
