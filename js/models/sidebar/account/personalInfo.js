@@ -109,10 +109,11 @@ export default {
 
             yield put(createAction('updateState')({companyVisible: false}));
             if (data.error === undefined) {
+                CommonConst.userInfo.companyId = data.result._id;
                 alert('注册公司成功');
                 //返回值中的_id就是获取公司信息接口所需要的那个id
                 //yield put(createAction('updateState')({companyInfoId:data.result._id}));
-                yield payload.nav.navigate("Contractor");
+                yield payload.nav.navigate("ContractorInfo");
                 //注意：此处有问题。注册成功之后跳转到contractor页面。立即开始获取信息。但是会失败，提示id非法
             } else {
                 alert("注册公司失败");

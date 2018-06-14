@@ -1,6 +1,6 @@
 /**
  * Created by ZhouTing on 2018-06-06 17:32.
- * Contractor：包含Contractor相关的内容
+ * 此页面为自己是admin的查看公司信息页面
  */
 import React, {Component} from "react";
 import {View, TouchableOpacity} from 'react-native';
@@ -12,7 +12,7 @@ import styles from '../styles/contractor/indexStyle';
 import QRCode from '../../../components/qrcode';
 
 @connect(({contractorInfo}) => ({...contractorInfo}))
-export default class Contractor extends Component {
+export default class ContractorInfo extends Component {
     constructor(props) {
         super(props);
         this.props.dispatch(createAction('contractorInfo/getAdminCompanyInfo')())
@@ -200,7 +200,7 @@ export default class Contractor extends Component {
 
 
                     <View style={styles.part}>
-                        <TouchableOpacity style={styles.item}>
+                        <TouchableOpacity style={styles.item} onPress={() => this.props.navigation.navigate("Members")}>
                             <View>
                                 <Text>Members</Text>
                             </View>

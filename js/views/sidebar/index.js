@@ -35,7 +35,7 @@ export default class App extends Component {
                             </Left>
                             <Right/>
                         </ListItem>
-                        <ListItem button noBorder onPress={() => this.props.navigation.navigate("Contractor")}>
+                        <ListItem button noBorder onPress={() => this.props.navigation.navigate("ContractorInfo")}>
                             <Left>
                                 <Icon active type="MaterialIcons" name='supervisor-account'
                                       style={{color: "#0186ff", fontSize: 26, width: 30}}/>

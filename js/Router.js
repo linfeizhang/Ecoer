@@ -11,7 +11,9 @@ import ClientParam from './constant/ClientParam';
 import SideBar from './views/sidebar';
 import Contact from './views/sidebar/contact';
 import Account from './views/sidebar/account';
-import Contractor from './views/sidebar/contractor';
+import ContractorInfo from './views/sidebar/contractor/ContractorInfo';
+import CompanyInfo from './views/sidebar/contractor/CompanyInfo';
+import Members from './views/sidebar/contractor/Members';
 import ContractorTextEdit from './views/sidebar/contractor/ContractorTextEdit';
 import About from './views/sidebar/about/About';
 import PersonalInfo from './views/sidebar/account/PersonalInfo';
@@ -109,7 +111,9 @@ const AppNavigator = createStackNavigator(
         Drawer: {screen: Drawer},
 
         Contact: {screen: Contact},
-        Contractor: {screen: Contractor},
+        ContractorInfo: {screen: ContractorInfo},
+        CompanyInfo: {screen: CompanyInfo},
+        Members: {screen: Members},
         Account: {screen: Account},
         About: {screen: About},
         TextEdit: {screen: TextEdit},
