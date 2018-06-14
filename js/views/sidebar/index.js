@@ -3,6 +3,7 @@ import {Platform, View, StyleSheet, TouchableOpacity, Dimensions, Image} from 'r
 import {Body, Button, Container, Header, List, ListItem, Content, Icon, Left, Right, Text, Title} from "native-base";
 
 import styles from './styles/indexStyle';
+import CommonConst from "../../constant/CommonConst";
 
 const drawerCover = require("../../images/drawer-cover.png");
 const deviceHeight = Dimensions.get("window").height;
@@ -35,7 +36,8 @@ export default class App extends Component {
                             </Left>
                             <Right/>
                         </ListItem>
-                        <ListItem button noBorder onPress={() => this.props.navigation.navigate("ContractorInfo")}>
+                        <ListItem button noBorder
+                                  onPress={() => this.props.navigation.navigate("ContractorInfo", {companyId: CommonConst.userInfo.companyId})}>
                             <Left>
                                 <Icon active type="MaterialIcons" name='supervisor-account'
                                       style={{color: "#0186ff", fontSize: 26, width: 30}}/>

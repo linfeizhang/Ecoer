@@ -132,8 +132,8 @@ exports.changePassword = function (body) {
 /**
  * 获取admin(公司)的信息（admin为管理员。可以进入页面修改公司的各种信息,安装公司的信息）
  */
-exports.getAdminCompanyInfo = function () {
-    const url = "/api/contractor/company/" + CommonConst.userInfo.companyId;
+exports.getAdminCompanyInfo = function (companyId) {
+    const url = "/api/contractor/company/" + companyId;
     console.log('url');
     console.log(url);
     console.log('url');

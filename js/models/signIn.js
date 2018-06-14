@@ -5,12 +5,13 @@
 import {NavigationActions, StackActions} from 'react-navigation';
 import CommonConst from '../constant/CommonConst';
 import {createAction} from '../utils'
+
 let api = require('../utils/api');
 
-const main = StackActions.reset({
+const DATA_LOAD = StackActions.reset({
     index: 0,
     actions: [
-        NavigationActions.navigate({routeName: 'Drawer'})
+        NavigationActions.navigate({routeName: 'DataLoad'})
     ]
 });
 
@@ -32,7 +33,6 @@ export default {
         },
         * login({payload}, {call, put}) {
             // yield put(createAction('updateState')({count: payload.count - 1}));
-
             const data = yield call(api.login, payload.username, payload.password);
             if (data.error === undefined) {
                 let curr_time = new Date().getTime();
@@ -43,8 +43,15 @@ export default {
                     create_token_time: curr_time,
                     last_login: curr_time
                 };
+
+                CommonConst.global.access_token = newData.access_token;
+                CommonConst.global.create_token_time = newData.create_token_time;
+                CommonConst.global.expires_in = newData.expires_in;
+                CommonConst.global.refresh_token = newData.refresh_token;
+                CommonConst.global.last_login = newData.last_login;
+
                 yield put(createAction('token/updateToken')(newData));
-                yield payload.nav.dispatch(main);
+                yield payload.nav.dispatch(DATA_LOAD);
             } else {
                 //yield put(createAction('updateState')({message: '登陆失败！'}))
                 if (data.error_code) {

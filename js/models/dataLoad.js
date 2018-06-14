@@ -56,9 +56,7 @@ export default {
                 CommonConst.userInfo = data.result;     //获取个人信息接口得到的返回值，存到CommonConst.userInfo上
                 CommonConst.userInfo.companyId = data.result && data.result.companyId;
                 if (data.result.companyId) {
-                    //获取到的个人信息中有CompanyId，说明已经注册或者加入一家公司。
-                    //利用companyId获取到公司信息，把返回值存到CommonConst.companyInfo上
-                    const companyData = yield call(api.getAdminCompanyInfo);
+                    const companyData = yield call(api.getAdminCompanyInfo, data.result.companyId);
                     console.log('获取公司信息');
                     console.log(companyData);
                     console.log('获取公司信息');
@@ -66,6 +64,7 @@ export default {
                         CommonConst.companyInfo = companyData.result;
                     }
                 }
+
                 if (isEmpty(data.result.firstName) ||
                     isEmpty(data.result.lastName) ||
                     isEmpty(data.result.mobilePhone) ||

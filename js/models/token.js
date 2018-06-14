@@ -31,6 +31,7 @@ export default {
                 last_login: ""
             };
             yield put(createAction('updateToken')(defaultToken));
+            CommonConst.persistor.purge();
         },
     },
     subscriptions: {

@@ -28,7 +28,7 @@ export default {
     },
     effects: {
         * getAdminCompanyInfo({payload}, {call, put}) {
-            const data = yield call(api.getAdminCompanyInfo);
+            const data = yield call(api.getAdminCompanyInfo, payload.companyId);
             console.log('获取公司信息');
             console.log(data);
             console.log('获取公司信息');
@@ -47,26 +47,6 @@ export default {
                 }
                 yield put(createAction('updateState')(newData));
             }
-            // if (data.error === undefined) {
-            //     let newData = {
-            //         contractorInfo: data.result,
-            //         email: data.result.email,
-            //         firstName: data.result.firstName,
-            //         lastName: data.result.lastName,
-            //         mobilePhone: data.result.mobilePhone,
-            //         zipCode: data.result.zipCode,
-            //         country: data.result.country,
-            //         State: data.result.state,
-            //         city: data.result.city,
-            //         // licenseId: data.result.licenseId,
-            //         companyId: data.result.companyId,
-            //         licensePics: data.result.licensePics ? data.result.licensePics : []     //避免新账号没有licensePics字段。带到上传图片页面去length就会报错
-            //     };
-            //     yield put(createAction('updateState')(newData));
-            // } else {
-            //     console.log("获取App运行参数失败");
-            // }
-            // yield put(createAction('getTokenInfo')());
         },
     },
     subscriptions: {
