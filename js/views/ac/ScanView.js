@@ -2,8 +2,8 @@
  * Created by ZhouTing on 2017/10/24.
  */
 import React, {Component} from 'react'
-import {Alert, Dimensions} from 'react-native'
-import {Body, Button, Container, Content, Header, Icon, Left, Right, Title} from 'native-base';
+import {Alert} from 'react-native'
+import {Body, Button, Container, Header, Icon, Left, Right, Title} from 'native-base';
 import Barcode from 'react-native-smart-barcode'
 // import px2dp from '../../utils/px2dp';
 
@@ -32,7 +32,7 @@ export default class ScanView extends Component {
 
     render() {
         return (
-            <Container style={{backgroundColor: 'black'}}>
+            <Container>
                 <Header>
                     <Left>
                         <Button transparent>
@@ -43,17 +43,15 @@ export default class ScanView extends Component {
                     <Body><Title>QR Scan</Title></Body>
                     <Right/>
                 </Header>
-                <Content padder>
-                    <Barcode style={{flex: 1, position: 'relative'}}
-                             ref={component => this._barCode = component}
-                             scannerLineInterval={1500}
-                             scannerRectWidth={200}
-                             scannerRectHeight={200}
-                             scannerRectCornerColor="#0186ff"
-                             scannerRectTop={-60}
-                             onBarCodeRead={this._onBarCodeRead}/>
 
-                </Content>
+                <Barcode style={{flex: 1}}
+                         ref={component => this._barCode = component}
+                         scannerLineInterval={1500}
+                         scannerRectWidth={200}
+                         scannerRectHeight={200}
+                         scannerRectCornerColor="#0186ff"
+                         scannerRectTop={-60}
+                         onBarCodeRead={this._onBarCodeRead}/>
             </Container>
         )
     }
