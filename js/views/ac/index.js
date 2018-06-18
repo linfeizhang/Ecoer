@@ -43,10 +43,14 @@ export default class App extends Component {
                 {/*<Text>NewAc</Text>*/}
                 {/*</Button>*/}
                 {/*</View>*/}
-                <View style={{height: 50}}>
+                <View style={{height: 100}}>
                     <Button full success style={{marginBottom: 20, height: 45}}
                             onPress={() => this.changeBtnText(changeTextA)}>
                         <Text>{changeText}</Text>
+                    </Button>
+                    <Button full success style={{marginBottom: 20, height: 45}}
+                            onPress={() => this.props.navigation.navigate("SelectCountryView")}>
+                        <Text>测试</Text>
                     </Button>
                 </View>
             </Container>

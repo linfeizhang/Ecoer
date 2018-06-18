@@ -22,6 +22,10 @@ import ChangePassword from './views/sidebar/account/ChangePassword';
 
 import Setup from './Setup';
 import DataLoad from './DataLoad';
+import WebViewPage from './views/common/WebViewPage';
+import SelectStateView from './views/common/SelectStateView';
+import SelectCityView from './views/common/SelectCityView';
+import SelectCountryView from './views/common/SelectCountryView';
 
 import SignIn from './views/SignIn';
 import SignUp from './views/SignUp';
@@ -109,6 +113,10 @@ const AppNavigator = createStackNavigator(
         Setup: {screen: Setup},
         DataLoad: {screen: DataLoad},
         Drawer: {screen: Drawer},
+        WebViewPage: {screen: WebViewPage},
+        SelectStateView: {screen: SelectStateView},
+        SelectCityView: {screen: SelectCityView},
+        SelectCountryView: {screen: SelectCountryView},
 
         Contact: {screen: Contact},
         ContractorInfo: {screen: ContractorInfo},

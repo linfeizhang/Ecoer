@@ -3,15 +3,18 @@
  * 客服中心，包含：Factory Support,Factory Support Email,Web
  */
 import React, {Component} from "react";
-import {View} from 'react-native';
+import {TouchableOpacity, View} from 'react-native';
 import {Body, Button, Container, Content, Header, Icon, Left, Right, Text, Title} from "native-base";
-import {createAction} from '../../../utils/index'
 import styles from '../styles/contact/indexStyle';
 
 export default class Contact extends Component {
     constructor(props) {
         super(props);
     }
+
+    toWebView = (title, url) => {
+        this.props.navigation.navigate("WebViewPage", {url: url, title: title})
+    };
 
     render() {
         return (
@@ -46,9 +49,9 @@ export default class Contact extends Component {
                         <View>
                             <Text>Web</Text>
                         </View>
-                        <View>
+                        <TouchableOpacity onPress={() => this.toWebView('Web', 'https://www.ecoer.com')}>
                             <Text style={{color: 'blue', textDecorationLine: 'underline'}}>www.ecoer.com</Text>
-                        </View>
+                        </TouchableOpacity>
                     </View>
                 </Content>
             </Container>
