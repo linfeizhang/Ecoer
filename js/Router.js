@@ -26,6 +26,7 @@ import WebViewPage from './views/common/WebViewPage';
 import SelectStateView from './views/common/SelectStateView';
 import SelectCityView from './views/common/SelectCityView';
 import SelectCountryView from './views/common/SelectCountryView';
+import ScanView from './views/ac/ScanView';
 
 import SignIn from './views/SignIn';
 import SignUp from './views/SignUp';
@@ -117,6 +118,7 @@ const AppNavigator = createStackNavigator(
         SelectCountryView: {screen: SelectCountryView},
         SelectStateView: {screen: SelectStateView},
         SelectCityView: {screen: SelectCityView},
+        ScanView: {screen: ScanView},
 
         Contact: {screen: Contact},
         ContractorInfo: {screen: ContractorInfo},

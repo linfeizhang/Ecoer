@@ -21,9 +21,46 @@
         return YES;
     }
     ```
+    
+4. 	修改react-native-smart-barcode组件代码,`node_modules/react-native-smart-barcode/ios/RCTBarcode/RCTBarcode/RCTBarcodeManager.m`文件,在269行下添加如下代码：
 
+    ```c
+    + (BOOL)requiresMainQueueSetup {
+        return YES;
+    }
+    ```
+    
+5. 	修改react-native-smart-barcode组件代码,`node_modules/react-native-smart-barcode/Barcode.js`文件,在269行下添加如下代码：
 
-4. 	修改安卓签名配置,`android/app/build.gradle`里面
+    ```js
+    import React, {
+        PropTypes,
+        Component,
+    } from 'react'
+    import {
+        View,
+        requireNativeComponent,
+        NativeModules,
+        AppState,
+        Platform,
+    } from 'react-native'
+    ```
+    修改为：
+    ```js
+    import React, {Component} from 'react'
+    import {
+        View,
+        requireNativeComponent,
+        NativeModules,
+        AppState,
+        Platform,
+    } from 'react-native'
+    
+    import PropTypes from 'prop-types';
+
+    ```
+
+6. 	修改安卓签名配置,`android/app/build.gradle`里面
 
     ```
     ...
