@@ -3,7 +3,7 @@
  * Contractor：包含Contractor相关的内容
  */
 import React, {Component} from "react";
-import {Alert, Modal, PixelRatio, TouchableOpacity, View} from 'react-native';
+import {Alert, Modal, TouchableOpacity, View} from 'react-native';
 import {Body, Button, Container, Content, Header, Icon, Left, Right, Text, Title} from "native-base";
 import {NavigationActions, StackActions} from 'react-navigation';
 import {connect} from 'react-redux';
@@ -59,6 +59,19 @@ export default class PersonalInfo extends Component {
     toTextEdit(editParam, editValue) {
         this.props.navigation.navigate("TextEdit", {editParam: editParam, editValue: editValue})
     }
+
+    toSelectCountry() {
+        this.props.navigation.navigate("SelectCountryView", {from: 'personalInfo'})
+    }
+
+    toSelectState() {
+        this.props.navigation.navigate("SelectStateView", {from: 'personalInfo'})
+    }
+
+    toSelectCity() {
+        this.props.navigation.navigate("SelectCityView", {from: 'personalInfo'})
+    }
+
 
     render() {
         return (
@@ -147,7 +160,7 @@ export default class PersonalInfo extends Component {
                                 </View>
                             </View>
                         </TouchableOpacity>
-                        <TouchableOpacity style={styles.item}>
+                        <TouchableOpacity style={styles.item} onPress={() => this.toSelectCountry()}>
                             <View>
                                 <Text>Country</Text>
                             </View>
@@ -160,7 +173,7 @@ export default class PersonalInfo extends Component {
                                 </View>
                             </View>
                         </TouchableOpacity>
-                        <TouchableOpacity style={styles.item}>
+                        <TouchableOpacity style={styles.item} onPress={() => this.toSelectState()}>
                             <View>
                                 <Text>State</Text>
                             </View>
@@ -173,7 +186,7 @@ export default class PersonalInfo extends Component {
                                 </View>
                             </View>
                         </TouchableOpacity>
-                        <TouchableOpacity style={styles.item}>
+                        <TouchableOpacity style={styles.item} onPress={() => this.toSelectCity()}>
                             <View>
                                 <Text>City</Text>
                             </View>

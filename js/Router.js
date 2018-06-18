@@ -114,9 +114,9 @@ const AppNavigator = createStackNavigator(
         DataLoad: {screen: DataLoad},
         Drawer: {screen: Drawer},
         WebViewPage: {screen: WebViewPage},
+        SelectCountryView: {screen: SelectCountryView},
         SelectStateView: {screen: SelectStateView},
         SelectCityView: {screen: SelectCityView},
-        SelectCountryView: {screen: SelectCountryView},
 
         Contact: {screen: Contact},
         ContractorInfo: {screen: ContractorInfo},

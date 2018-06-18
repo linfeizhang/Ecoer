@@ -11,6 +11,9 @@ import {
 } from 'react-native';
 
 import {Body, Button, Header, Icon, Left, Right, Text, Title} from "native-base";
+import {connect} from 'react-redux'
+import {createAction} from '../../utils'
+import CommonConst from "../../constant/CommonConst";
 
 import px2dp from '../../utils/px2dp';
 
@@ -21,11 +24,12 @@ const {width, height} = Dimensions.get('window');
 const SECTION_HEIGHT = 30, ROW_HEIGHT = 44;     //最原始的ROW_HEIGHT=40
 const AllLetters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
 
+@connect(({personalInfo}) => ({...personalInfo}))
 export default class SelectCityView extends Component {
     constructor(props) {
         super(props);
         this.isSearch = false;
-        this.isEnable = true;   //解决选择的时候点击两下的问题
+        this.isEnable = true;
     }
 
     componentWillMount() {
@@ -74,15 +78,20 @@ export default class SelectCityView extends Component {
 
 
     pressButton(selectedCity) {
-        // if (this.isEnable) {
-        //     this.isEnable = false;
-        //     this.selectedCity = selectedCity;
-        //     if (this.props.from === 'contractor') {
-        //         service.modifyUserInfo(this, "City", selectedCity);
-        //     } else if (this.props.from === 'company') {
-        //         service.updateCompanyInfo(this, 'City', selectedCity, this.props.companyId);
-        //     }
-        // }
+        let from = this.props.navigation.state.params && this.props.navigation.state.params.from;
+
+        if (this.isEnable) {
+            this.isEnable = false;
+            if (from === 'personalInfo') {
+                this.props.dispatch(createAction('personalInfo/modifyUserInfo')({
+                    type: CommonConst.info.city,
+                    value: selectedCity,
+                    nav: this.props.navigation
+                }))
+            } else if (from === 'company') {
+                // service.updateCompanyInfo(this, 'City', selectedCity, this.props.companyId);
+            }
+        }
     }
 
     renderRow = ({item}) => {

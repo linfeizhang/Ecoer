@@ -5,23 +5,31 @@ import React from 'react';
 import {FlatList, TouchableOpacity, View} from 'react-native';
 import {Body, Button, Container, Header, Icon, Left, Right, Text, Title} from "native-base";
 
+import {connect} from 'react-redux'
+import {createAction} from '../../utils'
+import CommonConst from "../../constant/CommonConst";
+
+@connect(({personalInfo}) => ({...personalInfo}))
 export default class SelectCountryView extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             data: ['USA', 'Canada']
         };
-        this.isEnable = true;   //解决选择的时候点击两下的问题
+        this.isEnable = true;
     }
 
     pressButton(selectedCountry) {
-        alert(selectedCountry);
+        let from = this.props.navigation.state.params && this.props.navigation.state.params.from;
         if (this.isEnable) {
             this.isEnable = false;
-            this.selectedCountry = selectedCountry;
-            if (this.props.from === 'contractor') {
-                // service.modifyUserInfo(this, "country", selectedCountry);
-            } else if (this.props.from === 'company') {
+            if (from === 'personalInfo') {
+                this.props.dispatch(createAction('personalInfo/modifyUserInfo')({
+                    type: CommonConst.info.country,
+                    value: selectedCountry,
+                    nav: this.props.navigation
+                }))
+            } else if (from === 'company') {
                 // service.updateCompanyInfo(this, 'country', selectedCountry, this.props.companyId);
             }
         }
@@ -58,7 +66,7 @@ export default class SelectCountryView extends React.Component {
                           renderItem={this.renderRow}
                           keyExtractor={this._keyExtractor}
                           initialNumToRender={100}
-                          style={{backgroundColor:'#fff'}}
+                          style={{backgroundColor: '#fff'}}
                 />
             </Container>
         );

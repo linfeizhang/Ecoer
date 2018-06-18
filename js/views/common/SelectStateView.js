@@ -5,6 +5,10 @@ import React, {Component} from 'react';
 import {Dimensions, FlatList, Platform, SectionList, StyleSheet, TextInput, TouchableOpacity, View} from 'react-native';
 import {Body, Button, Header, Icon, Left, Right, Text, Title} from "native-base";
 
+import {connect} from 'react-redux'
+import {createAction} from '../../utils'
+import CommonConst from "../../constant/CommonConst";
+
 import px2dp from '../../utils/px2dp';
 
 const USA = require('./address/USA.json');
@@ -14,10 +18,12 @@ const {width, height} = Dimensions.get('window');
 const SECTION_HEIGHT = 30, ROW_HEIGHT = 44;     //最原始的ROW_HEIGHT=40
 const AllLetters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
 
+@connect(({personalInfo}) => ({...personalInfo}))
 export default class SelectStateView extends Component {
     constructor(props) {
         super(props);
         this.isSearch = false;
+        this.isEnable = true;
     }
 
     componentWillMount() {
@@ -62,16 +68,19 @@ export default class SelectStateView extends Component {
     }
 
     pressButton(selectedState) {
-        alert(selectedState);
-        // if (this.isEnable) {
-        //     this.isEnable = false;
-        //     this.selectedState = selectedState;
-        //     if (this.props.from === 'contractor') {
-        //         // service.modifyUserInfo(this, "State", selectedState);
-        //     } else if (this.props.from === 'company') {
-        //         // service.updateCompanyInfo(this, 'State', selectedState, this.props.companyId);
-        //     }
-        // }
+        let from = this.props.navigation.state.params && this.props.navigation.state.params.from;
+        if (this.isEnable) {
+            this.isEnable = false;
+            if (from === 'personalInfo') {
+                this.props.dispatch(createAction('personalInfo/modifyUserInfo')({
+                    type: CommonConst.info.state,
+                    value: selectedState,
+                    nav: this.props.navigation
+                }))
+            } else if (from === 'company') {
+                // service.updateCompanyInfo(this, 'State', selectedState, this.props.companyId);
+            }
+        }
     }
 
     renderRow = ({item}) => {
@@ -186,7 +195,7 @@ export default class SelectStateView extends Component {
                                          initialNumToRender={500}
                                          sections={this.state.data}
                                          keyExtractor={this._keyExtractor}
-                                         // getItemLayout={this._getItemLayout}
+                                // getItemLayout={this._getItemLayout}
                             />
 
                             <View style={styles.letters}>

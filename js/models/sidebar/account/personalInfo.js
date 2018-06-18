@@ -81,7 +81,13 @@ export default {
                         yield put(createAction('updateState')({zipCode: payload.value}));
                         break;
                     case CommonConst.info.country :
-                        yield put(createAction('updateState')({country: payload.value}));
+                        yield put(createAction('updateState')({country: payload.value, State: '', city: ''}));
+                        break;
+                    case CommonConst.info.state :
+                        yield put(createAction('updateState')({State: payload.value, city: ''}));
+                        break;
+                    case CommonConst.info.city :
+                        yield put(createAction('updateState')({city: payload.value}));
                         break;
                     // case 'License ID' :
                     //     yield put(createAction('updateState')({licenseId: payload.value}));
