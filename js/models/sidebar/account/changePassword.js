@@ -29,8 +29,6 @@ export default {
         }
     },
     subscriptions: {
-        setup({dispatch}) {
-            console.log('进入signUp');
-        }
+        setup({dispatch}) {}
     }
 }

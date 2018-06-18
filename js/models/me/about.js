@@ -14,8 +14,6 @@ export default {
     },
     effects: {},
     subscriptions: {
-        setup({dispatch}) {
-            console.log('进入acList');
-        },
+        setup({dispatch}) {}
     }
 }

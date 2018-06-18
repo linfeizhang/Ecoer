@@ -33,19 +33,19 @@ export default class SelectCityView extends Component {
     }
 
     componentWillMount() {
+        let selectedCountry = this.props.navigation.state.params && this.props.navigation.state.params.selectedCountry;
+        let selectedState = this.props.navigation.state.params && this.props.navigation.state.params.selectedState;
+
         let country;
-        if (this.props.selectedCountry === 'USA') {
+        if (selectedCountry === 'USA') {
             country = USA;
-        } else if (this.props.selectedCountry === 'Canada') {
+        } else if (selectedCountry === 'Canada') {
             country = Canada;
         }
 
-        country = USA;//测试
-
         this.AllCity = [];
         for (let i in country) {
-            // if (i === this.props.selectedState) {
-            if (i === 'Alabama') {
+            if (i === selectedState) {
                 this.AllCity = country[i];
             }
         }
@@ -89,7 +89,11 @@ export default class SelectCityView extends Component {
                     nav: this.props.navigation
                 }))
             } else if (from === 'company') {
-                // service.updateCompanyInfo(this, 'City', selectedCity, this.props.companyId);
+                this.props.dispatch(createAction('contractorInfo/updateCompanyInfo')({
+                    type: CommonConst.company.city,
+                    value: selectedCity,
+                    nav: this.props.navigation
+                }))
             }
         }
     }
@@ -186,7 +190,7 @@ export default class SelectCityView extends Component {
                     this.isSearch ?
                         <View style={styles.listView}>
                             <FlatList ref={list => this.flatList = list}
-                                      style={{backgroundColor:'#fff'}}
+                                      style={{backgroundColor: '#fff'}}
                                       data={this.state.data}
                                       renderItem={this.renderRow}
                                       keyExtractor={this._keyExtractor}
@@ -195,7 +199,7 @@ export default class SelectCityView extends Component {
                         <View style={styles.listView}>
                             <SectionList
                                 enableEmptySections
-                                style={{backgroundColor:'#fff'}}
+                                style={{backgroundColor: '#fff'}}
                                 ref={list => this.sectionList = list}
                                 renderItem={this.renderRow}
                                 renderSectionHeader={this.renderSectionHeader}

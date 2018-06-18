@@ -3,7 +3,7 @@
  */
 import React, {Component} from "react";
 import {Alert} from 'react-native';
-import {Body, Button, Container, Content, Header, Icon, Input, Toast, Item, Left, Right, Title} from "native-base";
+import {Body, Button, Container, Content, Header, Icon, Input, Item, Left, Right, Title, Toast} from "native-base";
 import {connect} from 'react-redux'
 import {createAction} from '../../../utils'
 import CommonConst from "../../../constant/CommonConst";
@@ -29,53 +29,65 @@ export default class ContractorTextEdit extends Component {
                 let editParam = this.props.navigation.state.params && this.props.navigation.state.params.editParam;
 
                 switch (editParam) {
-                    case CommonConst.info.first_name :
-                    case CommonConst.info.last_name :
-                        if (!(/^[\sa-zA-Z0-9_-]+$/.test(editValue))) {
+                    case CommonConst.company.name :
+                    case CommonConst.company.address :
+                        if (!(/^[\w&,-.\s]{1,64}$/.test(editValue))) {
                             Toast.show({
                                 type: 'danger',
-                                text: "Only allowed capital letters, numbers, spaces , hyphen '-', underlined '_'",
+                                text: "长度为64个字母，数字，空格，逗号，句号 ‘-’",
                                 duration: 3000,
                                 buttonText: "关闭"
                             });
                             return;
                         }
                         break;
-                    // case 'address':
-                    //     if (!(/^[\w&,.\s]{1,128}$/.test(this.state.editParam))) {
-                    //         this.setState({regMessage: 'Please enter the Address'});
-                    //         return
-                    //     }
-                    //     break;
-                    case CommonConst.info.zip_code :
+                    case CommonConst.company.ein:
+                        if (!(/^[a-zA-Z0-9-]+$/.test(editValue))) {
+                            Toast.show({
+                                type: 'danger',
+                                text: "只允许大小写字母，数字，连字符 ‘-’",
+                                duration: 3000,
+                                buttonText: "关闭"
+                            });
+                            return
+                        }
+                        break;
+                    case CommonConst.company.zip :
                         if (!(/^[a-zA-Z0-9]{5,6}$/.test(editValue))) {
                             Toast.show({
                                 type: 'danger',
-                                text: "5~6 numeric or alphabetic characters",
+                                text: "5~6位数字和字母组合，可以是纯数字或者纯字母",
                                 duration: 3000,
                                 buttonText: "关闭"
                             });
                             return;
                         }
                         break;
-                    case CommonConst.info.mobile_phone :
+                    case CommonConst.company.telephone :
                         if (!this.isPhoneNum(editValue)) {
                             Toast.show({
                                 type: 'danger',
-                                text: "Please enter the correct phone number",
+                                text: "请输入正确的电话号码",
                                 duration: 3000,
                                 buttonText: "关闭"
                             });
                             return;
                         }
-                        // editParam = this.state.phoneCode + '-' + this.state.editParam;
                         break;
-                    // case 'licenseId' :
-                    //
-                    //     break;
+                    case CommonConst.company.fax :
+                        if (!this.isPhoneNum(editValue)) {
+                            Toast.show({
+                                type: 'danger',
+                                text: "请输入正确的传真",
+                                duration: 3000,
+                                buttonText: "关闭"
+                            });
+                            return;
+                        }
+                        break;
                 }
                 this.isEnable = false;
-                this.props.dispatch(createAction('personalInfo/modifyUserInfo')({
+                this.props.dispatch(createAction('contractorInfo/updateCompanyInfo')({
                     type: editParam,
                     value: editValue,
                     nav: this.props.navigation

@@ -83,8 +83,6 @@ export default {
         },
     },
     subscriptions: {
-        setup({dispatch}) {
-            console.log('进入signIn');
-        },
+        setup({dispatch}) {}
     }
 }

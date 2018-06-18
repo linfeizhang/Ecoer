@@ -30,7 +30,11 @@ export default class SelectCountryView extends React.Component {
                     nav: this.props.navigation
                 }))
             } else if (from === 'company') {
-                // service.updateCompanyInfo(this, 'country', selectedCountry, this.props.companyId);
+                this.props.dispatch(createAction('contractorInfo/updateCompanyInfo')({
+                    type: CommonConst.company.country,
+                    value: selectedCountry,
+                    nav: this.props.navigation
+                }))
             }
         }
     }

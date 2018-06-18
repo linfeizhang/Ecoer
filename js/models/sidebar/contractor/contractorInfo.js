@@ -10,6 +10,10 @@ let api = require('../../../utils/api');
 export default {
     namespace: 'contractorInfo',
     state: {
+        qrCodeInfo: '',
+
+        companyId: '',
+
         contractorNo: '',
         name: '',
         ein: '',
@@ -34,6 +38,7 @@ export default {
             console.log('获取公司信息');
             if (data.error === undefined) {
                 let newData = {
+                    companyId: payload.companyId,
                     contractorNo: data.result.contractorNumber,
                     name: data.result.name,
                     ein: data.result.ein,
@@ -48,10 +53,53 @@ export default {
                 yield put(createAction('updateState')(newData));
             }
         },
+
+        * updateCompanyInfo({payload}, {call, put, select}) {
+            const companyId = yield select(state => state.contractorInfo.companyId);
+
+            const data = yield call(api.updateCompanyInfo, companyId, payload.type, payload.value);
+            if (data.error === undefined) {
+                switch (payload.type) {
+                    case CommonConst.company.name :
+                        yield put(createAction('updateState')({name: payload.value}));
+                        break;
+                    case CommonConst.company.ein:
+                        yield put(createAction('updateState')({ein: payload.value}));
+                        break;
+                    case CommonConst.company.address :
+                        yield put(createAction('updateState')({address: payload.value}));
+                        break;
+                    case CommonConst.company.zip :
+                        yield put(createAction('updateState')({zip_code: payload.value}));
+                        break;
+                    case CommonConst.company.country :
+                        yield put(createAction('updateState')({country: payload.value, State: '', city: ''}));
+                        break;
+                    case CommonConst.company.state :
+                        yield put(createAction('updateState')({State: payload.value, city: ''}));
+                        break;
+                    case CommonConst.company.city :
+                        yield put(createAction('updateState')({city: payload.value}));
+                        break;
+                    case CommonConst.company.telephone :
+                        yield put(createAction('updateState')({telephone: payload.value}));
+                        break;
+                    case CommonConst.company.fax :
+                        yield put(createAction('updateState')({fax: payload.value}));
+                        break;
+                }
+                payload.nav.goBack();
+            } else {
+                if (data.error_code === 90024) {
+                    Alert.alert("", "not_change", [{text: "ok"}]);
+                } else {
+                    Alert.alert("", "network_unavailable", [{text: "ok"}]);
+                }
+            }
+        }
     },
     subscriptions: {
         setup({dispatch}) {
-            console.log('进入contractor页面');
         }
     }
 }

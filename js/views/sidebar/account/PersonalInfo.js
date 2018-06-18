@@ -65,11 +65,15 @@ export default class PersonalInfo extends Component {
     }
 
     toSelectState() {
-        this.props.navigation.navigate("SelectStateView", {from: 'personalInfo'})
+        this.props.navigation.navigate("SelectStateView", {from: 'personalInfo', selectedCountry: this.props.country})
     }
 
     toSelectCity() {
-        this.props.navigation.navigate("SelectCityView", {from: 'personalInfo'})
+        this.props.navigation.navigate("SelectCityView", {
+            from: 'personalInfo',
+            selectedCountry: this.props.country,
+            selectedState: this.props.State
+        })
     }
 
 

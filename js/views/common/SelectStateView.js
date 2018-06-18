@@ -27,14 +27,15 @@ export default class SelectStateView extends Component {
     }
 
     componentWillMount() {
+        let selectedCountry = this.props.navigation.state.params && this.props.navigation.state.params.selectedCountry;
+
         let country;
-        if (this.props.selectedCountry === 'USA') {
+        if (selectedCountry === 'USA') {
             country = USA;
-        } else if (this.props.selectedCountry === 'Canada') {
+        } else if (selectedCountry === 'Canada') {
             country = Canada;
         }
 
-        country = USA;//测试
         this.AllState = [];
         for (let i in country) {
             this.AllState.push(i);
@@ -78,7 +79,11 @@ export default class SelectStateView extends Component {
                     nav: this.props.navigation
                 }))
             } else if (from === 'company') {
-                // service.updateCompanyInfo(this, 'State', selectedState, this.props.companyId);
+                this.props.dispatch(createAction('contractorInfo/updateCompanyInfo')({
+                    type: CommonConst.company.state,
+                    value: selectedState,
+                    nav: this.props.navigation
+                }))
             }
         }
     }

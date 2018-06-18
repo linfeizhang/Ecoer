@@ -29,5 +29,17 @@ export default {
         country: 'country',
         state: 'state',
         city: 'city'
+    },
+
+    company: {
+        name: 'name',
+        ein: 'ein',
+        telephone: 'telephone',
+        fax: 'fax',
+        address: 'address',
+        zip: 'zip',
+        country: 'country',
+        state: 'state',
+        city: 'city'
     }
 }

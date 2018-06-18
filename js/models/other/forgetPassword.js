@@ -35,8 +35,6 @@ export default {
         },
     },
     subscriptions: {
-        setup({dispatch}) {
-            console.log('进入修改密码界面');
-        },
+        setup({dispatch}) {}
     }
 }

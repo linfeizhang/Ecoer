@@ -134,12 +134,47 @@ exports.changePassword = function (body) {
  */
 exports.getAdminCompanyInfo = function (companyId) {
     const url = "/api/contractor/company/" + companyId;
-    console.log('url');
-    console.log(url);
-    console.log('url');
     return request.get(url, null, true);
 };
 
+/**
+ * 上传公司详细信息(admin编辑公司信息)接口(上传公司信息的接口)
+ */
+exports.updateCompanyInfo = function (companyId, type, param) {
+    const url = "/api/contractor/company/" + companyId;
+
+    let bodyData;
+    switch (type) {
+        case CommonConst.company.name:
+            bodyData = {"name": param};
+            break;
+        case CommonConst.company.ein:
+            bodyData = {"ein": param};
+            break;
+        case CommonConst.company.address:
+            bodyData = {"address": param};
+            break;
+        case CommonConst.company.zip:
+            bodyData = {"zipCode": param};
+            break;
+        case CommonConst.company.country:
+            bodyData = {"country": param, "state": "", "city": ""};
+            break;
+        case CommonConst.company.state:   //调用接口那里传的type值
+            bodyData = {"state": param, "city": ""};
+            break;
+        case CommonConst.company.city:    //调用接口那里传的type值
+            bodyData = {"city": param};
+            break;
+        case CommonConst.company.telephone:
+            bodyData = {"telephone": param};
+            break;
+        case CommonConst.company.fax:
+            bodyData = {"fax": param};
+            break;
+    }
+    return request.put(url, bodyData, true);
+}
 
 /**
  * 注册公司
@@ -150,6 +185,13 @@ exports.regCompany = function (body) {
     return request.post(url, body, true);
 };
 
+/**
+ * 获取二维码信息
+ */
+exports.getQR = function () {
+    const url = "/api/contractor/company/joinCode";
+    return request.get(url, null, true);
+};
 
 
 
