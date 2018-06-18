@@ -1,7 +1,7 @@
 package com.ecoer;
 
 import android.app.Application;
-
+import com.reactnativecomponent.barcode.RCTCapturePackage;
 import com.facebook.react.ReactApplication;
 import com.RNFetchBlob.RNFetchBlobPackage;
 import com.AlexanderZaytsev.RNI18n.RNI18nPackage;
@@ -15,7 +15,8 @@ import java.util.List;
 
 public class MainApplication extends Application implements ReactApplication {
 
-  private final ReactNativeHost mReactNativeHost = new ReactNativeHost(this) {
+//  private final ReactNativeHost mReactNativeHost = new ReactNativeHost(this) {
+  private ReactNativeHost mReactNativeHost = new ReactNativeHost(this) {
     @Override
     public boolean getUseDeveloperSupport() {
       return BuildConfig.DEBUG;
@@ -25,8 +26,9 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
-            new RNFetchBlobPackage(),
-            new RNI18nPackage()
+          new RNFetchBlobPackage(),
+          new RNI18nPackage(),
+          new RCTCapturePackage()
       );
     }
 
@@ -35,6 +37,10 @@ public class MainApplication extends Application implements ReactApplication {
       return "index";
     }
   };
+
+  public void setReactNativeHost(ReactNativeHost reactNativeHost) {
+    mReactNativeHost = reactNativeHost;
+  }
 
   @Override
   public ReactNativeHost getReactNativeHost() {
