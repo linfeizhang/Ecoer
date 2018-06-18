@@ -8,12 +8,11 @@ import {Body, Button, Container, Content, Header, CheckBox, Icon, Left, Right, T
 import {createAction} from '../../../utils/index'
 import {connect} from 'react-redux';
 
-
 @connect(({contractorInfo}) => ({...contractorInfo}))
 export default class Members extends Component {
     constructor(props) {
         super(props);
-        this.props.dispatch(createAction('contractorInfo/getAdminCompanyInfo')())
+        // this.props.dispatch(createAction('contractorInfo/getAdminCompanyInfo')())
     }
 
     render() {

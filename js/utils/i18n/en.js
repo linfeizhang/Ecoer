@@ -4,14 +4,15 @@
 export default {
 
     login: {
+        email: 'E-mail',
+        password: 'Password',
+        sign_in: 'Sign In',
         language: 'Please select the language',
-        forget_password: 'Forget Password?'
+        forget_password: 'Forget Password?',
+        sign_up: 'Create an account'
     },
 
-    demo: {
-        dialog: 'dialog',
-        button: 'button',
-        switch: 'switch',
-        action_sheet: 'Action Sheet',
+    register: {
+        sign_up_title: 'Sign Up',
     }
 };

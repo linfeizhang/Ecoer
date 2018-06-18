@@ -20,6 +20,7 @@ import {
 } from "native-base";
 import {connect} from 'react-redux'
 import {Field, reduxForm} from "redux-form";
+import I18n from '../utils/i18n';
 import CommonConst from '../constant/CommonConst';
 import Images from '../constant/Images';
 import {createAction} from '../utils/index'
@@ -61,7 +62,6 @@ class SignUp extends Component {
 
     render() {
         const {handleSubmit, reset} = this.props;
-
         return (
             <Container>
                 <Header>
@@ -70,7 +70,7 @@ class SignUp extends Component {
                             <Icon name='arrow-back'/>
                         </Button>
                     </Left>
-                    <Body><Title>注册</Title></Body>
+                    <Body><Title>{I18n.t('register.sign_up_title')}</Title></Body>
                     <Right/>
                 </Header>
                 <Content>
@@ -83,7 +83,7 @@ class SignUp extends Component {
 
                     <Button full style={{margin: 15, marginTop: 50, backgroundColor: CommonConst.color.themeColor}}
                             onPress={handleSubmit(this.register)}>
-                        <Text>Sign Up</Text>
+                        <Text>{I18n.t('register.sign_up_title')}</Text>
                     </Button>
                 </Content>
             </Container>

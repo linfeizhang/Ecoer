@@ -19,7 +19,6 @@ export default {
     namespace: 'signIn',
     state: {
         username: '',
-        languageCode: CommonConst.languageCode.unselected,
         message: ''
     },
     reducers: {
@@ -28,9 +27,7 @@ export default {
         }
     },
     effects: {
-        * changeLanguage({payload}, {call, put}) {
-            yield put(createAction('updateState')({languageCode: payload.languageCode}))
-        },
+
         * login({payload}, {call, put}) {
             // yield put(createAction('updateState')({count: payload.count - 1}));
             const data = yield call(api.login, payload.username, payload.password);

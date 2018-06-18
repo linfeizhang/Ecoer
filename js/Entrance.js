@@ -13,6 +13,7 @@ import variables from "./theme/variables/commonColor";
 import dva from './utils/dva';
 
 import appModel from './models/app';
+import i18n from './models/i18n';
 import token from './models/token';
 import dataLoad from './models/dataLoad';
 import signIn from './models/signIn';
@@ -26,7 +27,7 @@ import contractorInfo from './models/sidebar/contractor/contractorInfo';
 
 const app = dva({
     initialState: {},
-    models: [appModel, token, dataLoad, signIn, signUp, acList, about, forgetPassword, personalInfo, changePassword,contractorInfo],
+    models: [appModel, i18n, token, dataLoad, signIn, signUp, acList, about, forgetPassword, personalInfo, changePassword, contractorInfo],
     onAction: [],
     extraReducers: {
         form: formReducer,

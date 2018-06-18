@@ -4,14 +4,15 @@
 export default {
 
     login: {
+        email: '邮箱',
+        password: '密码',
+        sign_in: '登 录',
         language: '请选择语言',
-        forget_password: '忘记密码？'
+        forget_password: '忘记密码？',
+        sign_up: '新用户注册'
     },
 
-    demo: {
-        dialog: '提示框',
-        button: '按钮',
-        switch: '开关',
-        action_sheet: '',
+    register: {
+        sign_up_title: '注 册',
     }
 };

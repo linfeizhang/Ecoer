@@ -9,6 +9,8 @@ import {connect} from 'react-redux'
 import Launch from './components/Launch';
 import CommonConst from './constant/CommonConst';
 
+import I18n from './utils/i18n';
+
 let request = require('./utils/request');
 
 const SIGN_IN = StackActions.reset({
@@ -25,7 +27,7 @@ const DATA_LOAD = StackActions.reset({
     ]
 });
 
-@connect(({token}) => ({...token}))
+@connect(({token, i18n}) => ({...token, ...i18n}))
 export default class Setup extends Component {
     constructor(props) {
         super(props);
@@ -53,6 +55,13 @@ export default class Setup extends Component {
 
     checkIsLogin() {
         this.isCheck = true;
+
+        ////////////////////设置国际化语言//////////////////////
+        let language = this.props.userLanguage;
+        if (language) {
+            I18n.locale = language;
+        }
+
         /////////////////将token信息存入全局常量////////////////
         CommonConst.global.access_token = this.props.access_token;
         CommonConst.global.create_token_time = this.props.create_token_time;

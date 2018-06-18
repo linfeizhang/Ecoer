@@ -3,7 +3,6 @@
  */
 import React, {Component} from 'react';
 import {Image, View} from 'react-native';
-import {NavigationActions, StackActions} from 'react-navigation';
 import {connect} from 'react-redux'
 import {Field, reduxForm} from "redux-form";
 import {
@@ -23,26 +22,25 @@ import {
     Title,
     Toast
 } from 'native-base';
-// import I18n from '../utils/i18n';
+import I18n from '../utils/i18n';
 import Images from '../constant/Images';
 import CommonConst from '../constant/CommonConst';
 
 import {createAction} from '../utils/index'
 
-// let service = require('../utils/service');
-
-
-const resetAction = StackActions.reset({
-    index: 0,
-    actions: [
-        NavigationActions.navigate({routeName: 'Drawer'})
-    ]
-});
-
 class SignIn extends Component {
 
     changeLanguage(value: string) {
-        this.props.dispatch(createAction('signIn/updateState')({languageCode: value}))
+        let data;
+        if (value !== CommonConst.languageCode.unselected) {
+            data = {languageCode: value, userLanguage: value};
+            I18n.locale = value;
+        } else {
+            data = {languageCode: value, userLanguage: null};
+            I18n.locale = this.props.systemLanguage;
+        }
+
+        this.props.dispatch(createAction('i18n/updateState')(data))
     }
 
     login() {
@@ -58,13 +56,6 @@ class SignIn extends Component {
     }
 
     submit = values => {
-        // if (!values.email || !values.password) {
-        //     alert('用户名和密码不能为空！');
-        //     return;
-        // }
-        // console.log(values);
-        // this.props.dispatch({type: 'LOGIN_IN_START', values: values});
-
         if (values.email && values.password) {
             this.props.dispatch(createAction('signIn/login')({
                 username: values.email.toLowerCase().trim(),
@@ -77,13 +68,13 @@ class SignIn extends Component {
     }
 
     render() {
-        const {username, languageCode, handleSubmit, reset} = this.props;
+        const {languageCode, handleSubmit, reset} = this.props;
 
         return (
             <Container>
                 <Header>
                     <Left/>
-                    <Body><Title>登 录</Title></Body>
+                    <Body><Title>{I18n.t('login.sign_in')}</Title></Body>
                     <Right/>
                 </Header>
                 <Content padder>
@@ -98,7 +89,7 @@ class SignIn extends Component {
                             selectedValue={languageCode}
                             onValueChange={this.changeLanguage.bind(this)}
                         >
-                            <Picker.Item label="请选择语言" value={CommonConst.languageCode.unselected}/>
+                            <Picker.Item label={I18n.t('login.language')} value={CommonConst.languageCode.unselected}/>
                             <Picker.Item label="English" value={CommonConst.languageCode.English}/>
                             <Picker.Item label="简体中文" value={CommonConst.languageCode.Chinese}/>
                         </Picker>
@@ -110,17 +101,17 @@ class SignIn extends Component {
                     <Field name="email" component={this.renderInput}/>
                     <Field name="password" component={this.renderInput}/>
                     <Button block style={{marginTop: 20}} onPress={handleSubmit(this.submit)}>
-                        <Text>Sign In</Text>
+                        <Text>{I18n.t('login.sign_in')}</Text>
                     </Button>
 
                     <Text>{this.props.message}</Text>
 
                     <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
                         <Button transparent onPress={() => this.props.navigation.navigate('ForgetPassword')}>
-                            <Text>忘记密码？</Text>
+                            <Text>{I18n.t('login.forget_password')}</Text>
                         </Button>
                         <Button transparent onPress={() => this.props.navigation.navigate("SignUp")}>
-                            <Text>新用户注册</Text>
+                            <Text>{I18n.t('login.sign_up')}</Text>
                         </Button>
                     </View>
                 </Content>
@@ -140,7 +131,7 @@ class SignIn extends Component {
                 <Icon active type="FontAwesome" name={input.name === "email" ? "user" : "unlock-alt"}/>
                 <Input {...input}
                        autoCapitalize='none'
-                       placeholder={input.name === "email" ? "E-mail" : "Password"}
+                       placeholder={input.name === "email" ? I18n.t('login.email') : I18n.t('login.password')}
                        secureTextEntry={input.name === "password"}
                 />
                 {
@@ -185,5 +176,5 @@ const validate = values => {
 const SignInForm = reduxForm({form: "login", validate})(SignIn);
 
 export default connect(
-    ({token, signIn}) => ({...token, ...signIn})
+    ({token, signIn, i18n}) => ({...token, ...signIn, ...i18n})
 )(SignInForm)
