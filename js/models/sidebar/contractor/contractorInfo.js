@@ -49,8 +49,24 @@ export default {
                     country: data.result.country,
                     State: data.result.state,
                     city: data.result.city,
-                }
+                };
                 yield put(createAction('updateState')(newData));
+            }
+        },
+
+        * getQR({payload}, {call, put}) {
+            const data = yield call(api.getQR);
+
+            if (data.error === undefined) {
+                let companyId = data.result.companyId;
+                let validateCode = data.result.validateCode;
+                let qrCodeInfo = '{"companyId":"' + companyId + '","validateCode":"' + validateCode + '"}';
+                yield put(createAction('updateState')({qrCodeInfo: qrCodeInfo}));
+            } else {
+                Alert.alert('', "network_try_again", [{
+                    text: "ok",
+                    onPress: () => put(createAction('getQR')())
+                }]);
             }
         },
 

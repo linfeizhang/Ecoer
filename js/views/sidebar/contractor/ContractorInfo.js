@@ -3,15 +3,16 @@
  * 此页面为自己是admin的查看公司信息页面
  */
 import React, {Component} from "react";
-import {TouchableOpacity, View} from 'react-native';
+import {ActivityIndicator, TouchableOpacity, View} from 'react-native';
 import {Body, Button, Container, Content, Header, Icon, Left, Right, Text, Title} from "native-base";
 import {createAction} from '../../../utils/index'
 import {connect} from 'react-redux';
 import styles from '../styles/contractor/indexStyle';
 
 import CommonConst from '../../../constant/CommonConst';
-
 import QRCode from '../../../components/qrcode';
+
+import px2dp from '../../../utils/px2dp';
 
 @connect(({contractorInfo}) => ({...contractorInfo}))
 export default class ContractorInfo extends Component {
@@ -20,7 +21,8 @@ export default class ContractorInfo extends Component {
 
         this.companyId = this.props.navigation.state.params && this.props.navigation.state.params.companyId;
 
-        this.props.dispatch(createAction('contractorInfo/getAdminCompanyInfo')({companyId: this.companyId}))
+        this.props.dispatch(createAction('contractorInfo/getAdminCompanyInfo')({companyId: this.companyId}));
+        this.props.dispatch(createAction('contractorInfo/getQR')());
     }
 
     toContractorTextEdit(editParam, editValue) {
@@ -59,18 +61,27 @@ export default class ContractorInfo extends Component {
                     <Right/>
                 </Header>
                 <Content>
-                    <View style={{height: 100, backgroundColor: 'red'}}>
-                        <QRCode
-                            value={"dsfdsgfdgdfgdfgdfg"}
-                            size={100}
-                            // bgColor='#000'
-                            // fgColor='white'
-                            bgColor='purple'
-                            fgColor='white'
-                            level='L'
-                        />
+                    <View
+                        style={{height: px2dp(200), alignItems: 'center', padding: px2dp(10), marginBottom: px2dp(60)}}>
+                        {
+                            this.props.qrCodeInfo ? //避免网络比较慢的时候，会先出现一个比较稀疏的二维码的问题
+                                <QRCode
+                                    value={this.props.qrCodeInfo}
+                                    size={px2dp(200)}
+                                    // bgColor='#000'
+                                    // fgColor='white'
+                                    bgColor='#000'
+                                    fgColor='white'
+                                    level='L'
+                                /> :
+                                <View style={{height: px2dp(180), alignItems: 'center', justifyContent: 'center'}}>
+                                    <ActivityIndicator/>
+                                </View>
+                        }
+                        <View style={{marginTop: px2dp(30), alignItems: 'center', justifyContent: 'center'}}>
+                            <Text style={{fontSize: px2dp(16), color: '#9bb538'}}>{"join_company_group"}</Text>
+                        </View>
                     </View>
-
 
                     <View style={styles.part}>
                         <TouchableOpacity style={styles.item}>
