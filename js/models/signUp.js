@@ -14,7 +14,9 @@ const main = StackActions.reset({
 
 export default {
     namespace: 'signUp',
-    state: {},
+    state: {
+        isAgree:false
+    },
     reducers: {
         updateState(state, {payload}) {
             return {...state, ...payload}

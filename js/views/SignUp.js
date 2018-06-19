@@ -16,6 +16,7 @@ import {
     Right,
     Text,
     Title,
+    CheckBox,
     Toast
 } from "native-base";
 import {connect} from 'react-redux'
@@ -60,6 +61,14 @@ class SignUp extends Component {
         }
     }
 
+    toggleSwitch(value: string) {
+        this.props.dispatch(createAction('signUp/updateState')({isAgree: value}))
+    }
+
+    toWebView = (title, url) => {
+        this.props.navigation.navigate("WebViewPage", {url: url, title: title})
+    };
+
     render() {
         const {handleSubmit, reset} = this.props;
         return (
@@ -73,7 +82,7 @@ class SignUp extends Component {
                     <Body><Title>{I18n.t('register.sign_up_title')}</Title></Body>
                     <Right/>
                 </Header>
-                <Content>
+                <Content padder>
                     <View style={{justifyContent: 'center', alignItems: 'center', marginTop: 40, marginBottom: 40}}>
                         <Image source={Images.logoImg.logoImg} style={{width: 200, height: 70, resizeMode: 'stretch'}}/>
                     </View>
@@ -81,7 +90,19 @@ class SignUp extends Component {
                     <Field name="email" component={this.renderInput}/>
                     <Field name="confirm" component={this.renderInput}/>
 
-                    <Button full style={{margin: 15, marginTop: 50, backgroundColor: CommonConst.color.themeColor}}
+                    <View style={{marginTop:60,flexDirection:'row',marginRight:30}}>
+                        <CheckBox checked={this.props.isAgree} style={{marginRight:20}}
+                                  onPress={() => this.toggleSwitch(!this.props.isAgree)}/>
+                        <View>
+                            <Text>To use Ecoer Smart Service app, you must agree to the &nbsp;
+                                <Text style={{color: 'blue', textDecorationLine: 'underline'}}
+                                      onPress={() => this.toWebView('Terms of Services', 'https://inhanddsm.github.io/EcoerPrivacyStatement/2017/04/03/Terms-of-Service.html')}
+                                >Terms of Services</Text>
+                            </Text>
+                        </View>
+                    </View>
+
+                    <Button full style={{marginTop: 20, backgroundColor: CommonConst.color.themeColor}}
                             onPress={handleSubmit(this.register)}>
                         <Text>{I18n.t('register.sign_up_title')}</Text>
                     </Button>
