@@ -43,22 +43,22 @@ class SignIn extends Component {
         this.props.dispatch(createAction('i18n/updateState')(data))
     }
 
-    login() {
-        if (this.username && this.password) {
-            this.props.dispatch(createAction('signIn/login')({
-                username: this.username,
-                password: this.password,
-                nav: this.props.navigation
-            }))
-        } else {
-            Toast.show({
-                type: 'danger',
-                text: I18n.t('login.user_and_pwd_not_empty'),
-                duration: 3000,
-                buttonText: I18n.t('login.close')
-            });
-        }
-    }
+    // login() {
+    //     if (this.username && this.password) {
+    //         this.props.dispatch(createAction('signIn/login')({
+    //             username: this.username,
+    //             password: this.password,
+    //             nav: this.props.navigation
+    //         }))
+    //     } else {
+    //         Toast.show({
+    //             type: 'danger',
+    //             text: I18n.t('login.user_and_pwd_not_empty'),
+    //             duration: 3000,
+    //             buttonText: I18n.t('login.close')
+    //         });
+    //     }
+    // }
 
     submit = values => {
         if (values.email && values.password) {

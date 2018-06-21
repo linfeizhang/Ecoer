@@ -16,7 +16,6 @@ import {
     Right,
     Text,
     Title,
-    CheckBox,
     Toast
 } from "native-base";
 import {connect} from 'react-redux'
@@ -26,10 +25,15 @@ import CommonConst from '../constant/CommonConst';
 import Images from '../constant/Images';
 import {createAction} from '../utils/index'
 
+import CheckBox from '../components/CheckBox';
+
 class SignUp extends Component {
+    constructor(props) {
+        super(props);
+        this.isAgree = true;
+    }
 
     renderInput({input, label, type, meta: {touched, error, warning}}) {
-
         let hasError = false;
         if (error !== undefined) {
             hasError = true;
@@ -54,16 +58,16 @@ class SignUp extends Component {
     }
 
     register = values => {
-        if (values.email && values.confirm) {
-            this.props.dispatch(createAction('signUp/register')({email: values.email, nav: this.props.navigation}))
+        if (this.isAgree) {
+            if (values.email && values.confirm) {
+                this.props.dispatch(createAction('signUp/register')({email: values.email}))
+            } else {
+                Toast.show({type: 'danger', text: '输入框不能为空！', duration: 3000, buttonText: "关闭"});
+            }
         } else {
-            Toast.show({type: 'danger', text: '输入框不能为空！', duration: 3000, buttonText: "关闭"});
+            Toast.show({type: 'danger', text: '没有同意协议！', duration: 3000, buttonText: "关闭"});
         }
-    }
-
-    toggleSwitch(value: string) {
-        this.props.dispatch(createAction('signUp/updateState')({isAgree: value}))
-    }
+    };
 
     toWebView = (title, url) => {
         this.props.navigation.navigate("WebViewPage", {url: url, title: title})
@@ -91,8 +95,8 @@ class SignUp extends Component {
                     <Field name="confirm" component={this.renderInput}/>
 
                     <View style={{marginTop: 60, flexDirection: 'row', marginRight: 30}}>
-                        <CheckBox checked={this.props.isAgree} style={{marginRight: 20}}
-                                  onPress={() => this.toggleSwitch(!this.props.isAgree)}/>
+                        <CheckBox defaultChecked={this.isAgree} style={{marginRight: 20}}
+                                  onValueChange={(isChecked) => this.isAgree = isChecked}/>
                         <View>
                             <Text>{I18n.t('register.terms_desc')}&nbsp;
                                 <Text style={{color: 'blue', textDecorationLine: 'underline'}}
