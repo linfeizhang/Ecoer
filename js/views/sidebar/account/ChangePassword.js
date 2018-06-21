@@ -22,6 +22,7 @@ import {
 import {Field, reduxForm} from "redux-form";
 import {connect} from 'react-redux'
 import {createAction} from '../../../utils/index'
+import I18n from '../../../utils/i18n';
 import CommonConst from '../../../constant/CommonConst';
 import styles from '../styles/account/changePassword';
 
@@ -38,7 +39,12 @@ class ChangePassword extends Component {
                 nav: this.props.navigation
             }))
         } else {
-            Toast.show({type: 'danger', text: '输入框不能为空！', duration: 3000, buttonText: "关闭"});
+            Toast.show({
+                type: 'danger',
+                text: I18n.t('changePwd.input_not_empty'),
+                duration: 3000,
+                buttonText: I18n.t('changePwd.close')
+            });
         }
     }
 
@@ -53,13 +59,13 @@ class ChangePassword extends Component {
                                   onPress={() => this.props.navigation.goBack()}/>
                         </Button>
                     </Left>
-                    <Body><Title>Change Password</Title></Body>
+                    <Body><Title>{I18n.t('changePwd.change_pwd_title')}</Title></Body>
                     <Right/>
                 </Header>
                 <Content>
                     <View style={{flexDirection: 'row', justifyContent: 'space-between', margin: 20}}>
                         <View>
-                            <Text>E-mail</Text>
+                            <Text>{I18n.t('changePwd.email')}</Text>
                         </View>
                         <View>
                             <Text>test@qq.com</Text>
@@ -70,7 +76,7 @@ class ChangePassword extends Component {
                     <Field name="confirm" component={this.renderInput}/>
                     <Button block style={{marginTop: 20, backgroundColor: CommonConst.color.themeColor}}
                             onPress={handleSubmit(this.submit)}>
-                        <Text>Submit</Text>
+                        <Text>{I18n.t('changePwd.submit')}</Text>
                     </Button>
                 </Content>
             </Container>
@@ -123,10 +129,11 @@ const validate = values => {
         confirm = "";
     }
     if ((newPass.length < 4 || newPass.length >= 12) && newPass !== '' && newPass.length !== 0) {
-        error.newPassword = "请输入4-12位字符"
+        // error.newPassword = "请输入4-12位字符"
+        error.newPassword = I18n.t('changePwd.character_length')
     }
     if (confirm.length !== 0 && confirm !== newPass) {
-        error.confirm = "两次输入不同";
+        error.confirm = I18n.t('changePwd.not_same');
     }
     return error;
 };

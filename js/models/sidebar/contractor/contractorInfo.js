@@ -33,9 +33,6 @@ export default {
     effects: {
         * getAdminCompanyInfo({payload}, {call, put}) {
             const data = yield call(api.getAdminCompanyInfo, payload.companyId);
-            console.log('获取公司信息');
-            console.log(data);
-            console.log('获取公司信息');
             if (data.error === undefined) {
                 let newData = {
                     companyId: payload.companyId,
@@ -63,8 +60,8 @@ export default {
                 let qrCodeInfo = '{"companyId":"' + companyId + '","validateCode":"' + validateCode + '"}';
                 yield put(createAction('updateState')({qrCodeInfo: qrCodeInfo}));
             } else {
-                Alert.alert('', "network_try_again", [{
-                    text: "ok",
+                Alert.alert('', I18n.t('contractor.network_try_again'), [{
+                    text: I18n.t('contractor.ok'),
                     onPress: () => put(createAction('getQR')())
                 }]);
             }
@@ -107,9 +104,9 @@ export default {
                 payload.nav.goBack();
             } else {
                 if (data.error_code === 90024) {
-                    Alert.alert("", "not_change", [{text: "ok"}]);
+                    Alert.alert("", I18n.t('contractor.not_change'), [{text: I18n.t('contractor.ok')}]);
                 } else {
-                    Alert.alert("", "network_unavailable", [{text: "ok"}]);
+                    Alert.alert("", I18n.t('contractor.network_unavailable'), [{text: I18n.t('contractor.ok')}]);
                 }
             }
         }

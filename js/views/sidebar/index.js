@@ -4,6 +4,7 @@ import {Body, Button, Container, Header, List, ListItem, Content, Icon, Left, Ri
 
 import styles from './styles/indexStyle';
 import CommonConst from "../../constant/CommonConst";
+import I18n from '../../utils/i18n';
 
 const drawerCover = require("../../images/drawer-cover.png");
 const deviceHeight = Dimensions.get("window").height;
@@ -14,16 +15,6 @@ export default class App extends Component {
     render() {
         return (
             <Container>
-                {/*<Header>*/}
-                {/*<Left>*/}
-                {/*<Button transparent onPress={() => this.props.navigation.openDrawer()}>*/}
-                {/*<Icon name='menu'/>*/}
-                {/*</Button>*/}
-                {/*</Left>*/}
-                {/*<Body><Title>Sidebar</Title></Body>*/}
-                {/*<Right/>*/}
-                {/*</Header>*/}
-
                 <Content bounces={false} style={{flex: 1, backgroundColor: "#fff", top: -1}}>
                     <Image source={drawerCover} style={styles.drawerCover}/>
 
@@ -32,7 +23,7 @@ export default class App extends Component {
                             <Left>
                                 <Icon active type="MaterialIcons" name='headset-mic'
                                       style={{color: "#ff19a5", fontSize: 26, width: 30}}/>
-                                <Text style={styles.text}>Customer Service</Text>
+                                <Text style={styles.text}>{I18n.t('drawer.customer_service')}</Text>
                             </Left>
                             <Right/>
                         </ListItem>
@@ -41,7 +32,7 @@ export default class App extends Component {
                             <Left>
                                 <Icon active type="MaterialIcons" name='supervisor-account'
                                       style={{color: "#0186ff", fontSize: 26, width: 30}}/>
-                                <Text style={styles.text}>Contractor info</Text>
+                                <Text style={styles.text}>{I18n.t('drawer.contractor_info')}</Text>
                             </Left>
                             <Right/>
                         </ListItem>
@@ -49,7 +40,7 @@ export default class App extends Component {
                             <Left>
                                 <Icon active type="FontAwesome" name='user'
                                       style={{color: "#ff19a5", fontSize: 26, width: 30}}/>
-                                <Text style={styles.text}>Account Setting</Text>
+                                <Text style={styles.text}>{I18n.t('drawer.account_setting')}</Text>
                             </Left>
                             <Right/>
                         </ListItem>
@@ -57,7 +48,7 @@ export default class App extends Component {
                             <Left>
                                 <Icon active name='help-circle'
                                       style={{color: "#dc7dff", fontSize: 26, width: 30}}/>
-                                <Text style={styles.text}>About</Text>
+                                <Text style={styles.text}>{I18n.t('drawer.about')}</Text>
                             </Left>
                             <Right/>
                         </ListItem>

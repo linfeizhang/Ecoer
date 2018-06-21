@@ -22,6 +22,7 @@ import {connect} from 'react-redux'
 import {Field, reduxForm} from "redux-form";
 import CommonConst from '../../constant/CommonConst';
 import {createAction} from '../../utils/index'
+import I18n from '../../utils/i18n';
 
 class ForgetPassword extends Component {
     renderInput({input, label, type, meta: {touched, error, warning}}) {
@@ -55,7 +56,12 @@ class ForgetPassword extends Component {
                 nav: this.props.navigation
             }))
         } else {
-            Toast.show({type: 'danger', text: '输入框不能为空！', duration: 3000, buttonText: "关闭"});
+            Toast.show({
+                type: 'danger',
+                text: I18n.t('forgotPwd.input_not_empty'),
+                duration: 3000,
+                buttonText: I18n.t('forgotPwd.close')
+            });
         }
     }
 
@@ -70,17 +76,17 @@ class ForgetPassword extends Component {
                             <Icon name='arrow-back'/>
                         </Button>
                     </Left>
-                    <Body><Title>忘记密码</Title></Body>
+                    <Body><Title>{I18n.t('forgotPwd.title')}</Title></Body>
                     <Right/>
                 </Header>
                 <Content>
                     <View style={{marginTop: 20, marginLeft: 20, marginBottom: 20}}>
-                        <Text>Email:</Text>
+                        <Text>{I18n.t('forgotPwd.tip')}</Text>
                     </View>
                     <Field name="email" component={this.renderInput}/>
                     <Button full style={{margin: 15, marginTop: 50, backgroundColor: CommonConst.color.themeColor}}
                             onPress={handleSubmit(this.submit)}>
-                        <Text>Submit</Text>
+                        <Text>{I18n.t('forgotPwd.submit')}</Text>
                     </Button>
                 </Content>
             </Container>
@@ -107,10 +113,10 @@ const validate = values => {
     //     error.email = "@ not included";
     // }
     if (confirm.length !== 0 && confirm !== ema) {
-        error.confirm = "两次输入不同";
+        error.confirm = I18n.t('forgotPwd.not_same');
     }
     if (!((/^[a-z0-9]+([._\\-]*[a-z0-9])*@([a-z0-9]+[-a-z0-9]*[a-z0-9]+.){1,63}[a-z0-9]+$/).test(ema)) && ema !== "") {
-        error.email = "格式不正确"
+        error.email = I18n.t('forgotPwd.incorrect_format')
     }
     return error;
 };

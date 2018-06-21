@@ -4,6 +4,7 @@
 import {Alert} from 'react-native';
 import {createAction} from '../../../utils'
 import CommonConst from "../../../constant/CommonConst";
+import I18n from '../../../utils/i18n';
 
 let api = require('../../../utils/api');
 

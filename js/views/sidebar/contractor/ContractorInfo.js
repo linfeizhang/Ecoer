@@ -7,6 +7,7 @@ import {ActivityIndicator, TouchableOpacity, View} from 'react-native';
 import {Body, Button, Container, Content, Header, Icon, Left, Right, Text, Title} from "native-base";
 import {createAction} from '../../../utils/index'
 import {connect} from 'react-redux';
+import I18n from '../../../utils/i18n';
 import styles from '../styles/contractor/indexStyle';
 
 import CommonConst from '../../../constant/CommonConst';
@@ -57,7 +58,7 @@ export default class ContractorInfo extends Component {
                             <Icon name='arrow-back' style={{color: '#8fb721'}}/>
                         </Button>
                     </Left>
-                    <Body><Title>Contractor Info</Title></Body>
+                    <Body><Title>{I18n.t('contractor.contractor_title')}</Title></Body>
                     <Right/>
                 </Header>
                 <Content>
@@ -79,14 +80,14 @@ export default class ContractorInfo extends Component {
                                 </View>
                         }
                         <View style={{marginTop: px2dp(30), alignItems: 'center', justifyContent: 'center'}}>
-                            <Text style={{fontSize: px2dp(16), color: '#9bb538'}}>{"join_company_group"}</Text>
+                            <Text style={{fontSize: px2dp(16), color: '#9bb538'}}>{I18n.t('contractor.qr_code')}</Text>
                         </View>
                     </View>
 
                     <View style={styles.part}>
                         <TouchableOpacity style={styles.item}>
                             <View>
-                                <Text>Contractor No.</Text>
+                                <Text>{I18n.t('contractor.contractor_no')}</Text>
                             </View>
                             <View>
                                 <Text>{this.props.contractorNo}</Text>
@@ -95,7 +96,7 @@ export default class ContractorInfo extends Component {
                         <TouchableOpacity style={styles.item}
                                           onPress={() => this.toContractorTextEdit(CommonConst.company.name, this.props.name)}>
                             <View>
-                                <Text>Name</Text>
+                                <Text>{I18n.t('contractor.name')}</Text>
                             </View>
                             <View style={{flexDirection: 'row'}}>
                                 <View>
@@ -109,7 +110,7 @@ export default class ContractorInfo extends Component {
                         <TouchableOpacity style={styles.item}
                                           onPress={() => this.toContractorTextEdit(CommonConst.company.ein, this.props.ein)}>
                             <View>
-                                <Text>EIN</Text>
+                                <Text>{I18n.t('contractor.ein')}</Text>
                             </View>
                             <View style={{flexDirection: 'row'}}>
                                 <View>
@@ -123,7 +124,7 @@ export default class ContractorInfo extends Component {
                         <TouchableOpacity style={styles.item}
                                           onPress={() => this.toContractorTextEdit(CommonConst.company.telephone, this.props.telephone)}>
                             <View>
-                                <Text>Telephone</Text>
+                                <Text>{I18n.t('contractor.telephone')}</Text>
                             </View>
                             <View style={{flexDirection: 'row'}}>
                                 <View>
@@ -137,7 +138,7 @@ export default class ContractorInfo extends Component {
                         <TouchableOpacity style={styles.item}
                                           onPress={() => this.toContractorTextEdit(CommonConst.company.fax, this.props.fax)}>
                             <View>
-                                <Text>FAX</Text>
+                                <Text>{I18n.t('contractor.fax')}</Text>
                             </View>
                             <View style={{flexDirection: 'row'}}>
                                 <View>
@@ -155,7 +156,7 @@ export default class ContractorInfo extends Component {
                         <TouchableOpacity style={styles.item}
                                           onPress={() => this.toContractorTextEdit(CommonConst.company.address, this.props.address)}>
                             <View>
-                                <Text>Address</Text>
+                                <Text>{I18n.t('contractor.address')}</Text>
                             </View>
                             <View style={{flexDirection: 'row'}}>
                                 <View>
@@ -169,7 +170,7 @@ export default class ContractorInfo extends Component {
                         <TouchableOpacity style={styles.item}
                                           onPress={() => this.toContractorTextEdit(CommonConst.company.zip, this.props.zip_code)}>
                             <View>
-                                <Text>Zip/Postal Code</Text>
+                                <Text>{I18n.t('contractor.zip_code')}</Text>
                             </View>
                             <View style={{flexDirection: 'row'}}>
                                 <View>
@@ -182,7 +183,7 @@ export default class ContractorInfo extends Component {
                         </TouchableOpacity>
                         <TouchableOpacity style={styles.item} onPress={() => this.toSelectCountry()}>
                             <View>
-                                <Text>Country</Text>
+                                <Text>{I18n.t('contractor.country')}</Text>
                             </View>
                             <View style={{flexDirection: 'row'}}>
                                 <View>
@@ -195,7 +196,7 @@ export default class ContractorInfo extends Component {
                         </TouchableOpacity>
                         <TouchableOpacity style={styles.item} onPress={() => this.toSelectState()}>
                             <View>
-                                <Text>State</Text>
+                                <Text>{I18n.t('contractor.state')}</Text>
                             </View>
                             <View style={{flexDirection: 'row'}}>
                                 <View>
@@ -208,7 +209,7 @@ export default class ContractorInfo extends Component {
                         </TouchableOpacity>
                         <TouchableOpacity style={styles.item} onPress={() => this.toSelectCity()}>
                             <View>
-                                <Text>City</Text>
+                                <Text>{I18n.t('contractor.city')}</Text>
                             </View>
                             <View style={{flexDirection: 'row'}}>
                                 <View>
@@ -225,7 +226,7 @@ export default class ContractorInfo extends Component {
                     <View style={styles.part}>
                         <TouchableOpacity style={styles.item}>
                             <View>
-                                <Text>Liability Insurance Coverage</Text>
+                                <Text>{I18n.t('contractor.liability_insurance_coverage')}</Text>
                             </View>
                             <View style={{flexDirection: 'row'}}>
                                 <View>
@@ -242,7 +243,7 @@ export default class ContractorInfo extends Component {
                     <View style={styles.part}>
                         <TouchableOpacity style={styles.item} onPress={() => this.props.navigation.navigate("Members")}>
                             <View>
-                                <Text>Members</Text>
+                                <Text>{I18n.t('contractor.members')}</Text>
                             </View>
                             <View style={{flexDirection: 'row'}}>
                                 <View>

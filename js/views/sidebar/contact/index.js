@@ -6,6 +6,7 @@ import React, {Component} from "react";
 import {TouchableOpacity, View} from 'react-native';
 import {Body, Button, Container, Content, Header, Icon, Left, Right, Text, Title} from "native-base";
 import styles from '../styles/contact/indexStyle';
+import I18n from '../../../utils/i18n';
 
 export default class Contact extends Component {
     constructor(props) {
@@ -25,13 +26,13 @@ export default class Contact extends Component {
                             <Icon name='arrow-back' style={{color: '#8fb721'}}/>
                         </Button>
                     </Left>
-                    <Body><Title>Customer Service</Title></Body>
+                    <Body><Title>{I18n.t('contact.contact_title')}</Title></Body>
                     <Right/>
                 </Header>
                 <Content>
                     <View style={styles.item}>
                         <View>
-                            <Text>Factory Support</Text>
+                            <Text>{I18n.t('contact.factory_support')}</Text>
                         </View>
                         <View>
                             <Text>+1-(703)348-2538</Text>
@@ -39,7 +40,7 @@ export default class Contact extends Component {
                     </View>
                     <View style={styles.item}>
                         <View>
-                            <Text>Factory Support Email</Text>
+                            <Text>{I18n.t('contact.factory_email')}</Text>
                         </View>
                         <View>
                             <Text>support@ecoer.com</Text>
@@ -47,9 +48,10 @@ export default class Contact extends Component {
                     </View>
                     <View style={styles.item}>
                         <View>
-                            <Text>Web</Text>
+                            <Text>{I18n.t('contact.web')}</Text>
                         </View>
-                        <TouchableOpacity onPress={() => this.toWebView('Web', 'https://www.ecoer.com')}>
+                        <TouchableOpacity
+                            onPress={() => this.toWebView(I18n.t('contact.web'), 'https://www.ecoer.com')}>
                             <Text style={{color: 'blue', textDecorationLine: 'underline'}}>www.ecoer.com</Text>
                         </TouchableOpacity>
                     </View>

@@ -2,7 +2,9 @@
  * Created by ZhouTing on 2018-06-04 15:44.
  */
 import {NavigationActions, StackActions} from 'react-navigation';
+
 let api = require('../../utils/api');
+import I18n from '../../utils/i18n';
 
 const main = StackActions.reset({
     index: 0,
@@ -23,18 +25,19 @@ export default {
         * submit({payload}, {call, put}) {
             const data = yield call(api.forgetPassword, {"username": payload.email});
             if (data.error === undefined) {
-                alert("修改成功");
+                alert(I18n.t('forgotPwd.success'));
                 yield payload.nav.goBack();
             } else {
                 if (data.error_code === 20006) {
-                    alert("用户不存在")
+                    alert(I18n.t('forgotPwd.user_not_exist'))
                 } else {
-                    alert("修改失败");
+                    alert(I18n.t('forgotPwd.failed'));
                 }
             }
         },
     },
     subscriptions: {
-        setup({dispatch}) {}
+        setup({dispatch}) {
+        }
     }
 }

@@ -7,6 +7,7 @@ import {Alert, Modal, TouchableOpacity, View} from 'react-native';
 import {Body, Button, Container, Content, Header, Icon, Left, Right, Text, Title} from "native-base";
 import {NavigationActions, StackActions} from 'react-navigation';
 import {connect} from 'react-redux';
+import I18n from '../../../utils/i18n';
 
 import Radio from '../../../components/radio';
 
@@ -87,14 +88,14 @@ export default class PersonalInfo extends Component {
                                   onPress={() => this.goBack()}/>
                         </Button>
                     </Left>
-                    <Body><Title>Information</Title></Body>
+                    <Body><Title>{I18n.t('personalInfo.title')}</Title></Body>
                     <Right/>
                 </Header>
                 <Content>
                     <View style={styles.part}>
                         <TouchableOpacity style={styles.item}>
                             <View>
-                                <Text>E-mail</Text>
+                                <Text>{I18n.t('personalInfo.email')}</Text>
                             </View>
                             <View>
                                 <Text>{this.props.email}</Text>
@@ -107,7 +108,7 @@ export default class PersonalInfo extends Component {
                         <TouchableOpacity style={styles.item}
                                           onPress={() => this.toTextEdit(CommonConst.info.first_name, this.props.firstName)}>
                             <View>
-                                <Text>First Name</Text>
+                                <Text>{I18n.t('personalInfo.first_name')}</Text>
                             </View>
                             <View style={{flexDirection: 'row'}}>
                                 <View>
@@ -121,7 +122,7 @@ export default class PersonalInfo extends Component {
                         <TouchableOpacity style={styles.item}
                                           onPress={() => this.toTextEdit(CommonConst.info.last_name, this.props.lastName)}>
                             <View>
-                                <Text>Last Name</Text>
+                                <Text>{I18n.t('personalInfo.last_name')}</Text>
                             </View>
                             <View style={{flexDirection: 'row'}}>
                                 <View>
@@ -135,7 +136,7 @@ export default class PersonalInfo extends Component {
                         <TouchableOpacity style={styles.item}
                                           onPress={() => this.toTextEdit(CommonConst.info.mobile_phone, this.props.mobilePhone)}>
                             <View>
-                                <Text>Mobile Phone</Text>
+                                <Text>{I18n.t('personalInfo.mobile_phone')}</Text>
                             </View>
                             <View style={{flexDirection: 'row'}}>
                                 <View>
@@ -153,7 +154,7 @@ export default class PersonalInfo extends Component {
                         <TouchableOpacity style={styles.item}
                                           onPress={() => this.toTextEdit(CommonConst.info.zip_code, this.props.zipCode)}>
                             <View>
-                                <Text>Zip/Postal Code</Text>
+                                <Text>{I18n.t('personalInfo.zip_code')}</Text>
                             </View>
                             <View style={{flexDirection: 'row'}}>
                                 <View>
@@ -166,7 +167,7 @@ export default class PersonalInfo extends Component {
                         </TouchableOpacity>
                         <TouchableOpacity style={styles.item} onPress={() => this.toSelectCountry()}>
                             <View>
-                                <Text>Country</Text>
+                                <Text>{I18n.t('personalInfo.country')}</Text>
                             </View>
                             <View style={{flexDirection: 'row'}}>
                                 <View>
@@ -179,7 +180,7 @@ export default class PersonalInfo extends Component {
                         </TouchableOpacity>
                         <TouchableOpacity style={styles.item} onPress={() => this.toSelectState()}>
                             <View>
-                                <Text>State</Text>
+                                <Text>{I18n.t('personalInfo.state')}</Text>
                             </View>
                             <View style={{flexDirection: 'row'}}>
                                 <View>
@@ -196,7 +197,7 @@ export default class PersonalInfo extends Component {
                             </View>
                             <View style={{flexDirection: 'row'}}>
                                 <View>
-                                    <Text>{this.props.city}</Text>
+                                    <Text>{I18n.t('personalInfo.city')}</Text>
                                 </View>
                                 <View>
                                     <Icon type="SimpleLineIcons" name="arrow-right" style={styles.iconStyle}/>
@@ -208,7 +209,7 @@ export default class PersonalInfo extends Component {
                     <View style={styles.part}>
                         <TouchableOpacity style={styles.item}>
                             <View>
-                                <Text>Contractor's License</Text>
+                                <Text>{I18n.t('personalInfo.contractor_license')}</Text>
                             </View>
                             <View style={{flexDirection: 'row'}}>
                                 <View>
@@ -244,7 +245,7 @@ export default class PersonalInfo extends Component {
                                     <Text>{"Register company information if you are the owner or leader of your company. Otherwise, scan the company's QR Code on the leader's app to join your company that has been registered."}</Text>
                                 </View>
                                 <View style={{marginLeft: 20, marginBottom: -10}}>
-                                    <Text style={{fontSize: 20}}>{"I want to"}</Text>
+                                    <Text style={{fontSize: 20}}>{I18n.t('personalInfo.i_want_to')}</Text>
                                 </View>
                                 <View>
                                     <Radio
@@ -259,9 +260,9 @@ export default class PersonalInfo extends Component {
                                             marginTop: 10
                                         }}
                                     >
-                                        <Text value="join">{"Join a registered company"}</Text>
-                                        <Text value="reg">{"Register my company"}</Text>
-                                        <Text value="nothing">{"Do it later"}</Text>
+                                        <Text value="join">{I18n.t('personalInfo.join_company')}</Text>
+                                        <Text value="reg">{I18n.t('personalInfo.reg_company')}</Text>
+                                        <Text value="nothing">{I18n.t('personalInfo.nothing')}</Text>
                                     </Radio>
                                 </View>
                                 <Button full style={{
@@ -273,7 +274,11 @@ export default class PersonalInfo extends Component {
                                         onPress={this.chooseCompany.bind(this)}
                                 >
                                     <Text
-                                        style={{color: '#fff', fontSize: 16, fontWeight: 'bold'}}>{"Confirm"}</Text>
+                                        style={{
+                                            color: '#fff',
+                                            fontSize: 16,
+                                            fontWeight: 'bold'
+                                        }}>{I18n.t('personalInfo.confirm')}</Text>
                                 </Button>
                             </View>
                         </View>

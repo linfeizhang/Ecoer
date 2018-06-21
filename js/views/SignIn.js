@@ -51,7 +51,12 @@ class SignIn extends Component {
                 nav: this.props.navigation
             }))
         } else {
-            Toast.show({type: 'danger', text: '用户名和密码不能为空！', duration: 3000, buttonText: "关闭"});
+            Toast.show({
+                type: 'danger',
+                text: I18n.t('login.user_and_pwd_not_empty'),
+                duration: 3000,
+                buttonText: I18n.t('login.close')
+            });
         }
     }
 
@@ -63,7 +68,12 @@ class SignIn extends Component {
                 nav: this.props.navigation
             }))
         } else {
-            Toast.show({type: 'danger', text: '用户名和密码不能为空！', duration: 3000, buttonText: "关闭"});
+            Toast.show({
+                type: 'danger',
+                text: I18n.t('login.user_and_pwd_not_empty'),
+                duration: 3000,
+                buttonText: I18n.t('login.close')
+            });
         }
     }
 
@@ -82,7 +92,7 @@ class SignIn extends Component {
                         <Picker
                             mode="dropdown"
                             iosHeader="Select your SIM"
-                            headerBackButtonText="返回"
+                            headerBackButtonText={I18n.t('login.back')}
                             //iosIcon={<Icon name="ios-arrow-down-outline" />}
                             // style={{width: 120}}
                             textStyle={{color: CommonConst.color.themeColor}}

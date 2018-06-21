@@ -7,7 +7,8 @@ import {NavigationActions, StackActions} from 'react-navigation';
 import {connect} from 'react-redux'
 import {Body, Button, Container, Content, Header, Icon, Left, Right, Text, Title} from "native-base";
 import Images from '../../../constant/Images';
-import {createAction} from '../../../utils/index'
+import {createAction} from '../../../utils/index';
+import I18n from '../../../utils/i18n';
 
 const resetAction = StackActions.reset({
     index: 0,
@@ -36,7 +37,7 @@ export default class About extends Component {
                             <Icon name='arrow-back' style={{color: '#8fb721'}}/>
                         </Button>
                     </Left>
-                    <Body><Title>About</Title></Body>
+                    <Body><Title>{I18n.t('about.title')}</Title></Body>
                     <Right/>
                 </Header>
                 <Content>
@@ -50,14 +51,14 @@ export default class About extends Component {
 
                     <Button full onPress={() => this.logout()}
                             style={{backgroundColor: '#9bb538', paddingTop: 12, paddingBottom: 12}}>
-                        <Text style={{textAlign: 'center', color: '#fff', fontSize: 18}}>Log Out</Text>
+                        <Text style={{textAlign: 'center', color: '#fff', fontSize: 18}}>{I18n.t('about.logout')}</Text>
                     </Button>
 
                     <View style={{alignItems: 'center', marginTop: 60}}>
-                        <Text>copyright © 2016-2018 Ecoer Inc.</Text>
+                        <Text>{I18n.t("about.copyright")} © 2016-2018 Ecoer Inc.</Text>
                     </View>
                     <View style={{alignItems: 'center', marginTop: 6}}>
-                        <Text>All Rights Reserved.</Text>
+                        <Text>{I18n.t('about.ownership')}</Text>
                     </View>
                 </Content>
             </Container>

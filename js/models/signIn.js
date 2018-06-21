@@ -5,6 +5,7 @@
 import {NavigationActions, StackActions} from 'react-navigation';
 import CommonConst from '../constant/CommonConst';
 import {createAction} from '../utils'
+import I18n from '../utils/i18n';
 
 let api = require('../utils/api');
 
@@ -50,36 +51,32 @@ export default {
                 yield put(createAction('token/updateToken')(newData));
                 yield payload.nav.dispatch(DATA_LOAD);
             } else {
-                //yield put(createAction('updateState')({message: '登陆失败！'}))
                 if (data.error_code) {
                     switch (data.error_code) {
                         case 21304:
                             // this.userLocked();
                             break;
                         case 20003:
-                            // this.setState({message: "user_not_exist"});
-                            alert("用户不存在");
+                            alert(I18n.t('login.user_not_exist'));
                             break;
                         case 21302:
-                            // this.setState({message: "user_pwd_error"});
-                            alert("用户名或密码错误");
+                            alert(I18n.t('login.user_and_pwd_err'));
                             break;
                         case 21323:
-                            // this.setState({message: "user_format_error"});
-                            alert("用户名格式错误");
+                            alert(I18n.t('login.user_format_err'));
                             break;
                         default:
                             break;
                     }
                 }
                 else {
-                    // this.setState({message: "network_fail_login"});
-                    alert("network_fail_login");
+                    alert(I18n.t('login.network_exception'));
                 }
             }
         },
     },
     subscriptions: {
-        setup({dispatch}) {}
+        setup({dispatch}) {
+        }
     }
 }

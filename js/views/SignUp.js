@@ -90,14 +90,14 @@ class SignUp extends Component {
                     <Field name="email" component={this.renderInput}/>
                     <Field name="confirm" component={this.renderInput}/>
 
-                    <View style={{marginTop:60,flexDirection:'row',marginRight:30}}>
-                        <CheckBox checked={this.props.isAgree} style={{marginRight:20}}
+                    <View style={{marginTop: 60, flexDirection: 'row', marginRight: 30}}>
+                        <CheckBox checked={this.props.isAgree} style={{marginRight: 20}}
                                   onPress={() => this.toggleSwitch(!this.props.isAgree)}/>
                         <View>
-                            <Text>To use Ecoer Smart Service app, you must agree to the &nbsp;
+                            <Text>{I18n.t('register.terms_desc')}&nbsp;
                                 <Text style={{color: 'blue', textDecorationLine: 'underline'}}
-                                      onPress={() => this.toWebView('Terms of Services', 'https://inhanddsm.github.io/EcoerPrivacyStatement/2017/04/03/Terms-of-Service.html')}
-                                >Terms of Services</Text>
+                                      onPress={() => this.toWebView(I18n.t('register.terms_of_services'), 'https://inhanddsm.github.io/EcoerPrivacyStatement/2017/04/03/Terms-of-Service.html')}
+                                >{I18n.t('register.terms_of_services')}</Text>
                             </Text>
                         </View>
                     </View>
@@ -131,10 +131,10 @@ const validate = values => {
     //     error.email = "@ not included";
     // }
     if (confirm.length !== 0 && confirm !== ema) {
-        error.confirm = "两次输入不同";
+        error.confirm = I18n.t('register.not_same');
     }
     if (!((/^[a-z0-9]+([._\\-]*[a-z0-9])*@([a-z0-9]+[-a-z0-9]*[a-z0-9]+.){1,63}[a-z0-9]+$/).test(ema)) && ema !== "") {
-        error.email = "格式不正确"
+        error.email = I18n.t('register.incorrect_format')
     }
     return error;
 };
