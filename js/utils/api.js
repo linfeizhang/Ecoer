@@ -193,6 +193,15 @@ exports.getQR = function () {
     return request.get(url, null, true);
 };
 
+/**
+ * 获取公司成员
+ * @param companyId
+ */
+exports.getMembers = function (companyId) {
+    const url = "/api/contractor/company/members?companyId=" + companyId;
+    return request.get(url, null, true);
+}
+
 
 
 

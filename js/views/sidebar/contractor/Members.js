@@ -4,15 +4,18 @@
  */
 import React, {Component} from "react";
 import {View} from 'react-native';
-import {Body, Button, Container, Content, Header, CheckBox, Icon, Left, Right, Text, Title} from "native-base";
+import {Body, Button, Container, Content, Header, Icon, Left, Right, Text, Title} from "native-base";
 import {createAction} from '../../../utils/index'
 import {connect} from 'react-redux';
+import CheckBox from '../../../components/CheckBox';
 
-@connect(({contractorInfo}) => ({...contractorInfo}))
+@connect(({members, contractorInfo}) => ({...members, ...contractorInfo}))
 export default class Members extends Component {
     constructor(props) {
         super(props);
-        // this.props.dispatch(createAction('contractorInfo/getAdminCompanyInfo')())
+        //this.companyId = this.props.navigation.state.params && this.props.navigation.state.params.companyId;
+
+        this.props.dispatch(createAction('members/getMembers')({companyId: this.props.companyId}));
     }
 
     render() {
@@ -30,15 +33,42 @@ export default class Members extends Component {
                 <Content>
                     <View style={{flexDirection: 'row', backgroundColor: '#fff', padding: 10, marginTop: 20}}>
                         <View style={{flex: 1}}>
-                            <CheckBox checked={true}/>
+                            {/*<CheckBox/>*/}
                         </View>
                         <View style={{flex: 2}}>
-                            <Text>612a</Text>
+                            <Text>{this.props.self.firstName + ' ' + this.props.self.lastName}</Text>
                         </View>
                         <View style={{flex: 3}}>
-                            <Text>test@612a.com</Text>
+                            <Text>{this.props.self.email}</Text>
                         </View>
                     </View>
+
+
+                    {
+                        this.props.membersList.map((item, i) => {
+                            let memberName = item.firstName + ' ' + item.lastName;
+                            return (
+                                <View key={i} style={{
+                                    flexDirection: 'row',
+                                    backgroundColor: '#fff',
+                                    padding: 10,
+                                    marginTop: 20
+                                }}>
+                                    <View style={{flex: 1}}>
+                                        <CheckBox/>
+                                    </View>
+                                    <View style={{flex: 2}}>
+                                        <Text>{memberName}</Text>
+                                    </View>
+                                    <View style={{flex: 3}}>
+                                        <Text>{item.email}</Text>
+                                    </View>
+                                </View>
+                            )
+                        })
+                    }
+
+
                     <View style={{margin: 30, flexDirection: 'row', alignItems: 'center', justifyContent: 'center'}}>
                         <Button success>
                             <Text>Edit</Text>

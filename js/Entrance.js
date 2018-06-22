@@ -24,10 +24,11 @@ import forgetPassword from './models/other/forgetPassword';
 import personalInfo from './models/sidebar/account/personalInfo';
 import changePassword from './models/sidebar/account/changePassword';
 import contractorInfo from './models/sidebar/contractor/contractorInfo';
+import members from './models/sidebar/contractor/members';
 
 const app = dva({
     initialState: {},
-    models: [appModel, i18n, token, dataLoad, signIn, signUp, acList, about, forgetPassword, personalInfo, changePassword, contractorInfo],
+    models: [appModel, i18n, token, dataLoad, signIn, signUp, acList, about, forgetPassword, personalInfo, changePassword, contractorInfo, members],
     onAction: [],
     extraReducers: {
         form: formReducer,
