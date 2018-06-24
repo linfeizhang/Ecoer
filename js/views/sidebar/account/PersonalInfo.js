@@ -193,11 +193,11 @@ export default class PersonalInfo extends Component {
                         </TouchableOpacity>
                         <TouchableOpacity style={styles.item} onPress={() => this.toSelectCity()}>
                             <View>
-                                <Text>City</Text>
+                                <Text>{I18n.t('personalInfo.city')}</Text>
                             </View>
                             <View style={{flexDirection: 'row'}}>
                                 <View>
-                                    <Text>{I18n.t('personalInfo.city')}</Text>
+                                    <Text>{this.props.city}</Text>
                                 </View>
                                 <View>
                                     <Icon type="SimpleLineIcons" name="arrow-right" style={styles.iconStyle}/>

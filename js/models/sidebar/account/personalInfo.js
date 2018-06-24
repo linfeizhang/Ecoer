@@ -4,7 +4,6 @@
 import {Alert} from 'react-native';
 import {createAction} from '../../../utils'
 import CommonConst from "../../../constant/CommonConst";
-import I18n from '../../../utils/i18n';
 
 let api = require('../../../utils/api');
 
@@ -105,19 +104,23 @@ export default {
         },
 
         * regCompany({payload}, {call, put, select}) {      //注册公司接口
-            const adminId = yield select(state => state.personalInfo.regCompanyId);
+            let adminId = payload.adminId;
+            if (!payload.adminId) {
+                adminId = yield select(state => state.personalInfo.regCompanyId);
+            }
             console.log('contractorInfo的_id');
             console.log(adminId);
             console.log('contractorInfo的_id');
-            const data = yield call(api.regCompany, {"adminId": adminId});
+            const companyData = yield call(api.regCompany, {"adminId": adminId});
             console.log('注册公司');
             console.log(data);
             console.log('注册公司');
 
             yield put(createAction('updateState')({companyVisible: false}));
-            if (data.error === undefined) {
+            if (companyData.error === undefined) {
                 alert('注册公司成功');
-                yield payload.nav.navigate("ContractorInfo", {companyId: data.result._id});
+                CommonConst.companyInfo = companyData.result;
+                yield payload.nav.navigate("ContractorInfo", {companyId: companyData.result._id});
             } else {
                 alert("注册公司失败");
             }

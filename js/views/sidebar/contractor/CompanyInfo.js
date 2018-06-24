@@ -13,7 +13,8 @@ import styles from '../styles/contractor/indexStyle';
 export default class CompanyInfo extends Component {
     constructor(props) {
         super(props);
-        this.props.dispatch(createAction('contractorInfo/getAdminCompanyInfo')())
+        this.companyId = this.props.navigation.state.params && this.props.navigation.state.params.companyId;
+        this.props.dispatch(createAction('contractorInfo/getAdminCompanyInfo')({companyId: this.companyId}))
     }
 
     render() {

@@ -1,16 +1,24 @@
 import React, {Component} from 'react';
-import {Platform, View, StyleSheet, TouchableOpacity, Dimensions, Image} from 'react-native';
-import {Body, Button, Container, Header, List, ListItem, Content, Icon, Left, Right, Text, Title} from "native-base";
-
+import {Dimensions, Image} from 'react-native';
+import {Container, Content, Icon, Left, List, ListItem, Right, Text} from "native-base";
+import {connect} from 'react-redux';
 import styles from './styles/indexStyle';
-import CommonConst from "../../constant/CommonConst";
 import I18n from '../../utils/i18n';
+import CommonConst from '../../constant/CommonConst';
+import RegOrJoinCompanyModal from '../common/RegOrJoinCompanyModal';
+import {createAction} from '../../utils'
 
 const drawerCover = require("../../images/drawer-cover.png");
 const deviceHeight = Dimensions.get("window").height;
 const deviceWidth = Dimensions.get("window").width;
 
+@connect(({personalInfo}) => ({...personalInfo}))
 export default class App extends Component {
+
+    constructor(props) {
+        super(props);
+        this.defaultSelectedValue = 'join';
+    }
 
     render() {
         return (
@@ -28,7 +36,7 @@ export default class App extends Component {
                             <Right/>
                         </ListItem>
                         <ListItem button noBorder
-                                  onPress={() => this.props.navigation.navigate("ContractorInfo", {companyId: CommonConst.userInfo.companyId})}>
+                                  onPress={() => this.clickCompanyInfo()}>
                             <Left>
                                 <Icon active type="MaterialIcons" name='supervisor-account'
                                       style={{color: "#0186ff", fontSize: 26, width: 30}}/>
@@ -54,7 +62,52 @@ export default class App extends Component {
                         </ListItem>
                     </List>
                 </Content>
+                <RegOrJoinCompanyModal ref={modal => this.modal = modal}
+                                       defaultSelectedValue={this.defaultSelectedValue}
+                                       onRadioValueChange={this.onRadioValueChange.bind(this)}
+                                       chooseCompany={this.chooseCompany.bind(this)}/>
             </Container>
         );
+    }
+
+    /**
+     * 点击看出公司信息
+     */
+    clickCompanyInfo() {
+        debugger;
+        if (CommonConst.userInfo && CommonConst.userInfo.companyId) {
+            if (CommonConst.companyInfo.adminId === CommonConst.userInfo._id) {
+                this.props.navigation.navigate("ContractorInfo", {companyId: CommonConst.userInfo.companyId})
+            } else {
+                this.props.navigation.navigate("CompanyInfo", {companyId: CommonConst.userInfo.companyId})
+            }
+        } else {
+            this.modal.setModelStatus(true)
+        }
+    }
+
+    chooseCompany() {
+        this.modal.setModelStatus(false);
+        debugger;
+        if (this.defaultSelectedValue === 'reg') {
+            this.props.dispatch(createAction('personalInfo/regCompany')({
+                adminId: CommonConst.userInfo._id,
+                nav: this.props.navigation
+            }))
+        } else if (this.defaultSelectedValue === 'join') {
+            // const {navigator} = this.props;
+            // if (navigator) {
+            //     this.props.navigator.push({
+            //         title: 'QRScan',
+            //         component: QRScan,
+            //     });
+            // }
+        } else {
+            this.modal.setModelStatus(false);
+        }
+    }
+
+    onRadioValueChange(value) {
+        this.defaultSelectedValue = value;
     }
 }
