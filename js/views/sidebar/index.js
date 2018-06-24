@@ -92,13 +92,7 @@ export default class App extends Component {
                 nav: this.props.navigation
             }))
         } else if (this.defaultSelectedValue === 'join') {
-            // const {navigator} = this.props;
-            // if (navigator) {
-            //     this.props.navigator.push({
-            //         title: 'QRScan',
-            //         component: QRScan,
-            //     });
-            // }
+            this.props.navigation.navigate("QRScan")
         } else {
             this.modal.setModelStatus(false);
         }

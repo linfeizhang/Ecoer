@@ -186,6 +186,15 @@ exports.regCompany = function (body) {
 };
 
 /**
+ * 加入一家公司
+ * @param context
+ */
+exports.joinCompany = function (body) {
+    const url = "/api/contractor/company/join";
+    return request.post(url, body, true);
+};
+
+/**
  * 获取二维码信息
  */
 exports.getQR = function () {
