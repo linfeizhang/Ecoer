@@ -22,7 +22,27 @@
     }
     ```
     
-4. 	修改react-native-smart-barcode组件代码,`node_modules/react-native-smart-barcode/ios/RCTBarcode/RCTBarcode/RCTBarcodeManager.m`文件,在269行下添加如下代码：
+4. 	修改RNFetchBlob组件代码,`node_modules/react-native-fetch-blob/ios/RNFetchBlobReqBuilder.m`文件,103行将：
+
+    ```c
+    if([[method lowercaseString] isEqualToString:@"post"] || [[method lowercaseString] isEqualToString:@"put"] || [[method lowercaseString] isEqualToString:@"patch"]) {
+    ```
+    修改为
+     ```c
+    if([[method lowercaseString] isEqualToString:@"post"] || [[method lowercaseString] isEqualToString:@"put"] || [[method lowercaseString] isEqualToString:@"patch"] || [[method lowercaseString] isEqualToString:@"delete"]) {
+    ```
+    
+5. 	修改RNFetchBlob组件代码,`node_modules/react-native-fetch-blob/android/src/main/java/com/RNFetchBlob/RNFetchBlobReq.java`文件,242行将：
+
+    ```java
+    if(method.equalsIgnoreCase("post") || method.equalsIgnoreCase("put") || method.equalsIgnoreCase("patch")) {
+    ```
+    修改为
+     ```java
+    if(method.equalsIgnoreCase("post") || method.equalsIgnoreCase("put") || method.equalsIgnoreCase("patch") || method.equalsIgnoreCase("delete")) {
+    ```
+
+6. 	修改react-native-smart-barcode组件代码,`node_modules/react-native-smart-barcode/ios/RCTBarcode/RCTBarcode/RCTBarcodeManager.m`文件,在269行下添加如下代码：
 
     ```c
     + (BOOL)requiresMainQueueSetup {
@@ -30,7 +50,7 @@
     }
     ```
     
-5. 	修改react-native-smart-barcode组件代码,`node_modules/react-native-smart-barcode/Barcode.js`文件,在269行下添加如下代码：
+7. 	修改react-native-smart-barcode组件代码,`node_modules/react-native-smart-barcode/Barcode.js`文件,将
 
     ```js
     import React, {
@@ -60,7 +80,7 @@
 
     ```
 
-6. 	修改安卓签名配置,`android/app/build.gradle`里面
+8. 	修改安卓签名配置,`android/app/build.gradle`里面
 
     ```
     ...
