@@ -57,8 +57,11 @@ export default {
                     }
                 }
                 payload.contractorIds = [];
-                this.isShowRemoveButton = false;
-                yield put(createAction('updateState')({membersList: membersList, isShowCheckBox: false}));
+                yield put(createAction('updateState')({
+                    membersList: membersList,
+                    isShowCheckBox: false,
+                    isShowRemoveButton: false
+                }));
             } else {
                 Alert.alert("failed", "del_member_fail", [{text: "ok"}])
             }
