@@ -10,9 +10,6 @@ import {createAction} from '../../utils/index'
 @connect(({acList, token}) => ({...acList, ...token}))
 export default class App extends Component {
     render() {
-
-        console.log(this.props.access_token);
-
         const {changeText, changeTextA} = this.props;
         return (
             <Container>

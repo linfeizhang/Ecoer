@@ -148,6 +148,7 @@ export default class QRScanView extends Component {
 
     setJoinCompany(companyData) {
         CommonConst.companyInfo = companyData.result;
+        CommonConst.userInfo.companyId = companyData.result._id;
         const HOME_PAGE = StackActions.reset({
             index: 1,
             actions: [

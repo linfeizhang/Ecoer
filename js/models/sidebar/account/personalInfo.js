@@ -23,9 +23,6 @@ export default {
         regCompanyId: '',        //获取到的安装工个人信息接口中的_id,注册公司的时候使用的这个id
         //companyInfoId:'',       //注册公司成功之后返回值中的_id，作为跳转到获取公司信息页面接口的需要的id
 
-        companyVisible: false,
-        selectedValue: 'nothing',
-
         contractorInfo: {},
         licensePics: '',     //获取个人信息中的许可证照片id
     },
@@ -108,18 +105,11 @@ export default {
             if (!payload.adminId) {
                 adminId = yield select(state => state.personalInfo.regCompanyId);
             }
-            console.log('contractorInfo的_id');
-            console.log(adminId);
-            console.log('contractorInfo的_id');
             const companyData = yield call(api.regCompany, {"adminId": adminId});
-            console.log('注册公司');
-            console.log(data);
-            console.log('注册公司');
-
-            yield put(createAction('updateState')({companyVisible: false}));
             if (companyData.error === undefined) {
                 alert('注册公司成功');
                 CommonConst.companyInfo = companyData.result;
+                CommonConst.userInfo.companyId = companyData.result._id;
                 yield payload.nav.navigate("ContractorInfo", {companyId: companyData.result._id});
             } else {
                 alert("注册公司失败");
