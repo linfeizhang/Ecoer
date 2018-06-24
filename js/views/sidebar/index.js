@@ -35,8 +35,7 @@ export default class App extends Component {
                             </Left>
                             <Right/>
                         </ListItem>
-                        <ListItem button noBorder
-                                  onPress={() => this.clickCompanyInfo()}>
+                        <ListItem button noBorder onPress={() => this.clickCompanyInfo()}>
                             <Left>
                                 <Icon active type="MaterialIcons" name='supervisor-account'
                                       style={{color: "#0186ff", fontSize: 26, width: 30}}/>
@@ -74,7 +73,6 @@ export default class App extends Component {
      * 点击看出公司信息
      */
     clickCompanyInfo() {
-        debugger;
         if (CommonConst.userInfo && CommonConst.userInfo.companyId) {
             if (CommonConst.companyInfo.adminId === CommonConst.userInfo._id) {
                 this.props.navigation.navigate("ContractorInfo", {companyId: CommonConst.userInfo.companyId})
@@ -88,7 +86,6 @@ export default class App extends Component {
 
     chooseCompany() {
         this.modal.setModelStatus(false);
-        debugger;
         if (this.defaultSelectedValue === 'reg') {
             this.props.dispatch(createAction('personalInfo/regCompany')({
                 adminId: CommonConst.userInfo._id,
