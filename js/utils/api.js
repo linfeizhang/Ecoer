@@ -187,7 +187,7 @@ exports.regCompany = function (body) {
 
 /**
  * 加入一家公司
- * @param context
+ * @param body
  */
 exports.joinCompany = function (body) {
     const url = "/api/contractor/company/join";
@@ -209,10 +209,16 @@ exports.getQR = function () {
 exports.getMembers = function (companyId) {
     const url = "/api/contractor/company/members?companyId=" + companyId;
     return request.get(url, null, true);
-}
+};
 
-
-
+/**
+ * admin删除公司成员（members）
+ * @param context
+ */
+exports.deleteMembers = function (body) {
+    const url = "/api/contractor/company/leave";
+    return request.delete(url, body, true);
+};
 
 
 

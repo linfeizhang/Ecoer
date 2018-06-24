@@ -4,16 +4,16 @@
 import React, {Component} from 'react';
 import {Alert, Dimensions, Image, Platform, StyleSheet, TouchableOpacity, View} from 'react-native'
 import {Body, Button, Header, Icon, Left, Right, Text, Title} from "native-base";
+import {NavigationActions, StackActions} from 'react-navigation';
 import px2dp from '../../utils/px2dp';
 import Barcode from 'react-native-smart-barcode'
 import I18n from "react-native-i18n";
 import CommonConst from '../../constant/CommonConst';
+import Permissions from 'react-native-permissions'
 
 let api = require('../../utils/api');
 
 let {width: deviceWidth} = Dimensions.get('window');
-
-import Permissions from 'react-native-permissions'
 
 export default class QRScanView extends Component {
 
@@ -148,8 +148,15 @@ export default class QRScanView extends Component {
 
     setJoinCompany(companyData) {
         CommonConst.companyInfo = companyData.result;
-        this.props.navigation.navigate("CompanyInfo", {companyId: companyData.result._id});
-
+        const HOME_PAGE = StackActions.reset({
+            index: 1,
+            actions: [
+                NavigationActions.navigate({routeName: 'Drawer'}),
+                NavigationActions.navigate({routeName: 'CompanyInfo', params: {companyId: companyData.result._id}})
+            ]
+        });
+        this.props.navigation.dispatch(HOME_PAGE);
+        // this.props.navigation.navigate("CompanyInfo", {companyId: companyData.result._id});
     }
 
     _startScan = () => {
