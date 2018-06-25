@@ -19,6 +19,7 @@ import About from './views/sidebar/about/About';
 import PersonalInfo from './views/sidebar/account/PersonalInfo';
 import TextEdit from './views/sidebar/account/TextEdit';
 import ChangePassword from './views/sidebar/account/ChangePassword';
+import CompanyImgUpload from './views/sidebar/contractor/CompanyImgUpload';
 
 import Setup from './Setup';
 import DataLoad from './DataLoad';
@@ -125,6 +126,7 @@ const AppNavigator = createStackNavigator(
         Contact: {screen: Contact},
         ContractorInfo: {screen: ContractorInfo},
         CompanyInfo: {screen: CompanyInfo},
+        CompanyImgUpload: {screen: CompanyImgUpload},
         Members: {screen: Members},
         Account: {screen: Account},
         About: {screen: About},

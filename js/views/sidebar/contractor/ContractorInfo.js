@@ -224,7 +224,8 @@ export default class ContractorInfo extends Component {
 
 
                     <View style={styles.part}>
-                        <TouchableOpacity style={styles.item}>
+                        <TouchableOpacity style={styles.item}
+                                          onPress={() => this.props.navigation.navigate("CompanyImgUpload")}>
                             <View>
                                 <Text>{I18n.t('contractor.liability_insurance_coverage')}</Text>
                             </View>
