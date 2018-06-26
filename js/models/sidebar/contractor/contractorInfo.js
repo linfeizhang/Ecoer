@@ -23,7 +23,9 @@ export default {
         zip_code: '',
         country: '',
         State: '',   //州
-        city: ''
+        city: '',
+
+        imgArr: ''
     },
     reducers: {
         updateState(state, {payload}) {
@@ -33,6 +35,9 @@ export default {
     effects: {
         * getAdminCompanyInfo({payload}, {call, put}) {
             const data = yield call(api.getAdminCompanyInfo, payload.companyId);
+            console.log('data');
+            console.log(data);
+            console.log('data');
             if (data.error === undefined) {
                 let newData = {
                     companyId: payload.companyId,
@@ -46,6 +51,7 @@ export default {
                     country: data.result.country,
                     State: data.result.state,
                     city: data.result.city,
+                    imgArr: data.result.proofOfLiabilityInsuranceCoverage
                 };
                 yield put(createAction('updateState')(newData));
             }

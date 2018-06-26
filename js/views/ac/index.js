@@ -46,7 +46,7 @@ export default class App extends Component {
                         <Text>{changeText}</Text>
                     </Button>
                     <Button full success style={{marginBottom: 10, height: 45}}
-                            onPress={() => this.props.navigation.navigate("ScanView")}>
+                            onPress={() => this.props.navigation.navigate("CompanyImgUpload")}>
                         <Text>{changeText}</Text>
                     </Button>
                 </View>
