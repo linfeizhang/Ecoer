@@ -5,6 +5,8 @@ import {connect} from 'react-redux'
 import Images from '../../constant/Images';
 import {createAction} from '../../utils/index'
 
+import ImagePicker from 'react-native-image-crop-picker';
+
 // let service = require('../../utils/service');
 
 @connect(({acList, token}) => ({...acList, ...token}))
@@ -46,12 +48,22 @@ export default class App extends Component {
                         <Text>{changeText}</Text>
                     </Button>
                     <Button full success style={{marginBottom: 10, height: 45}}
-                            onPress={() => this.props.navigation.navigate("CompanyImgUpload")}>
+                            onPress={() => this.test()}>
                         <Text>{changeText}</Text>
                     </Button>
                 </View>
             </Container>
         );
+    }
+
+    test(){
+        ImagePicker.openPicker({
+            width: 300,
+            height: 400,
+            cropping: true
+        }).then(image => {
+            console.log(image);
+        });
     }
 
     changeBtnText(value: string) {
