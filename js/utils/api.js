@@ -1,11 +1,11 @@
 /**
  * Created by ZhouTing on 2018-06-10 10:15.
  */
+import RNFetchBlob from 'react-native-fetch-blob';
+import CommonConst from '../constant/CommonConst';
 
 let request = require('./request');
 let md5 = require('./md5');
-
-import CommonConst from '../constant/CommonConst';
 
 const HEADER_FORM = {
     'Accept': 'application/json',
@@ -221,9 +221,32 @@ exports.deleteMembers = function (body) {
 };
 
 
+/**
+ * 上传责任保险证明图片的接口（公司部分）
+ * @param context
+ * @param paths
+ */
+exports.updateImage = function (context, paths) {
+    let auth_url = "http://" + CommonConst.global.server + "/api/contractor/company/proof?access_token=" + CommonConst.global.access_token;
+    let fileArr = [];
+    for (let i = 0; i < paths.length; i++) {
+        let file = {name: 'files', filename: paths[i].name, data: RNFetchBlob.wrap(paths[i].path)};
+        console.log(file.filename);
+        fileArr.push(file);
+    }
 
-
-
+    RNFetchBlob.fetch('POST', auth_url, {
+        'Content-Type': 'multipart/form-data',
+    }, fileArr).uploadProgress((written, total) => {
+        // context.setUploadProgress(written, total);
+    }).then(function (response) {
+        return response.json()
+    }).then(function (data) {
+        context.setUpdateImage(data);
+    }).catch(function (e) {
+        context.setUpdateImage({error: e});
+    });
+};
 
 
 

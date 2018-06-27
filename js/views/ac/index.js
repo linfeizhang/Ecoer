@@ -47,23 +47,9 @@ export default class App extends Component {
                             onPress={() => this.changeBtnText(changeTextA)}>
                         <Text>{changeText}</Text>
                     </Button>
-                    <Button full success style={{marginBottom: 10, height: 45}}
-                            onPress={() => this.test()}>
-                        <Text>{changeText}</Text>
-                    </Button>
                 </View>
             </Container>
         );
-    }
-
-    test(){
-        ImagePicker.openPicker({
-            width: 300,
-            height: 400,
-            cropping: true
-        }).then(image => {
-            console.log(image);
-        });
     }
 
     changeBtnText(value: string) {
