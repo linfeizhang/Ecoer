@@ -208,22 +208,18 @@ export default class CompanyImgUpload extends Component {
                         <Text>图片上传</Text>
                     </View>
 
-                    <View style={{flexDirection: 'row', flexWrap: 'wrap', alignItems: 'center', marginBottom: 20}}>
-                        <View style={{marginLeft: 10}}>
+                    <View style={{flexDirection: 'row', alignItems: 'center',flexWrap: 'wrap', marginBottom: 20}}>
                             {
                                 this.state.selectedImgArr.length !== 0 ?
                                     this.state.selectedImgArr.map((item, i) => {
                                         return (
-                                            <TouchableOpacity key={item.uri}>
+                                            <TouchableOpacity key={item.uri} style={{marginLeft: 10,marginBottom:10}}>
                                                 <Image source={{uri: item.uri}}
                                                        style={{width: 170, height: 170}}/>
                                             </TouchableOpacity>
                                         )
                                     }) : null
                             }
-                        </View>
-                        {/*<Image source={{uri: "file:///Users/zhouting/Library/Developer/CoreSimulator/Devices/16C770CE-C350-4245-A4A5-30AD4320789D/data/Containers/Data/Application/5123204E-DE2D-459B-BE9B-9804931B6024/tmp/react-native-image-crop-picker/A0CD92D8-7652-403A-938A-0DE7D5CE6130.jpg"}}*/}
-                        {/*style={{width: 170, height: 170}}/>*/}
                         <TouchableOpacity style={{
                             borderWidth: 2,
                             borderStyle: 'dashed',
