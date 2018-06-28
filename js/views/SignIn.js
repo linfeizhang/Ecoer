@@ -88,7 +88,7 @@ class SignIn extends Component {
                     <Right/>
                 </Header>
                 <Content padder>
-                    <Form style={{flexDirection: 'row-reverse'}}>
+                    <Form>
                         <Picker
                             mode="dropdown"
                             iosHeader="Select your SIM"
